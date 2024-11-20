@@ -1,11 +1,15 @@
 language=English
 
 title=VitaMatch
-header.home=home
-header.home=menu
-header.news=news
-header.home=home
-header.home=home
-header.home=home
-header.home=home
-header.home=home
+menu.home=home
+menu.menu=menu
+menu.news=news
+menu.home=home
+menu.home=home
+menu.home=home
+menu.home=home
+menu.home=home
+
+main.header.title=recommends personalized nutritional supplements in consideration of the user's gender, age group, and health status.
+main.header.desc=You can easily find nutritional supplements that fit your health condition, increasing the effectiveness of taking them.
+It provides effective nutritional combinations to users to support proper nutrition management.

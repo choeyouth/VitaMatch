@@ -17,7 +17,7 @@ public class SecurityConfig {
 			.headers((headerConfig) -> headerConfig.frameOptions((frameOptionConfig -> frameOptionConfig.disable())))
 			.authorizeHttpRequests((authorizeRequests) -> 
 	            authorizeRequests
-                .requestMatchers("/", "/index", "/main", "/css/**", "/js/**", "/images/**", "/static/**").permitAll() // 정적 리소스 접근 허용
+                .requestMatchers("/**").permitAll() // 정적 리소스 접근 허용
                 .anyRequest().authenticated());
 
 		
