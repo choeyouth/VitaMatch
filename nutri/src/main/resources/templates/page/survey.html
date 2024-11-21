@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+	<title>[[#{menu.survey}]]</title>
+	<th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
+	<style>
+		.survey-container .heading {
+			width: 700px;
+		}
+		.attention-content {
+			font-family: "KoHo", sans-serif;
+			font-weight: bold;
+			font-size: 20px;
+			padding-bottom: 15px;
+			border-bottom: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+	<th:block th:insert="~{inc/header.html :: index_header}"></th:block>
+	
+	
+	<div class="survey-container">
+		<div class="section services-section">
+			<div class="container">
+				<div class="row mb-5">
+					<div class="col-lg-5 aos-init aos-animate" data-aos="fade-up" data-aos-delay="">
+						<h3 class="subheading">CUSTOM INGREDIENT</h3>
+						<h2 class="heading">건강 상태에 맞는 맞춤 영양제 성분</h2>
+					</div>		
+				</div>
+					<div class="attention-content">각 항목당 1개만 선택 가능</div>	
+					<div class="survey-ingredient">
+						<div class="survey-sub-title">성별</div>
+						<input id="gender-woman" type="radio" class="gender" name="gender" value="1">
+						<label for="gender-woman">여자</label>
+						<input id="gender-man" type="radio" class="gender" name="gender" value="1">
+						<label for="gender-man">남자</label>
+
+					</div>
+			</div> <!-- container -->
+		</div>
+	</div>
+
+	<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
+	<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
+</body>
+</html>
