@@ -2,11 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-	<title>[[#{title}]]</title>
+	<title>[[#{menu.news}]]</title>
 	<th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
 </head>
 <body>
 	<th:block th:insert="~{inc/header.html :: index_header}"></th:block>
+	<div id="news-container">
+	</div>
 	<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
 	<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
 </body>

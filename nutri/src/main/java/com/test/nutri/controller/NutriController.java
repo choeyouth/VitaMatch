@@ -18,9 +18,4 @@ public class NutriController {
 	public String main(Model model) {
 		return "main";
 	}
-	
-	@GetMapping("/news")
-	public String news(Model model) {
-		return "index";
-	}
 }
