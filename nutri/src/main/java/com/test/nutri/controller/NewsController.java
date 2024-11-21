@@ -20,9 +20,9 @@ public class NewsController {
 	
 	@GetMapping("/news")
 	public String news(Model model, @RequestParam(defaultValue = "1", name = "page") Integer page) {
-		List<News> list = newsService.getNewsList(page);
-		
-		model.addAttribute("list", list);
+//		List<News> list = newsService.getNewsList(page);
+//		
+//		model.addAttribute("list", list);
 		
 		return "page/news";
 	}
