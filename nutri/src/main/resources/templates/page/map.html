@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+	<title>[[#{menu.map}]]</title>
+	<th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
+</head>
+<style>
+	.map-container {
+		padding: 0 70px;
+	}
+	
+	.map-heading {
+		display: flex;
+		gap: 28px;
+	}
+</style>
+<body>
+	<th:block th:insert="~{inc/header.html :: index_header}"></th:block>
+	<div class="map-container">
+		<div class="section services-section">
+			<div class="col-lg-5 aos-init aos-animate" data-aos="fade-up" data-aos-delay="">
+				<h3 class="subheading">Pharmacy Map</h3>
+				<h2 class="map-heading heading">
+					<img src="img/map/mapIcon.svg" class="map-icon">
+					약국 찾기
+				</h2>
+				
+				<div class="map-box">
+					<div class="map-search">
+						<select>
+							<option value="서울특별시">서울특별시</option>
+							<option value="서울특별시">서울특별시</option>
+						</select>
+					</div>
+				</div>
+				
+			</div>		
+		</div>		
+	</div>
+	<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
+	<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
+</body>
+</html>
