@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-	<title>[[#{menu.combination}]]</title>
-	<th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
+<title>[[#{menu.combination}]]</title>
+<th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
 </head>
 <body>
 	<th:block th:insert="~{inc/header.html :: index_header}"></th:block>
@@ -11,130 +11,92 @@
 		<div class="section">
 			<div class="container">
 				<div class="row mb-5">
-					<div class="col-lg-5"  data-aos="fade-up" data-aos-delay="">
+					<div class="col-lg-5" data-aos="fade-up" data-aos-delay="">
 						<h3 class="subheading">영양제 조합</h3>
 						<h2 class="heading">영양제 성분 카테고리</h2>
-					</div>		
+					</div>
 				</div>
 			</div>
-				<div class="section">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-5 mb-5 mb-lg-0 me-auto testimonial-wrap" data-aos="fade-up" data-aos-delay="0">
-					<h3 class="subheading">Testimonials</h3>
-					<h2 class="heading mb-5">What People Says..</h2>
+			<div class="section">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-5 mb-5 mb-lg-0 me-auto testimonial-wrap"
+							data-aos="fade-up" data-aos-delay="0">
+							<h3 class="subheading">선택된 영양제</h3>
+							<h2 class="heading mb-5">비타민 D</h2>
 
-					<div class="wide-slider-testimonial-wrap">
+							<div class="wide-slider-testimonial-wrap">
 
-						<div class="wide-slider-testimonial">
-							<div class="item">
-								<blockquote class="block-testimonial">
-									<div class="author">
-										<img src="images/person_1.jpg" alt="Free template by TemplateUX">
-										<h3>John Doe</h3>
-										<p class="position mb-5">CEO, Founder</p>
+								<div class="wide-slider-testimonial">
+									<div class="item">
+										<blockquote class="block-testimonial">
+											<div class="author">
+												<h3>John Doe</h3>
+												<p class="position mb-5">CEO, Founder</p>
+											</div>
+										</blockquote>
 									</div>
-									<p>
-										<div class="quote">&ldquo;</div>
-									&ldquo;Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.&rdquo;</p>
-								</blockquote>
+								</div>
 							</div>
+						</div>
 
-							<div class="item">
-								<blockquote class="block-testimonial">
-									<div class="author">
-										<img src="images/person_2.jpg" alt="Free template by TemplateUX">
-										<h3>James Woodland</h3>
-										<p class="position mb-5">Designer at Facebook</p>
+
+
+
+						<div class="col-lg-6 mt-4 mt-lg-0" data-aos="fade-up"
+							data-aos-delay="100">
+							<h3 class="subheading">선택된 영양제와 관련된 성분 조합</h3>
+							<h2 class="heading mb-5">비타민 D와 관련된 영양제</h2>
+
+							<div class="custom-accordion" id="accordion_1">
+								<div class="accordion-item">
+									<h2 class="mb-0">
+										<button class="btn btn-link" type="button"
+											data-bs-toggle="collapse" data-bs-target="#collapseOne"
+											aria-expanded="true" aria-controls="collapseOne">같이 먹으면 좋은 조합</button>
+									</h2>
+
+									<div id="collapseOne" class="collapse show"
+										aria-labelledby="headingOne" data-bs-parent="#accordion_1">
+										<div class="accordion-body">
+											영양제 1 왜 같이 먹으면 좋은지 넣을 거임  출처)
+										</div>
+										<div class="accordion-body">
+											영양제 1 왜 같이 먹으면 좋은지 넣을 거임  출처)
+										</div>
 									</div>
-									<p>
-										<div class="quote">&ldquo;</div>
-									&ldquo;When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.&rdquo;</p>
+								</div>
+								<!-- .accordion-item -->
 
-								</blockquote>
-							</div>
+								<div class="accordion-item">
+									<h2 class="mb-0">
+										<button class="btn btn-link collapsed" type="button"
+											data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+											aria-expanded="false" aria-controls="collapseTwo">같이 먹으면 안 좋은 조합</button>
+									</h2>
+									<div id="collapseTwo" class="collapse"
+										aria-labelledby="headingTwo" data-bs-parent="#accordion_1">
+										<div class="accordion-body">
+											영양제 1 왜 같이 먹으면 좋은지 넣을 거임  출처)
+										</div>
+										<div class="accordion-body">
+											영양제 1 왜 같이 먹으면 좋은지 넣을 거임  출처)
+										</div>
+								</div>
+								<!-- .accordion-item -->
+								
 
-							<div class="item">
-								<blockquote class="block-testimonial">
-									<div class="author">
-										<img src="images/person_3.jpg" alt="Free template by TemplateUX">
-										<h3>Rob Smith</h3>
-										<p class="position mb-5">Product Designer at Twitter</p>
-									</div>
-									<p>
-										<div class="quote">&ldquo;</div>
-									&ldquo;A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.&rdquo;</p>
-								</blockquote>
+								
 							</div>
 						</div>
 					</div>
 				</div>
-
-
-				
-
-				<div class="col-lg-6 mt-4 mt-lg-0"  data-aos="fade-up" data-aos-delay="100">
-					<h3 class="subheading">Frequently Asked Questions</h3>
-					<h2 class="heading mb-5">FAQ COVID-19</h2>
-
-					<div class="custom-accordion" id="accordion_1">
-						<div class="accordion-item">
-							<h2 class="mb-0">
-								<button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">How to download and register?</button>
-							</h2>
-
-							<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion_1">
-								<div class="accordion-body">
-									Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.
-								</div>
-							</div>
-						</div> <!-- .accordion-item -->
-
-						<div class="accordion-item">
-							<h2 class="mb-0">
-								<button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">How to create your paypal account?</button>
-							</h2>
-							<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordion_1">
-								<div class="accordion-body">
-									A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.
-								</div>
-							</div>
-						</div> <!-- .accordion-item -->
-						<div class="accordion-item">
-							<h2 class="mb-0">
-								<button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">How to link your paypal and bank account?</button>
-							</h2>
-
-							<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-bs-parent="#accordion_1">
-								<div class="accordion-body">
-									When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.
-								</div>
-							</div>
-
-						</div> <!-- .accordion-item -->
-
-
-						<div class="accordion-item">
-							<h2 class="mb-0">
-								<button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">We are better than others?</button>
-							</h2>
-
-							<div id="collapseFour" class="collapse" aria-labelledby="headingThree" data-bs-parent="#accordion_1">
-								<div class="accordion-body">
-									When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.
-								</div>
-							</div>
-
-						</div> <!-- .accordion-item -->
-
-					</div>
-				</div>
+				<!-- .container -->
 			</div>
-		</div> <!-- .container -->
-	</div> <!-- /.untree_co-section -->
+			<!-- /.untree_co-section -->
 		</div>
-	
-	
+
+
 	</div>
 	<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
 	<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
