@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+	<title>[[#{menu.category}]]</title>
+	<th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
+</head>
+<style>
+	.categories-list {
+	    list-style: none; 
+	}
+	.categories-list li {
+	    margin-bottom: 10px;
+	}
+	.categories-list li a {
+	    text-decoration: none; 
+	    font-size: 14px;
+	}
+	.categories-list li a:hover {
+	    text-decoration: underline; 
+	}
+</style>
+<body>
+	<th:block th:insert="~{inc/header.html :: index_header}"></th:block>
+	
+	<div class="categories-sidebar">
+	    <h3>Categories</h3>
+	    <ul class="categories-list">
+	        <li><a href="" class="category-item" data-category="피로감">피로감</a></li>
+	        <li><a href="" class="category-item" data-category="눈 건강">눈 건강</a></li>
+	        <li><a href="" class="category-item" data-category="피부 건강">피부 건강</a></li>
+	        <li><a href="" class="category-item" data-category="혈관 & 혈액순환">혈관 & 혈액순환</a></li>
+	        <li><a href="" class="category-item" data-category="간 건강">간 건강</a></li>
+	        <li><a href="" class="category-item" data-category="장 건강">장 건강</a></li>
+	        <li><a href="" class="category-item" data-category="스트레스 & 수면">스트레스 & 수면</a></li>
+	        <li><a href="" class="category-item" data-category="콜레스테롤">콜레스테롤</a></li>
+	        <li><a href="" class="category-item" data-category="뼈 건강">뼈 건강</a></li>
+	        <li><a href="" class="category-item" data-category="소화 & 위식도 건강">소화 & 위식도 건강</a></li>
+	        <li><a href="" class="category-item" data-category="혈압">혈압</a></li>
+	        <li><a href="" class="category-item" data-category="운동 능력 & 근육량">운동 능력 & 근육량</a></li>
+	        <li><a href="" class="category-item" data-category="혈당">혈당</a></li>
+	        <li><a href="" class="category-item" data-category="치아 & 잇몸">치아 & 잇몸</a></li>
+	        <li><a href="" class="category-item" data-category="면역 기능">면역 기능</a></li>
+	    </ul>
+	</div>
+	
+	<div class="data-table">
+	    <h3>Data Table</h3>
+	    <table border="1">
+	        <thead>
+	            <tr>
+	                <th>이름</th>
+	            </tr>
+	        </thead>
+	        <tbody id="data-body">
+	        </tbody>
+	    </table>
+	</div>
+	
+	<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
+	<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
+	<script>
+		document.querySelectorAll('.category-item').forEach(item => {
+		    item.addEventListener('click', function (e) {
+		        e.preventDefault();
+		
+		        const category = this.dataset.category;
+		
+		        // 서버로 AJAX 요청 보내기 (fetch 사용)
+		        fetch(`/getData?category=${category}`)
+		            .then(response => response.json()) // 서버에서 JSON 데이터 받기
+		            .then(data => {
+		                // 테이블 업데이트
+		                const tableBody = document.getElementById('data-body');
+		                tableBody.innerHTML = ""; // 기존 데이터 삭제
+		
+		                // 새 데이터 추가
+		                data.forEach(row => {
+		                    const tr = document.createElement('tr');
+		                    tr.innerHTML = `
+		                        <td>${row.name}</td>
+		                        <td>${row.description}</td>
+		                        <td>${row.category}</td>
+		                    `;
+		                    tableBody.appendChild(tr);
+		                });
+		            })
+		            .catch(error => {
+		                console.error("Error fetching data:", error);
+		            });
+		    });
+		});
+	</script>
+</body>
+</html>

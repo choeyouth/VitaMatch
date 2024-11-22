@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+	<title>[[#{menu.category}]]</title>
+	<th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
+</head>
+<style>
+ 
+</style>
+<body>
+	<th:block th:insert="~{inc/header.html :: index_header}"></th:block>
+	
+	<div class="categories-sidebar">
+	    <h3>Categories</h3>
+	    <ul class="categories-list">
+	        <li><a href="#">비타민 A</a></li>
+	        <li><a href="#">비타민 B1</a></li>
+	        <li><a href="#">비타민 B2</a></li>
+	        <li><a href="#">비타민 C</a></li>
+	        <li><a href="#">비타민 D</a></li>
+	        <li><a href="#">콜라겐</a></li>
+	        <li><a href="#">피부 미용</a></li>
+	        <li><a href="#">다이어트</a></li>
+	        <li><a href="#">영양제</a></li>
+	        <li><a href="#">기타</a></li>
+	    </ul>
+	</div>
+	
+	
+	
+	<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
+	<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
+</body>
+</html>
