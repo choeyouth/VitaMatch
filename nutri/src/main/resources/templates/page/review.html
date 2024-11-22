@@ -2,27 +2,76 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-	<title>[[#{menu.map}]]</title>
+	<title>[[#{menu.review}]]</title>
 	<th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
 </head>
 <style>
- 
+	
+	.review-list {
+	    width: 100%;
+	    border-collapse: collapse;
+	    margin: 20px 0;
+	}
+	
+	.table-header {
+		background-color: #f4f4f4;
+		text-align: center;
+		font-weight: bold;
+	}
+
+	.table-header th, .table-body td {
+	    padding: 12px 15px;
+	    text-align: center;
+	    border: 1px solid #ddd;
+	}
+	
+	.table-body tr:hover {
+	   color: #10D0A1;
+	
+	
+
+	
+
 </style>
 <body>
 	<th:block th:insert="~{inc/header.html :: index_header}"></th:block>
-	<div id="map-container">
-		<div class="section services-section">
+	<div class="section services-section">
 			<div class="container">
 				<div class="row mb-5">
-					<div class="col-lg-5 aos-init aos-animate" data-aos="fade-up" data-aos-delay="">
-						<h3 class="subheading">Services</h3>
-						<h2 class="heading">Specialized laboratory tests tailored to the patient</h2>
+					<div class="col-lg-5"  data-aos="fade-up" data-aos-delay="">
+						<h3 class="subheading">Supplement Reviews</h3>
+						<h2 class="heading">영양제 리뷰 게시판</h2>
 					</div>		
 				</div>	
-	
+
+				<table class="review-list">
+		        	<thead class="table-header">
+		            	<tr>
+		                	<th>번호</th>
+			                <th>카테고리</th>
+			                <th>제목</th>
+			                <th>작성자</th>
+			                <th>평점</th>
+			                <th>작성시간</th>
+		             	</tr>
+		          	</thead>   
+		          	<tbody class="table-body">
+		             	<tr>
+		                	<td>14</td>
+			                <td>오메가3</td>
+							<td>내돈내산 오메가3 리뷰입니다.</td>
+			                <td>얼룩말</td>
+			                <td>5</td>
+			                <td>2024-11-22</td>
+		             	</tr>
+		           	</tbody>
+				</table>
+
+						
+						
 				<div class="row g-5">
-					<div class="col-lg-4 aos-init aos-animate" data-aos="fade-up" data-aos-delay="">
-	
+					<div class="col-lg-4"  data-aos="fade-up" data-aos-delay="">
+
 						<div class="feature-1 d-block">
 							<div class="mb-3">
 								<span class="hex color-1 mb-3">
@@ -36,7 +85,7 @@
 						</div>
 						
 					</div>
-					<div class="col-lg-4 aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
+					<div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
 						<div class="feature-1 d-block">
 							<div class="mb-3">
 								<span class="hex color-2 mb-3">
@@ -49,7 +98,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-4 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+					<div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
 						<div class="feature-1 d-block">
 							<div class="mb-3">
 								<span class="hex color-3 mb-3">
@@ -62,9 +111,9 @@
 							</div>
 						</div>
 					</div>
-	
-					<div class="col-lg-4 aos-init" data-aos="fade-up" data-aos-delay="">
-	
+
+					<div class="col-lg-4" data-aos="fade-up" data-aos-delay="">
+
 						<div class="feature-1 d-block">
 							<div class="mb-3">
 								<span class="hex color-4 mb-3">
@@ -78,7 +127,7 @@
 						</div>
 						
 					</div>
-					<div class="col-lg-4 aos-init" data-aos="fade-up" data-aos-delay="100">
+					<div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
 						<div class="feature-1 d-block">
 							<div class="mb-3">
 								<span class="hex color-5 mb-3">
@@ -91,7 +140,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-4 aos-init" data-aos="fade-up" data-aos-delay="200">
+					<div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
 						<div class="feature-1 d-block">
 							<div class="mb-3">
 								<span class="hex color-6 mb-3">
@@ -105,10 +154,18 @@
 						</div>
 					</div>
 				</div>	
-			</div>
-		</div>		
-	</div>
-	<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
-	<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
+			</div>		
+		</div>
+
+
+	
+		<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
+		<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
+
 </body>
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>	
+
+	</script>
 </html>

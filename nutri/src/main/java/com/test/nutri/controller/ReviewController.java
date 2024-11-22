@@ -7,9 +7,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ReviewController {
 
-	@GetMapping("/reivew")
+	@GetMapping("/review")
 	public String review(Model model) {
+		
 		return "page/review";
+	}
+	
+	@GetMapping("/addReview")
+	public String addReview(Model model) {
+		
+		return "page/addReview";
 	}
 		
 
