@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
 <head>
 <meta charset="UTF-8">
 	<title>header.html</title>
@@ -43,7 +46,17 @@
                     </ul>
 
                     <ul class="js-clone-nav d-none d-lg-inline-block text-end site-menu float-end">
+                        
                         <li class="cta-button"><a href="contact.html">Contact Us</a></li>
+
+						<th:block sec:authorize="isAnonymous()">
+                        <li class="cta-button"><a href="/login">Login</a></li>
+						</th:block>
+						
+						<th:block sec:authorize="isAuthenticated()">
+                        <li class="cta-button"><a href="/logout">Logout</a></li>
+                        <li class="cta-button"><a href="/my">My</a></li>
+                        </th:block>
                     </ul>
 
                     <a href="#" class="burger ms-auto float-end site-menu-toggle js-menu-toggle d-inline-block d-lg-none" data-toggle="collapse" data-target="#main-navbar">
