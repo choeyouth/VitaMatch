@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
 <head>
 <meta charset="UTF-8">
 	<title>header.html</title>
@@ -27,17 +30,17 @@
                             <ul class="dropdown">
                                 <li><a href="#">Menu One</a></li>
                                 <li class="has-children">
-                                    <a href="#">Menu Two</a>
+                                    <a href="#">[[#{menu.category}]]</a>
                                     <ul class="dropdown">
-                                        <li><a href="#">Sub Menu One</a></li>
-                                        <li><a href="#">Sub Menu Two</a></li>
-                                        <li><a href="#">Sub Menu Three</a></li>
+                                        <li><a href="/ingredient">[[#{menu.ingredient}]]</a></li>
+                                        <li><a href="/health">[[#{menu.health}]]</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="/news">[[#{menu.news}]]</a></li>
                                 <li><a href="/survey">[[#{menu.survey}]]</a></li>
                                 <li><a href="/review">[[#{menu.review}]]</a></li>
 								<li><a href="/map">[[#{menu.map}]]</a></li>
+								<li><a href="/combination">[[#{menu.combination}]]</a></li>
                             </ul>
                         </li>
                         
@@ -45,6 +48,20 @@
 
                     <ul class="js-clone-nav d-none d-lg-inline-block text-end site-menu float-end">
                         <li class="cta-button"><a href="contact.html">Contact Us</a></li>
+						<li class="cta-button"><a href="/survey">[[#{menu.survey}]]</a></li>
+                        <li class="cta-button"><a href="/combination">[[#{menu.combination}]]</a></li>
+                        <li class="cta-button"><a href="/map">[[#{menu.map}]]</a></li>
+
+						<!-- 인증이 없는 비사용자일 시 로그인 메뉴 출력 -->
+						<th:block sec:authorize="isAnonymous()">
+                        <li class="cta-button"><a href="/login">Login</a></li>
+						</th:block>
+						
+						<!-- 인증이 없는 사용자일 시 로그아웃 및 마이 페이지 출력 -->
+						<th:block sec:authorize="isAuthenticated()">
+                        <li class="cta-button"><a href="/logout">Logout</a></li>
+                        <li class="cta-button"><a href="/my">My</a></li>
+                        </th:block>
                     </ul>
 
                     <a href="#" class="burger ms-auto float-end site-menu-toggle js-menu-toggle d-inline-block d-lg-none" data-toggle="collapse" data-target="#main-navbar">
@@ -104,17 +121,17 @@
                             <ul class="dropdown">
                                 <li><a href="#">Menu One</a></li>
                                 <li class="has-children">
-                                    <a href="#">Menu Two</a>
+                                	<a href="#">[[#{menu.category}]]</a>
                                     <ul class="dropdown">
-                                        <li><a href="#">Sub Menu One</a></li>
-                                        <li><a href="#">Sub Menu Two</a></li>
-                                        <li><a href="#">Sub Menu Three</a></li>
+                                        <li><a href="/ingredient">[[#{menu.ingredient}]]</a></li>
+                                        <li><a href="/health">[[#{menu.health}]]</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="/news">[[#{menu.news}]]</a></li>
                                 <li><a href="/survey">[[#{menu.survey}]]</a></li>
 								<li><a href="/review">[[#{menu.review}]]</a></li>
                                 <li><a href="/map">[[#{menu.map}]]</a></li>
+                                <li><a href="/combination">[[#{menu.combination}]]</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -122,6 +139,20 @@
                     <ul class="js-clone-nav d-none d-lg-inline-block text-end site-menu float-end">
                         <li class="cta-button"><a href="contact.html">Contact Us</a></li>
 						<li class="cta-button"><a href="/combination">[[#{menu.review}]]</a></li>
+                        <!-- <li class="cta-button"><a href="/map">[[#{menu.map}]]</a></li> -->
+<!--						<li class="cta-button"><a href="/survey">[[#{menu.survey}]]</a></li>-->
+						<li class="cta-button"><a href="/combination">[[#{menu.combination}]]</a></li>
+						<!-- 인증이 없는 비사용자일 시 로그인 메뉴 출력 -->
+						<th:block sec:authorize="isAnonymous()">
+                        <li class="cta-button"><a href="/login">Login</a></li>
+						</th:block>
+						
+						<!-- 인증이 없는 사용자일 시 로그아웃 및 마이 페이지 출력 -->
+						<th:block sec:authorize="isAuthenticated()">
+                        <li class="cta-button"><a href="/logout">Logout</a></li>
+                        <li class="cta-button"><a href="/my">My</a></li>
+                        </th:block>
+
                     </ul>
 
                     <a href="#" class="burger ms-auto float-end site-menu-toggle js-menu-toggle d-inline-block d-lg-none" data-toggle="collapse" data-target="#main-navbar">
