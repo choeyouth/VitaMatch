@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>[[#{menu.combination}]]</title>
+<th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
+</head>
+<body>
+	<th:block th:insert="~{inc/header.html :: index_header}"></th:block>
+	<div id="combination-container">
+		<div class="section">
+			<div class="container">
+				<div class="row mb-5">
+					<div class="col-lg-5" data-aos="fade-up" data-aos-delay="">
+						<h3 class="subheading">영양제 조합</h3>
+						<h2 class="heading">영양제 성분 카테고리</h2>
+					</div>
+				</div>
+			</div>
+			<div class="section">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-5 mb-5 mb-lg-0 me-auto testimonial-wrap"
+							data-aos="fade-up" data-aos-delay="0">
+							<h3 class="subheading">선택된 영양제</h3>
+							<h2 class="heading mb-5">비타민 D</h2>
+
+							<div class="wide-slider-testimonial-wrap">
+
+								<div class="wide-slider-testimonial">
+									<div class="item">
+										<blockquote class="block-testimonial">
+											<div class="author">
+												<h3>John Doe</h3>
+												<p class="position mb-5">CEO, Founder</p>
+											</div>
+										</blockquote>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+
+
+						<div class="col-lg-6 mt-4 mt-lg-0" data-aos="fade-up"
+							data-aos-delay="100">
+							<h3 class="subheading">선택된 영양제와 관련된 성분 조합</h3>
+							<h2 class="heading mb-5">비타민 D와 관련된 영양제</h2>
+
+							<div class="custom-accordion" id="accordion_1">
+								<div class="accordion-item">
+									<h2 class="mb-0">
+										<button class="btn btn-link" type="button"
+											data-bs-toggle="collapse" data-bs-target="#collapseOne"
+											aria-expanded="true" aria-controls="collapseOne">같이 먹으면 좋은 조합</button>
+									</h2>
+
+									<div id="collapseOne" class="collapse show"
+										aria-labelledby="headingOne" data-bs-parent="#accordion_1">
+										<div class="accordion-body">
+											영양제 1 왜 같이 먹으면 좋은지 넣을 거임  출처)
+										</div>
+										<div class="accordion-body">
+											영양제 1 왜 같이 먹으면 좋은지 넣을 거임  출처)
+										</div>
+									</div>
+								</div>
+								<!-- .accordion-item -->
+
+								<div class="accordion-item">
+									<h2 class="mb-0">
+										<button class="btn btn-link collapsed" type="button"
+											data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+											aria-expanded="false" aria-controls="collapseTwo">같이 먹으면 안 좋은 조합</button>
+									</h2>
+									<div id="collapseTwo" class="collapse"
+										aria-labelledby="headingTwo" data-bs-parent="#accordion_1">
+										<div class="accordion-body">
+											영양제 1 왜 같이 먹으면 좋은지 넣을 거임  출처)
+										</div>
+										<div class="accordion-body">
+											영양제 1 왜 같이 먹으면 좋은지 넣을 거임  출처)
+										</div>
+								</div>
+								<!-- .accordion-item -->
+								
+
+								
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- .container -->
+			</div>
+			<!-- /.untree_co-section -->
+		</div>
+
+
+	</div>
+	<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
+	<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
+</body>
+</html>
