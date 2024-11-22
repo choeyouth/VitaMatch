@@ -394,6 +394,7 @@
 				} else {
 					el.onclick = (function(i) {
 						return function() {
+							console.log('go to Page!!!!!!!!!!!!!!!!!!!! ' + i);
 							pagination.gotoPage(i); // 해당 페이지로 이동
 						}
 					})(i);
