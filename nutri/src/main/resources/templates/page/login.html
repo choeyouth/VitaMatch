@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+	<title>[[#{title}]]</title>
+	<th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
+	<link rel="stylesheet" th:href="@{css/main.css}">
+    <style>
+    
+        .form-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .login-form-box {
+            position: relative;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: auto;
+			margin-bottom: auto;
+            border: solid 1px gray;
+            width: 400px;
+            height: 400px;
+        }
+		
+		body {
+			box-sizing: border-box;
+		}
+		
+		.input-box {
+			margin-bottom: 10px;
+			height: 40px;
+		}
+		
+		.font-size-20 {
+			font-size: 20px;
+		}
+		
+		.font-size-30 {
+			font-size: 30px;
+		}
+		
+
+		.font-size-40 {
+			font-size: 40px;
+		}
+		
+		.font-koho {
+			font-family: 'KoHo';
+		}
+		
+		.font-bold {
+			font-weight: bold;
+		}
+		
+		.border-round {
+			border-radius: 5px;
+		}
+		
+		.border-thin {
+			border: 1px solid;
+		}
+		
+		.border-gray {
+			border-color: gray;
+		}
+		
+		.stretch {
+			width: 100%;
+		}
+		
+		.align-center {
+			text-align: center;
+		}
+
+		.color-project {
+			background-color: #10D0A1;
+		}
+		
+		.text-color-project {
+			color: #10D0A1;
+		}
+		
+		.text-color-white {
+			color: white;
+		}
+		
+		.border-none {
+			border: 1px solid;
+		}
+		
+		input {
+            width: 370px;
+            padding: 10px 5px 10px 15px;
+            font-size: 20px;
+            border: 1px solid #CCC;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        label {
+            position: absolute;
+            top: 20px;
+            left: 15px;
+            font-size: 20px;
+            color: #AAA;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .login-button {
+            margin: 1px 0 0 1px;
+            width: 398px;
+            height: 45px;
+        }
+
+        input:focus + label,
+        input:not(:placeholder-shown) + label {
+            top: 0px;
+            left: 15px;
+            font-size: 15px;
+            color: #10D0A1;
+        }
+
+        .flex {
+            display: flex;
+            justify-content: space-between;
+            margin: 0 5px 5px 0;
+        }
+		
+
+    </style>
+
+</head>
+<body>
+	<th:block th:insert="~{inc/header.html :: index_header}"></th:block>
+    <form method="POST" action="/loginok">
+        <div class="login-form-box">
+        	<div class="empty-div"></div>
+            <div class="font-size-40 font-koho font-bold align-center">VitaMatch</div>
+            <div>
+	            <table class="stretch">
+	                    <tr>
+	                        <!-- <th>email</th> -->
+	                        <td class="form-group">
+                                <input id="username" type="text" name="username" placeholder=" " aria-label="username" class="input-box border-round border-thin border-gray" required/>
+                                <label for="username">username</label>
+                            </td>
+	                    </tr>
+	                    <tr>
+	                        <!-- <th>password</th> -->
+	                        <td class="form-group">
+                                <input id="password" type="password" name="passowrd" placeholder=" " aria-label="password" class="input-box border-round border-thin border-gray" required/>
+                                <label for="password">password</label>
+                            </td>
+	                    </tr>
+	            </table>
+            </div>
+            <div><button class="login-button color-project text-color-white border-none border-round">Log in</button></div>
+            <div class="flex">
+                <a href="#" class="">forgot passsword?</a>
+                <a href="#" class="">sign up</a>			
+            </div>
+            <div class="empty-div"></div>
+        </div>
+        </form>
+
+
+	<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
+	<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
+</body>
+</html>
