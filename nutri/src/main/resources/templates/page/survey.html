@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+	<title>[[#{menu.survey}]]</title>
+	<th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
+	<style>
+		
+		.survey-container {
+			font-family: "KoHo", sans-serif;
+			font-weight: bold;
+			
+		}
+		
+		.survey-container .heading {
+			width: 700px;
+		}
+		.attention-content {
+			font-family: "KoHo", sans-serif;
+			font-weight: bold;
+			font-size: 20px;
+			padding-bottom: 15px;
+			border-bottom: 1px solid var(--bs-gray);
+		}
+
+		
+		/* 설문 항목 버튼 -------------------------------- */
+ 		.survey-sub-title {
+			font-size: 15px;
+			margin: 20px 0 ;
+		}
+		
+		.survey-sub-title span {
+			padding-left: 15px;
+			font-size: 12px;
+			color: var(--bs-red);
+		}
+		
+		.survey-radio-btn {
+			display: inline-block;	
+			margin-bottom: 30px;		
+		}
+		
+		.survey-radio-btn label{
+			width: 190px;
+			height: 50px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			border: 1px solid var(--bs-gray);
+			border-radius: 10px;
+			margin-right: 20px;
+			font-size: 20px;
+			color: var(--bs-gray-dark);
+		}
+		
+		.survey-radio-btn:nth-child(6n) {
+			width: 190px;
+			margin-right: 0px;
+		}
+		
+		.survey-radio-btn input[type=radio] {
+			display: none;
+		}
+		
+		.survey-radio-btn input[type=radio]:checked + label {
+			background: var(--bs-primary);
+			color: var(--bs-white);
+			border: none;
+		}
+		
+		.survey-radio-btn label:hover {
+			color: var(--bs-white);
+			background: var(--bs-primary);
+			border: none;
+		}
+
+		.survey-ceckbox-btn label {
+			width: 190px;
+			height: 50px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			border: 1px solid var(--bs-gray);
+			border-radius: 10px;
+			margin-right: 20px;
+			font-size: 20px;
+			color: var(--bs-gray-dark);
+		}
+		
+		
+	</style>
+</head>
+<body>
+	<th:block th:insert="~{inc/header.html :: index_header}"></th:block>
+	
+	
+	<div class="survey-container">
+		<div class="section services-section">
+			<div class="container">
+				<div class="row mb-5">
+					<div class="col-lg-5 aos-init aos-animate" data-aos="fade-up" data-aos-delay="">
+						<h3 class="subheading">CUSTOM INGREDIENT</h3>
+						<h2 class="heading">건강 상태에 맞는 맞춤 영양제 성분</h2>
+					</div>		
+				</div>
+					<div class="survey-ingredient">
+						<div class="attention-content">각 항목당 1개만 선택 가능</div>	
+						<label for="gender" class="survey-sub-title">성별<span>*성별 선택 필수</span></label>
+						<div class="survey-gender">
+							<div class="survey-radio-btn">
+								<input id="gender-woman" type="radio" name="gender" value="1">
+								<label for="gender-woman">여자</label>
+							</div>
+							<div class="survey-radio-btn">
+								<input id="gender-man" type="radio" name="gender" value="2">
+								<label for="gender-man">남자</label>
+							</div>
+						</div>
+
+						<label for="age" class="survey-sub-title">연령대<span>*연령대 선택 필수</span></label>
+						<div class="survey-age">
+							<div class="survey-radio-btn">
+								<input id="age1" type="radio" name="age" value="1">
+								<label for="age1">10대</label>
+							</div>
+							<div class="survey-radio-btn">
+								<input id="age2" type="radio" name="age" value="2">
+								<label for="gender-age2">20대</label>
+							</div>
+							<div class="survey-radio-btn">
+								<input id="age3" type="radio" name="age" value="3">
+								<label for="age3">30대</label>
+							</div>
+							<div class="survey-radio-btn">
+								<input id="age4" type="radio" name="age" value="4">
+								<label for="age4">40대</label>
+							</div>
+							<div class="survey-radio-btn">
+								<input id="age5" type="radio" name="age" value="5">
+								<label for="age5">50대</label>
+							</div>
+							<div class="survey-radio-btn">
+								<input id="age6" type="radio" name="age" value="6">
+								<label for="age6">60대 이상</label>
+							</div>
+						</div>
+						
+						<label for="checkup" class="survey-sub-title">건강검진 관련</label>
+						<div class="survey-ceckbox-btn">
+						    <input type="checkbox" id="checkup1" name="checkup">
+						    <label for="checkup1" class="checkbox-label">간 건강</label>
+						</div>
+						<div class="survey-ceckbox-btn">
+						    <input type="checkbox" id="checkup2" name="checkup">
+						    <label for="checkup2" class="checkbox-label">활력 / 피로</label>
+						</div>
+						<div class="survey-ceckbox-btn">
+						    <input type="checkbox" id="checkup3" name="checkup">
+						    <label for="checkup3" class="checkbox-label">체지방 관리</label>
+						</div>
+
+					</div>
+			</div> <!-- container -->
+		</div>
+	</div>
+
+	<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
+	<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
+</body>
+</html>

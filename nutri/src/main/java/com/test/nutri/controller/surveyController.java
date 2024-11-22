@@ -14,16 +14,12 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-public class NewsController {
-
-	private NewsService newsService;
+public class surveyController {
 	
-	@GetMapping("/news")
-	public String news(Model model, @RequestParam(defaultValue = "1", name = "page") Integer page) {
-//		List<News> list = newsService.getNewsList(page);
-//		
-//		model.addAttribute("list", list);
+	@GetMapping("/survey")
+	public String survey(Model model) {
 		
-		return "page/news";
+		return "page/survey";
 	}
+	
 }
