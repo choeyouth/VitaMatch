@@ -6,7 +6,7 @@
 	margin-left: auto;
 	margin-right: auto;
     width: 600px;
-    height: 250px;
+    height: 1250px;
 }
 
 tr {
@@ -82,7 +82,7 @@ body {
 	border: 1px solid;
 }
 
-input.login {
+input.signup {
 	position: relative;
 	display: flex;
     width: 390px;
