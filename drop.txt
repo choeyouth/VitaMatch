@@ -1,0 +1,58 @@
+DROP TABLE IF EXISTS reviewComment;
+DROP TABLE IF EXISTS reviewImage;
+DROP TABLE IF EXISTS review;
+
+DROP TABLE IF EXISTS medicationRecord;
+DROP TABLE IF EXISTS productMedication;
+DROP TABLE IF EXISTS ingredientProduct;
+DROP TABLE IF EXISTS productInfo;
+
+
+DROP TABLE IF EXISTS goodCombination;
+DROP TABLE IF EXISTS badCombination;
+
+
+DROP TABLE IF EXISTS noticePost;
+DROP TABLE IF EXISTS faqPost;
+DROP TABLE IF EXISTS communityComment;
+DROP TABLE IF EXISTS communityPost;
+
+DROP TABLE IF EXISTS healthIngredient;
+DROP TABLE IF EXISTS health;
+DROP TABLE IF EXISTS logSession;
+DROP TABLE IF EXISTS news;
+
+
+DROP TABLE IF EXISTS ingredientGenderAge;
+DROP TABLE IF EXISTS ingredientOrgan;
+DROP TABLE IF EXISTS ingredientHealth;
+DROP TABLE IF EXISTS ingredientDaily;
+DROP TABLE IF EXISTS ingredient;
+DROP TABLE IF EXISTS ingredientContent;
+
+
+
+DROP TABLE IF EXISTS sessionType;
+DROP TABLE IF EXISTS sessionStatus;
+DROP TABLE IF EXISTS emailVerification;
+DROP TABLE IF EXISTS userActivity;
+DROP TABLE IF EXISTS logApplication;
+DROP TABLE IF EXISTS logLevel;
+DROP TABLE IF EXISTS logError;
+
+DROP TABLE IF EXISTS adminAuthList;
+DROP TABLE IF EXISTS adminAuth;
+DROP TABLE IF EXISTS activityType;
+
+DROP TABLE IF EXISTS memberAddress;
+DROP TABLE IF EXISTS address;
+
+DROP TABLE IF EXISTS surveyGenderAge;
+DROP TABLE IF EXISTS surveyHealth;
+DROP TABLE IF EXISTS surveyOrgan;
+DROP TABLE IF EXISTS surveyDaily;
+
+
+
+DROP TABLE IF EXISTS admin;
+DROP TABLE IF EXISTS member;
