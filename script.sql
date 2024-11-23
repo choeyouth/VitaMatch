@@ -37,14 +37,18 @@ CREATE TABLE `goodCombination` (
 	`seq`	INT	AUTO_INCREMENT PRIMARY KEY,
 	`good`	VARCHAR(50)	NOT NULL,
 	`reason`	VARCHAR(1500)	NOT NULL,
-	`link`	VARCHAR(1000)	NOT NULL
+	`link`	VARCHAR(1000)	NOT NULL,
+	`ingredient_seq`	INT	NOT NULL,
+    FOREIGN KEY (ingredient_seq) REFERENCES ingredient(seq)
 );
 
 CREATE TABLE `badCombination` (
 	`seq`	INT	AUTO_INCREMENT PRIMARY KEY,
 	`bad`	VARCHAR(50)	NOT NULL,
 	`reason`	VARCHAR(1500)	NOT NULL,
-	`link`	VARCHAR(1000)	NOT NULL
+	`link`	VARCHAR(1000)	NOT NULL,
+	`ingredient_seq`	INT	NOT NULL,
+    FOREIGN KEY (ingredient_seq) REFERENCES ingredient(seq)
 );
 
 CREATE TABLE `review` (
