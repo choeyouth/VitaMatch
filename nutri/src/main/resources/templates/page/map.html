@@ -76,13 +76,19 @@
 											<td>09:30 ~ 21:30</td>								
 										</tr>
 									</table>
-									<h3>공휴일 운영시간</h3>
-									<div>정기휴무</div>
-									<h3>비고</h3>
-									<div>매달 1, 3번째 일요일 휴무</div>
+									<div class="phar-otherInfo">
+										<h3>공휴일 운영시간</h3>
+										<div id="holiday-time">정기휴무</div>
+										<h3>비고</h3>
+										<div id="other-time">매달 1, 3번째 일요일 휴무</div>
+									</div>
 								</div>
 							</div>
-				        </div>
+				        </div> <!-- detail info -->
+						<div class="map-gps">
+							<input type="image" src="/img/map/move-address.svg">
+							<input type="image" src="/img/map/gps.svg">
+						</div>
 					</div> 
 				</div>
 			</div>		
@@ -104,18 +110,18 @@
         var map = new kakao.maps.Map(container, options);
 		*/
 		
-		document.querySelectorAll('#placesList li').forEach((item, index) => {
-		    item.addEventListener('click', () => {
+		document.querySelector('#placesList').addEventListener('click', (event) => {
+		    const item = event.target.closest('li'); 
+		    if (item) {
 		        const popup = document.querySelector('.detail-popup');
-		        popup.style.display = 'block'; // 팝업 표시
-		        // 상세 정보 업데이트 (예: 데이터에 따라 변경)
-		        popup.querySelector('p').textContent = `상세 정보 ${index + 1}`;
-		    });
+		        popup.style.display = 'block'; 
+		    }
 		});
+
 
 		document.querySelector('.close-popup').addEventListener('click', () => {
 		    const popup = document.querySelector('.detail-popup');
-		    popup.style.display = 'none'; // 팝업 닫기
+		    popup.style.display = 'none'; 
 		});
 
 		
@@ -289,13 +295,20 @@
 
 			if (places.road_address_name) {
 				itemStr += '    <span>' + places.road_address_name + '</span>' +
-							'   <span class="jibun gray">' +  places.address_name  + '</span>';
+							'   <span class="jibun gray">' +  places.address_name  + '</span>' +
+							'<div class="map-info">' + 
+							'<div class="pharmacy-time"><span>⦁&nbsp;&nbsp;&nbsp;</span><span>영업중&nbsp;&nbsp;&nbsp;</span>(09:30 ~ 21:30)</div>	' +	
+							'</div>';
 			} else {
 				itemStr += '    <span>' +  places.address_name  + '</span>'; 
 			}
 						
 			itemStr += '  <span class="tel">' + places.phone  + '</span>' +
-						'</div>';           
+						'</div> ' + 
+						'<a class="more d-flex align-items-center float-start map-info-button">' +
+						'<span class="label">상세 보기</span>' +
+						'<span class="icon-keyboard_arrow_right"></span>' +
+						'</a>';           
 
 			el.innerHTML = itemStr;
 			el.className = 'item';
@@ -453,8 +466,6 @@
 		        paginationEl.style.display = 'none'; // 페이징 바 숨기기
 		    }
 		});
-
-
 
 	</script>
 </html>
