@@ -123,3 +123,5 @@ INSERT INTO badCombination (ingredient_seq, bad, reason, link) VALUES
 ((SELECT seq FROM ingredient WHERE name = '칼슘'), (SELECT seq FROM ingredient WHERE name = '마그네슘'), '칼슘과 마그네슘은 모두 골다공증을 예방하는 데 도움이 되지만 동시에 먹으면 흡수율이 떨어진다.', 'https://www.gqkorea.co.kr/2023/09/19/%ED%95%A8%EA%BB%98%ED%95%98%EB%A9%B4-%EB%8F%85%EC%9D%B4-%EB%90%98%EB%8A%94-%EC%98%81%EC%96%91%EC%A0%9C/'),
 ((SELECT seq FROM ingredient WHERE name = '마그네슘'), (SELECT seq FROM ingredient WHERE name = '칼슘'), '칼슘과 마그네슘은 모두 골다공증을 예방하는 데 도움이 되지만 동시에 먹으면 흡수율이 떨어진다.', 'https://www.gqkorea.co.kr/2023/09/19/%ED%95%A8%EA%BB%98%ED%95%98%EB%A9%B4-%EB%8F%85%EC%9D%B4-%EB%90%98%EB%8A%94-%EC%98%81%EC%96%91%EC%A0%9C/');
 select * from badCombination;
+
+commit;
