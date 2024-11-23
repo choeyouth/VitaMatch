@@ -7,68 +7,145 @@
 </head>
 <style>
 	
+	.review-search {
+		display: flex;               
+		justify-content: center;
+		align-items: center;
+		margin-bottom: 30px;
+	}
+	
+	.search-box {
+		display: flex;
+		justify-content: center;
+		align-items: center;             
+	    gap: 15px; /* 입력창과 버튼 사이 간격 */
+	}
+	
+	.search-txt, 
+	.search-btn {
+		text-align: center;
+		border-radius: 5px;
+		height: 42px;
+		padding: 3px;
+		font-size: 17px;
+	}
+	
+	.search-txt {
+		border: 2px solid #CCCCCC;
+		width: 550px;
+	}
+	
+	.search-btn {
+		border:  none;
+		background-color: #10D0A1;
+		color: white;
+		width: 110px;
+	}
+	
 	.review-list {
 	    width: 100%;
 	    border-collapse: collapse;
 	    margin: 20px 0;
+		table-layout: fixed;	 /* 열 크기를 고정 */
+	}
+	
+	.review-list th:nth-child(1), 
+	.review-list td:nth-child(1) {
+	    width: 10%; 
+	}
+
+	.review-list th:nth-child(2), 
+	.review-list td:nth-child(2) {
+	    width: 15%; 
+	}
+
+	.review-list th:nth-child(3), 
+	.review-list td:nth-child(3) {
+	    width: 35%; 
+	}
+
+	.review-list th:nth-child(4), 
+	.review-list td:nth-child(4) {
+	    width: 15%;
+	}
+
+	.review-list th:nth-child(5), 
+	.review-list td:nth-child(5) {
+	    width: 10%; 
+	}
+
+	.review-list th:nth-child(6), 
+	.review-list td:nth-child(6) {
+	    width: 15%;
 	}
 	
 	.table-header {
 		background-color: #f4f4f4;
 		text-align: center;
-		font-weight: bold;
+		font-weight: bold;	
 	}
 
 	.table-header th, .table-body td {
 	    padding: 12px 15px;
 	    text-align: center;
-	    border: 1px solid #ddd;
 	}
 	
-	.table-body tr:hover {
-	   color: #10D0A1;
-	
-	
-
-	
+	.table-body td {
+		/* border-bottom: 1px solid #ADB5BD; */ /* 아래쪽만 줄을 넣음 */
+		border-bottom: 1px solid #f4f4f4; 
+	}
 
 </style>
 <body>
 	<th:block th:insert="~{inc/header.html :: index_header}"></th:block>
 	<div class="section services-section">
-			<div class="container">
-				<div class="row mb-5">
-					<div class="col-lg-5"  data-aos="fade-up" data-aos-delay="">
-						<h3 class="subheading">Supplement Reviews</h3>
-						<h2 class="heading">영양제 리뷰 게시판</h2>
-					</div>		
-				</div>	
+		<div class="container">
+			<div class="row mb-5">
+				<div class="col-lg-5"  data-aos="fade-up" data-aos-delay="">
+					<h3 class="subheading">Supplement Reviews</h3>
+					<h2 class="heading">영양제 리뷰 게시판</h2>
+				</div>		
+			</div>	
+			
+			<div class="review-search">
+				<form class="search-box" action="" method="get">
+					<input class="search-txt" type="text" placeholder="검색어를 입력하세요.">
+					<button class="search-btn" type="submit">검색하기</button>		
+				</form>
+			</div>
 
-				<table class="review-list">
-		        	<thead class="table-header">
-		            	<tr>
-		                	<th>번호</th>
-			                <th>카테고리</th>
-			                <th>제목</th>
-			                <th>작성자</th>
-			                <th>평점</th>
-			                <th>작성시간</th>
-		             	</tr>
-		          	</thead>   
-		          	<tbody class="table-body">
-		             	<tr>
-		                	<td>14</td>
-			                <td>오메가3</td>
-							<td>내돈내산 오메가3 리뷰입니다.</td>
-			                <td>얼룩말</td>
-			                <td>5</td>
-			                <td>2024-11-22</td>
-		             	</tr>
-		           	</tbody>
-				</table>
-
-						
-						
+			<table class="review-list">
+	        	<thead class="table-header">
+	            	<tr>
+	                	<th>번호</th>
+		                <th>카테고리</th>
+		                <th>제목</th>
+		                <th>작성자</th>
+		                <th>평점</th>
+		                <th>작성시간</th>
+	             	</tr>
+	          	</thead>   
+	          	<tbody class="table-body">
+	             	<tr>
+	                	<td>14</td>
+		                <td>오메가3</td>
+						<td>내돈내산 오메가3 리뷰입니다.</td>
+		                <td>얼룩말</td>
+		                <td>5</td>
+		                <td>2024-11-22</td>
+	             	</tr>
+	             	<tr>
+	                	<td>13</td>
+		                <td>오메가3</td>
+						<td>내돈내산 오메가3 리뷰입니다.</td>
+		                <td>얼룩말</td>
+		                <td>5</td>
+		                <td>2024-11-22</td>
+	             	</tr>
+					
+	           	</tbody>
+			</table>
+		
 				<div class="row g-5">
 					<div class="col-lg-4"  data-aos="fade-up" data-aos-delay="">
 

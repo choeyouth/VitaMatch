@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+	<title>[[#{menu.review}]]</title>
+	<th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
+</head>
+<style>
+		
+	html, body {
+	    overflow-x: hidden; /* 좌우 스크롤 방지 */
+	}
+	
+	
+	.review-form {
+		display: flex;		
+		position: relative;
+		width: 100%;
+		border-radius: 2px;
+	}
+	
+	.review-form th, .review-form td { 
+	    padding: 15px;
+	    border: 1px solid #CCCCCC;
+	}
+	
+	.review-form th {
+	    width: 200px;  
+	    font-size: 16px;
+	    text-align: center;
+	}
+
+	.review-form td {
+	    width: 1000px; 
+	    font-size: 14px; 
+		padding-left: 20px; 
+	}
+	
+
+	.button {
+		margin-top: 100px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 40px;
+	}
+	
+	.edit-btn, .del-btn {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		width: 110px;
+		height: 40px;
+		font-size: 16px;
+		font-weight: bold;	
+		border-radius: 5px;
+		padding: 5px;
+	}
+	
+	.edit-btn {
+		border: 2px solid #10D0A1; 
+		color:  #10D0A1;
+	}
+	
+	.del-btn {
+		border:  none;
+		background-color: #10D0A1;
+		font-size: 16px;
+		color: white;
+	}
+	
+
+</style>
+<body>
+	<th:block th:insert="~{inc/header.html :: index_header}"></th:block>
+	<div class="section services-section">
+		<div class="container">
+			<div class="row mb-5">
+				<div class="col-lg-5"  data-aos="fade-up" data-aos-delay="">
+					<h3 class="subheading">Supplement Reviews</h3>
+					<h2 class="heading">리뷰 쓰기</h2>
+				</div>		
+			</div>	
+		
+			<div class="review-add">
+				<table class="review-form">
+		            <tr>
+	                	<th>게시글 제목</th>
+	                	<td>
+	                		<input class="title" type="text" 
+	                	</td>
+	                </tr>
+	                <tr>
+		                <th>카테고리</th>
+		                <td></td>
+		            </tr>
+	                <tr>
+		                <th>제품명</th>
+		                <td>2024-11-22</td>
+		            </tr>
+		            <tr>
+	                	<th>제목</th>
+	                	<td>내돈내산 오메가3 리뷰입니다.</td>
+	                </tr>
+	                <tr>
+		                <th>카테고리</th>
+		                <td>오메가3</td>
+		            </tr>
+	                <tr>  
+		                <th>제품명</th>
+		                <td>바디스콥 알티지 오메가3</td>
+		            </tr>
+	                <tr>
+		                <th>후기</th>
+		                <td>내돈내산 오메가3 리뷰입니다. 바디스콥 알티지 오메가, 솔직히 말해서 내 돈 주고 산 제품인데 후회 없네요. 평
+	소 오메가-3 제품을 몇 가지 먹어봤는데, 이건 흡수율이 좋다고 해서 구매했어요. RTG 형태라 위에 부담도 덜하
+	고, 냄새나 맛이 거의 없어 먹기 편합니다. 운동 후에 피로 회복이 확실히 빨라진 느낌이 들어요. 특히 DHA와
+	EPA가 풍부하다고 해서 그런지, 집중력도 좋아지고 기분도 안정되는 느낌? 한 달 정도 꾸준히 먹고 있는데, 몸
+	상태가 확실히 좋아진 게 느껴집니다. 가격은 좀 있지만, 효과를 생각하면 가성비 괜찮은 것 같아요. 운동하는 사
+	람들에겐 추천할 만한 제품입니다!</td>
+		            </tr>
+		            <tr>
+		                <th>사진</th>
+		                <td><img src="/img/review/omega_3.jpg" alt="Review Image" /></td>
+		            </tr>
+	                <tr>
+		                <th>평점</th>
+		                 <td>5</td>
+		            </tr>
+				</table>
+			</div>	
+	
+			<div class="button">
+				<button type="button" class="back" onclick="location.href='/page/reivew';">뒤로가기</button>
+				<button type="submit" class="edit-btn">수정하기</button>
+				<--
+				<a href="#"	class="edit-btn" onclick="">수정하기</a>
+				<a href="#"	class="del-btn" onclick="">삭제하기</a> 
+				-->
+			</div>	
+		</div>	
+	</div>
+	
+		<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
+		<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
+
+</body>
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>	
+
+	</script>
+</html>
