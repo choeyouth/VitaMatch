@@ -11,5 +11,4 @@ public class MapController {
 	public String map(Model model) {
 		return "page/map";
 	}
-	
 }

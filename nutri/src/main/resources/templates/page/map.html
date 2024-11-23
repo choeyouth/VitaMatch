@@ -4,107 +4,9 @@
 <meta charset="UTF-8">
 	<title>[[#{menu.map}]]</title>
 	<th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
+	<link rel="stylesheet" th:href="@{css/map.css}">
 	<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=1669ac115ebaa35601888df2a635eb83&libraries=services"></script>
 </head>
-<style>
-	.map-container {
-		padding: 0 70px;
-	}
-	
-	.map-heading {
-		display: flex;
-		gap: 28px;
-	}
-
-	#map {
-		width: 1390px;
-		height: 872px;
-		border: 1px solid #F3F2F2;
-	}
-
-	.map-box {
-		display: flex;
-		justify-content: space-between;
-		width: 1780px;
-		height: 872px;
-		margin-top: 55px;
-	}
-	
-	.map-search-box {
-		width: 390px;
-		border: 1px solid #F3F2F2;
-	}
-
-	.map-search { 
-	    height: 150px;
-	    background-color: #F7F7F7;  
-	}
-	
-	.sido-gugun {
-		display: flex;
-		gap: 10px;
-	    padding-top: 22px;
-		align-items: center;
-		justify-content: center;
-	}
-	
-	.sido-gugun select {
-		width: 176px;
-		height: 43px; 
-		border-radius: 4px;
-		border: 1px solid #E9ECEF;
-		font-size: 16px;
-		font-family: "untree", "Semantic", "Input";
-		-webkit-appearance: none;  
-		-moz-appearance: none; 
-		appearance: none;  
-		background: url(img/map/selectbox-down.svg) no-repeat 95% 50%;
-		display: inline-block;
-	    padding-left: 10px;
-	    background-color: white;
-	}
-	
-	.address-search {
-		display: flex;
-		justify-content: center;
-		margin-top: 17px;
-	}
-	
-	.address-search input[type=text] {
-		width: 360px;
-		height: 43px;
-		border-radius: 4px;
-		border: 1px solid #E9ECEF;
-	}
-	
-	.search-input {
-	    width: 360px;
-	    height: 43px;
-	    border-radius: 4px;
-	    border: 1px solid #E9ECEF;
-	    padding-right: 40px; /* 아이콘 공간 확보 */
-	    background: url('img/map/search.svg') no-repeat right 10px center; /* 아이콘을 오른쪽에 배치 */
-	    background-color: white;
-	    background-size: 20px 20px; /* 아이콘 크기 조정 */
-	    font-size: 16px;
-	    padding-left: 10px;
-	}
-	
-	.search-input:focus {
-	    outline: none;
-	}
-	
-	/*   <ul id="placesList"></ul> <div id="pagination"></div> */
-	
-	#placesList {
-		max-height: 724px;
-	}
-	
-	#placesList li {
-		height: 177px;
-	}
-
-</style>
 <body>
 	<th:block th:insert="~{inc/header.html :: index_header}"></th:block>
 	<div class="map-container">
@@ -131,15 +33,60 @@
 										</form>
 									</div>
 								</div>
-						        <ul id="placesList"></ul>
-						        <div id="pagination"></div>
-					        </div>
+								<div class="scroll-container">
+					                <ul id="placesList"></ul>
+					                <div id="pagination"></div> <!-- 페이징 바 -->
+					            </div>
+				            </div>
 						</div>
 					</div>
-					<div id="map"></div> 
+					<div id="map">
+						<div class="detail-popup">
+							<div class="map-detail-title">
+								<h2>약국 상세</h2>
+								<button class="close-popup"></button>
+							</div>
+							<hr>
+							<div class="pharmacy-detail-info">
+								<h2>굿 약국</h2>	
+								<div class="map-info">
+									<div class="pharmacy-time"><span>⦁&nbsp;&nbsp;&nbsp;</span><span>영업중&nbsp;&nbsp;&nbsp;</span>(09:30 ~ 21:30)</div>		
+									<div>서울 서초구 서초대로77길 24 강남지웰타워2 1층 103호</div>
+									<div><span>전화번호 </span>02-535-0022</div>				
+								</div>
+								<div class="week-time">
+									<table>
+										<h3>평일 운영시간</h3>
+										<tr>
+											<th>평일</th>
+											<td>09:30 ~ 21:30</td>								
+										</tr>
+									</table>
+									<table>
+										<h3>토요일 운영시간</h3>
+										<tr>
+											<th>매주</th>
+											<td>09:30 ~ 21:30</td>								
+										</tr>
+									</table>
+									<table>
+										<h3>일요일 운영시간</h3>
+										<tr>
+											<th>일요일</th>
+											<td>09:30 ~ 21:30</td>								
+										</tr>
+									</table>
+									<h3>공휴일 운영시간</h3>
+									<div>정기휴무</div>
+									<h3>비고</h3>
+									<div>매달 1, 3번째 일요일 휴무</div>
+								</div>
+							</div>
+				        </div>
+					</div> 
 				</div>
 			</div>		
-		</div>		
+		</div>		 
 	</div>
 	<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
 	<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
@@ -157,6 +104,20 @@
         var map = new kakao.maps.Map(container, options);
 		*/
 		
+		document.querySelectorAll('#placesList li').forEach((item, index) => {
+		    item.addEventListener('click', () => {
+		        const popup = document.querySelector('.detail-popup');
+		        popup.style.display = 'block'; // 팝업 표시
+		        // 상세 정보 업데이트 (예: 데이터에 따라 변경)
+		        popup.querySelector('p').textContent = `상세 정보 ${index + 1}`;
+		    });
+		});
+
+		document.querySelector('.close-popup').addEventListener('click', () => {
+		    const popup = document.querySelector('.detail-popup');
+		    popup.style.display = 'none'; // 팝업 닫기
+		});
+
 		
 		$('document').ready(function() {
 			var area0 = ["시/도 선택","서울특별시","인천광역시","대전광역시","광주광역시","대구광역시","울산광역시","부산광역시","경기도","강원도","충청북도","충청남도","전라북도","전라남도","경상북도","경상남도","제주도"];
@@ -235,77 +196,74 @@
 			// 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
 			ps.keywordSearch( keyword, placesSearchCB); 
 		}
-
-		// 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
+ 
 		function placesSearchCB(data, status, pagination) {
 			if (status === kakao.maps.services.Status.OK) {
-
-				// 정상적으로 검색이 완료됐으면
-				// 검색 목록과 마커를 표출합니다
-				displayPlaces(data);
-
-				// 페이지 번호를 표출합니다
-				displayPagination(pagination);
-
+				var totalPages = Math.ceil(data.length / 8); // 총 페이지 수 계산
+				displayPlaces(data.slice(0, 8)); // 첫 페이지 데이터만 표시
+				displayPagination(totalPages, 1, data); // 첫 페이지로 페이징 설정
 			} else if (status === kakao.maps.services.Status.ZERO_RESULT) {
-
 				alert('검색 결과가 존재하지 않습니다.');
-				return;
-
 			} else if (status === kakao.maps.services.Status.ERROR) {
-
 				alert('검색 결과 중 오류가 발생했습니다.');
-				return;
-
 			}
 		}
-
+ 
 		// 검색 결과 목록과 마커를 표출하는 함수입니다
 		function displayPlaces(places) {
+			var listEl = document.getElementById('placesList'),
+				menuEl = document.getElementById('menu_wrap'),
+				fragment = document.createDocumentFragment(),
+				bounds = new kakao.maps.LatLngBounds(),
+				listStr = '';
 
-			var listEl = document.getElementById('placesList'), 
-			menuEl = document.getElementById('menu_wrap'),
-			fragment = document.createDocumentFragment(), 
-			bounds = new kakao.maps.LatLngBounds(), 
-			listStr = '';
-			
 			// 검색 결과 목록에 추가된 항목들을 제거합니다
 			removeAllChildNods(listEl);
 
 			// 지도에 표시되고 있는 마커를 제거합니다
 			removeMarker();
-			
-			for ( var i=0; i<places.length; i++ ) {
 
+			// 현재 페이지와 페이지당 표시할 개수 설정
+			var currentPage = 1;
+			var itemsPerPage = 8;
+			var totalPages = Math.ceil(places.length / itemsPerPage);
+
+			// 현재 페이지의 시작 인덱스와 종료 인덱스 계산
+			var startIdx = (currentPage - 1) * itemsPerPage;
+			var endIdx = startIdx + itemsPerPage;
+
+			// 페이지 데이터 가져오기
+			var currentPlaces = places.slice(startIdx, endIdx);
+
+			for (var i = 0; i < currentPlaces.length; i++) {
 				// 마커를 생성하고 지도에 표시합니다
-				var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
-					marker = addMarker(placePosition, i), 
-					itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성합니다
+				var placePosition = new kakao.maps.LatLng(currentPlaces[i].y, currentPlaces[i].x),
+					marker = addMarker(placePosition, i),
+					itemEl = getListItem(i, currentPlaces[i]); // 검색 결과 항목 Element를 생성합니다
 
-				// 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+				// 검색된 장소 위치를 기준으로 지도 범위를 재설정하기 위해
 				// LatLngBounds 객체에 좌표를 추가합니다
 				bounds.extend(placePosition);
 
-				// 마커와 검색결과 항목에 mouseover 했을때
+				// 마커와 검색결과 항목에 mouseover 했을 때
 				// 해당 장소에 인포윈도우에 장소명을 표시합니다
-				// mouseout 했을 때는 인포윈도우를 닫습니다
-				(function(marker, title) {
-					kakao.maps.event.addListener(marker, 'mouseover', function() {
+				(function (marker, title) {
+					kakao.maps.event.addListener(marker, 'mouseover', function () {
 						displayInfowindow(marker, title);
 					});
 
-					kakao.maps.event.addListener(marker, 'mouseout', function() {
+					kakao.maps.event.addListener(marker, 'mouseout', function () {
 						infowindow.close();
 					});
 
-					itemEl.onmouseover =  function () {
+					itemEl.onmouseover = function () {
 						displayInfowindow(marker, title);
 					};
 
-					itemEl.onmouseout =  function () {
+					itemEl.onmouseout = function () {
 						infowindow.close();
 					};
-				})(marker, places[i].place_name);
+				})(marker, currentPlaces[i].place_name);
 
 				fragment.appendChild(itemEl);
 			}
@@ -316,6 +274,9 @@
 
 			// 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
 			map.setBounds(bounds);
+
+			// 페이지 번호를 생성합니다
+			displayPagination(totalPages, currentPage, places);
 		}
 
 		// 검색결과 항목을 Element로 반환하는 함수입니다
@@ -369,41 +330,39 @@
 				markers[i].setMap(null);
 			}   
 			markers = [];
+		} 
+
+		function displayPagination(totalPages, currentPage, places) {
+		    var paginationEl = document.getElementById('pagination'),
+		        fragment = document.createDocumentFragment();
+
+		    while (paginationEl.hasChildNodes()) {
+		        paginationEl.removeChild(paginationEl.lastChild);
+		    }
+
+		    for (var i = 1; i <= totalPages; i++) {
+		        var el = document.createElement('a');
+		        el.href = "#";
+		        el.innerHTML = i;
+
+		        if (i === currentPage) {
+		            el.className = 'on'; // 현재 페이지 강조
+		        }
+
+		        el.onclick = (function (i) {
+		            return function (event) {
+		                event.preventDefault(); // 기본 동작 방지 (새로고침 막기)
+		                updatePage(i, places, totalPages); // 페이지 업데이트
+		            };
+		        })(i);
+
+		        fragment.appendChild(el);
+		    }
+
+		    paginationEl.appendChild(fragment);
 		}
 
-		// 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
-		function displayPagination(pagination) {
-			var paginationEl = document.getElementById('pagination'),
-				fragment = document.createDocumentFragment(),
-				i; 
 
-			// 기존에 추가된 페이지번호를 삭제합니다
-			while (paginationEl.hasChildNodes()) {
-				paginationEl.removeChild (paginationEl.lastChild);
-			}
-
-			// 페이지 번호 생성
-			for (i=1; i<=pagination.last; i++) {
-				var el = document.createElement('a');
-				el.href = "#";
-				el.innerHTML = i;
-
-				// 현재 페이지는 강조 표시
-				if (i===pagination.current) {
-					el.className = 'on';
-				} else {
-					el.onclick = (function(i) {
-						return function() {
-							console.log('go to Page!!!!!!!!!!!!!!!!!!!! ' + i);
-							pagination.gotoPage(i); // 해당 페이지로 이동
-						}
-					})(i);
-				}
-
-				fragment.appendChild(el);
-			}
-			paginationEl.appendChild(fragment);
-		}
 
 		// 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
 		// 인포윈도우에 장소명을 표시합니다
@@ -420,5 +379,82 @@
 				el.removeChild (el.lastChild);
 			}
 		}
+
+		// 페이지를 업데이트하는 함수
+		function updatePage(page, places, totalPages) {
+		    var listEl = document.getElementById('placesList'),
+		        fragment = document.createDocumentFragment(),
+		        bounds = new kakao.maps.LatLngBounds();
+
+		    // 페이지당 표시할 개수 설정
+		    var itemsPerPage = 8;
+		    var startIdx = (page - 1) * itemsPerPage;
+		    var endIdx = startIdx + itemsPerPage;
+
+		    // 현재 페이지 데이터 가져오기
+		    var currentPlaces = places.slice(startIdx, endIdx);
+
+		    // 기존 목록 제거
+		    removeAllChildNods(listEl);
+
+		    // 마커 제거
+		    removeMarker();
+
+		    for (var i = 0; i < currentPlaces.length; i++) {
+		        var placePosition = new kakao.maps.LatLng(currentPlaces[i].y, currentPlaces[i].x),
+		            marker = addMarker(placePosition, i),
+		            itemEl = getListItem(i, currentPlaces[i]);
+
+		        bounds.extend(placePosition);
+
+		        (function (marker, title) {
+		            kakao.maps.event.addListener(marker, 'mouseover', function () {
+		                displayInfowindow(marker, title);
+		            });
+
+		            kakao.maps.event.addListener(marker, 'mouseout', function () {
+		                infowindow.close();
+		            });
+
+		            itemEl.onmouseover = function () {
+		                displayInfowindow(marker, title);
+		            };
+
+		            itemEl.onmouseout = function () {
+		                infowindow.close();
+		            };
+		        })(marker, currentPlaces[i].place_name);
+
+		        fragment.appendChild(itemEl);
+		    }
+
+		    listEl.appendChild(fragment);
+		    map.setBounds(bounds);
+
+		    // 검색 목록의 스크롤 위치를 최상단으로 초기화
+		    listEl.scrollTop = 0;
+
+		    // 스크롤이 맨 밑에 도달하지 않은 상태로 초기화
+		    document.getElementById('pagination').style.display = 'none';
+
+		    // 페이지 번호 갱신
+		    displayPagination(totalPages, page, places);
+		}
+
+		
+		document.getElementById('placesList').addEventListener('scroll', function () {
+		    var listEl = this; // 현재 스크롤 이벤트가 발생한 엘리먼트
+		    var paginationEl = document.getElementById('pagination');
+
+		    // 스크롤이 맨 밑에 도달했는지 확인
+		    if (listEl.scrollTop + listEl.clientHeight >= listEl.scrollHeight) {
+		        paginationEl.style.display = 'flex'; // 페이징 바 보이기
+		    } else {
+		        paginationEl.style.display = 'none'; // 페이징 바 숨기기
+		    }
+		});
+
+
+
 	</script>
 </html>
