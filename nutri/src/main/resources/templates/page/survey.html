@@ -2,149 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-	<title>[[#{menu.survey}]]</title>
+	<title>[[#{menu.recommend}]]</title>
 	<th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
-	<style>
-		
-		.survey-container {
-			font-family: "KoHo", sans-serif;
-			font-weight: bold;
-			
-		}
-		
-		.survey-container .heading {
-			width: 700px;
-		}
-		.attention-content {
-			font-family: "KoHo", sans-serif;
-			font-weight: bold;
-			font-size: 18px;
-			padding-bottom: 15px;
-			border-bottom: 1px solid var(--bs-gray);
-		}
-		
-		.survey-ingredient {
-			margin: 0 80px;
-		}
-
-		
-		/* 설문 항목 버튼 -------------------------------- */
- 		.survey-sub-title {
-			font-size: 17px;
-			margin: 30px 0 20px 0 ;
-		}
-		
-		.survey-sub-title span {
-			padding-left: 15px;
-			font-size: 14px;
-			color: var(--bs-red);
-		}
-		
-		.survey-gender, .survey-age, .survey-checkup, .survey-organ, .survey-life {
-			display: flex;
-			justify-content: flex-start;
-			align-items: center;
-			flex-direction: row;
-			flex-wrap: wrap;
-		}
-		
-		.survey-radio-btn, .survey-ceckbox-btn {
-			margin-bottom: 40px;	
-			display: inline-block;	
-		}
-		
-		.survey-radio-btn label, .survey-ceckbox-btn label{
-			width: 245px;
-			height: 65px;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			border: 1px solid var(--bs-gray);
-			border-radius: 10px;
-			margin-right: 40px;
-			font-size: 20px;
-			text-align: center;
-			color: var(--bs-gray-dark);
-		}	
-		
-		.survey-radio-btn:nth-child(4n), .survey-ceckbox-btn:nth-child(4n) {
-			margin-right: -20px;
-		}
-		
-		
-		.survey-radio-btn input[type=radio], .survey-ceckbox-btn input[type=checkbox] {
-			display: none;
-		}
-		
-		.survey-radio-btn input[type=radio]:checked + label, .survey-ceckbox-btn input[type=checkbox]:checked  + label {
-			background: var(--bs-primary);
-			color: var(--bs-white);
-			border: none;
-		}
-		
-		.survey-radio-btn label:hover, .survey-ceckbox-btn label:hover {
-			color: var(--bs-white);
-			background: var(--bs-primary);
-			border: none;
-		}
-		
-		
-		.survey-btn {
-			display: flex;
-			justify-content: flex-end;
-			align-items: center;
-			margin: 50px 35px 0 0;
-		}
-		
-		/* 설문 항목 초기화 버튼 ---------------- */
-		.clean-btn {
-			width: 245px;
-			height: 65px;
-			background-color: #c4c4c4;
-			border: none;
-			border-radius: 10px;
-			font-family: "KoHo", sans-serif;
-			font-weight: bold;
-			font-size: 18px;
-			color: var(--bs-gray);
-			text-align: center;
-			margin-right: 40px;
-		}
-		
-		.clean-btn .clean-icon {
-			padding: 0 5px 5px 0;
-		}
-		
-		/* 영양제 추천 받기 버튼 ---------------- */
-		.recommend-btn {
-			width: 245px;
-			height: 65px;
-			background-color: var(--bs-white);
-			border: 1px solid var(--bs-primary);
-			border-radius: 10px;
-			font-family: "KoHo", sans-serif;
-			font-weight: bold;
-			font-size: 18px;
-			color: var(--bs-primary);
-			text-align: center;
-		}
-		
-		.recommend-btn .recommend-icon {
-			padding: 0 5px 5px 0;
-		}
-		
-		.clean-btn:active, .clean-btn:focus, .recommend-btn:active, .recommend-btn:focus {
-			outline: none;
-			box-shadow: none;
-		}
-
-		
-		
-		
-	</style>
+	<link rel="stylesheet" th:href="@{css/recommend.css}">
 </head>
 <body style="-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none">
-	<th:block th:insert="~{inc/header.html :: index_header}"></th:block>
+	<th:block th:insert="~{inc/header.html :: index_header_menu}"></th:block>
+	<th:block th:insert="~{inc/header.html :: index_header_content_basic(#{menu.recommend},#{menu.recommend.desc})}"></th:block>
 	
 	
 	<div class="survey-container">
@@ -152,7 +16,7 @@
 			<div class="container">
 				<div class="row mb-5">
 					<div class="col-lg-5 aos-init aos-animate" data-aos="fade-up" data-aos-delay="">
-						<h3 class="subheading">CUSTOM INGREDIENT</h3>
+						<h3 class="subheading">RECOMMEND INGREDIENT</h3>
 						<h2 class="heading">건강 상태에 맞는 맞춤 영양제 성분</h2>
 					</div>		
 				</div>
@@ -290,8 +154,8 @@
 							</div>
 						</div>
 						<div class="survey-btn">
-							<button type="button" class="clean-btn"><img src="img/survey/cleanIcon.svg" class="clean-icon">설문 항목 초기화</button>
-							<button type="button" class="recommend-btn"><img src="img/survey/recommendIcon.svg" class="recommend-icon">영양제 추천 받기</button>
+							<button type="button" class="clean-btn"><img src="img/recommend/cleanIcon.svg" class="clean-icon">설문 항목 초기화</button>
+							<button type="button" class="recommend-btn" onclick="location.href='/recommend'"><img src="img/recommend/recommendIcon.svg" class="recommend-icon">영양제 추천 받기</button>
 						</div>
 					</div>
 			</div> <!-- container -->

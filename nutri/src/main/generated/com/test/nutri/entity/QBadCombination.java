@@ -13,7 +13,7 @@ import com.querydsl.core.types.Path;
  * QBadCombination is a Querydsl query type for BadCombination
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QBadCombination extends EntityPathBase<BadCombination> {
+public class QBadCombination extends EntityPathBase<VwBadCombination> {
 
     private static final long serialVersionUID = 487766684L;
 
@@ -30,15 +30,15 @@ public class QBadCombination extends EntityPathBase<BadCombination> {
     public final NumberPath<Long> seq = createNumber("seq", Long.class);
 
     public QBadCombination(String variable) {
-        super(BadCombination.class, forVariable(variable));
+        super(VwBadCombination.class, forVariable(variable));
     }
 
-    public QBadCombination(Path<? extends BadCombination> path) {
+    public QBadCombination(Path<? extends VwBadCombination> path) {
         super(path.getType(), path.getMetadata());
     }
 
     public QBadCombination(PathMetadata metadata) {
-        super(BadCombination.class, metadata);
+        super(VwBadCombination.class, metadata);
     }
 
 }

@@ -13,13 +13,16 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GoodCombinationDTO {
+public class VwGoodCombinationDTO {
 
 	private Long seq;
-	private String good;
-	private String reason;
-	private String link;
-	private String ingredient_seq;
+    private String ingredient_seq;
+    private String good;
+    private String reason;
+    private String link;
+    private String ingredientName;
+	private String name;
 	
+
 	
 }
