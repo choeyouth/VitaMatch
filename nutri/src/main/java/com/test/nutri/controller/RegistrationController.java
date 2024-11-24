@@ -14,11 +14,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequiredArgsConstructor
 public class RegistrationController {
 
-	private final NutriService nutriService;
-	
 	@GetMapping("/signup")
 	public String signup(Model model) {
 		return "page/signup";
