@@ -38,13 +38,13 @@ CREATE TABLE `member` (
 CREATE TABLE `review` (
 	`seq`	INT	AUTO_INCREMENT PRIMARY KEY,
 	`member_seq`	INT	NOT NULL,
-	`productInfo_seq`	INT	NOT NULL,
 	`title`	VARCHAR(300)	NOT NULL,
+    `category`	VARCHAR(100)	NOT NULL,
+    `name`	VARCHAR(300)	NOT NULL,
 	`content`	VARCHAR(1000)	NOT NULL,
 	`regDate`	TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP,
-	`rating`	INT	NULL,
-    FOREIGN KEY (member_seq) REFERENCES member(seq),
-    FOREIGN KEY (productInfo_seq) REFERENCES productInfo(seq)   
+	`score`	INT	NULL,
+    FOREIGN KEY (member_seq) REFERENCES member(seq)  
 );
 
 CREATE TABLE `reviewComment` (

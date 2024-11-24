@@ -20,7 +20,7 @@ public class AuthController {
 	private final NutriService nutriService;
 	
 	@GetMapping("/login")
-	public String main(Model model) {
+	public String login(Model model) {
 		return "page/login";
 	}
 	
