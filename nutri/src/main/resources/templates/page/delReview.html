@@ -73,13 +73,14 @@
 
 </style>
 <body>
-	<th:block th:insert="~{inc/header.html :: index_header}"></th:block>
+	<th:block th:insert="~{inc/header.html :: index_header_menu}"></th:block>
+	<th:block th:insert="~{inc/header.html :: index_header_content_basic(#{menu.review},#{menu.review.desc})}"></th:block>
 	<div class="section services-section">
 		<div class="container">
 			<div class="row mb-5">
 				<div class="col-lg-5"  data-aos="fade-up" data-aos-delay="">
-					<h3 class="subheading">Supplement Reviews</h3>
-					<h2 class="heading">리뷰 쓰기</h2>
+					<h3 class="subheading">리뷰 삭제하기</h3>
+					<h2 class="heading">Delete Supplement Review</h2>
 				</div>		
 			</div>	
 		
