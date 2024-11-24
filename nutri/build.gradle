@@ -44,20 +44,12 @@ dependencies {
     annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
     annotationProcessor "jakarta.annotation:jakarta.annotation-api"
     annotationProcessor "jakarta.persistence:jakarta.persistence-api"
-	
-	// gpt가 추가해보라고 함
-	annotationProcessor 'com.querydsl:querydsl-apt:5.0.0:jpa' 
+
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
 
-sourceSets {
-    main {
-        java {
-            srcDir 'src/main/java/generated'  // generated 폴더 위치 지정
-        }
-    }
-}
+
 
