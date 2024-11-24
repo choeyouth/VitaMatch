@@ -18,80 +18,132 @@
 		.attention-content {
 			font-family: "KoHo", sans-serif;
 			font-weight: bold;
-			font-size: 20px;
+			font-size: 18px;
 			padding-bottom: 15px;
 			border-bottom: 1px solid var(--bs-gray);
+		}
+		
+		.survey-ingredient {
+			margin: 0 80px;
 		}
 
 		
 		/* 설문 항목 버튼 -------------------------------- */
  		.survey-sub-title {
-			font-size: 15px;
-			margin: 20px 0 ;
+			font-size: 17px;
+			margin: 30px 0 20px 0 ;
 		}
 		
 		.survey-sub-title span {
 			padding-left: 15px;
-			font-size: 12px;
+			font-size: 14px;
 			color: var(--bs-red);
 		}
 		
-		.survey-radio-btn {
-			display: inline-block;	
-			margin-bottom: 30px;		
+		.survey-gender, .survey-age, .survey-checkup, .survey-organ, .survey-life {
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+			flex-direction: row;
+			flex-wrap: wrap;
 		}
 		
-		.survey-radio-btn label{
-			width: 190px;
-			height: 50px;
+		.survey-radio-btn, .survey-ceckbox-btn {
+			margin-bottom: 40px;	
+			display: inline-block;	
+		}
+		
+		.survey-radio-btn label, .survey-ceckbox-btn label{
+			width: 245px;
+			height: 65px;
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			border: 1px solid var(--bs-gray);
 			border-radius: 10px;
-			margin-right: 20px;
+			margin-right: 40px;
 			font-size: 20px;
+			text-align: center;
 			color: var(--bs-gray-dark);
+		}	
+		
+		.survey-radio-btn:nth-child(4n), .survey-ceckbox-btn:nth-child(4n) {
+			margin-right: -20px;
 		}
 		
-		.survey-radio-btn:nth-child(6n) {
-			width: 190px;
-			margin-right: 0px;
-		}
 		
-		.survey-radio-btn input[type=radio] {
+		.survey-radio-btn input[type=radio], .survey-ceckbox-btn input[type=checkbox] {
 			display: none;
 		}
 		
-		.survey-radio-btn input[type=radio]:checked + label {
+		.survey-radio-btn input[type=radio]:checked + label, .survey-ceckbox-btn input[type=checkbox]:checked  + label {
 			background: var(--bs-primary);
 			color: var(--bs-white);
 			border: none;
 		}
 		
-		.survey-radio-btn label:hover {
+		.survey-radio-btn label:hover, .survey-ceckbox-btn label:hover {
 			color: var(--bs-white);
 			background: var(--bs-primary);
 			border: none;
 		}
-
-		.survey-ceckbox-btn label {
-			width: 190px;
-			height: 50px;
+		
+		
+		.survey-btn {
 			display: flex;
-			justify-content: center;
+			justify-content: flex-end;
 			align-items: center;
-			border: 1px solid var(--bs-gray);
-			border-radius: 10px;
-			margin-right: 20px;
-			font-size: 20px;
-			color: var(--bs-gray-dark);
+			margin: 50px 35px 0 0;
 		}
+		
+		/* 설문 항목 초기화 버튼 ---------------- */
+		.clean-btn {
+			width: 245px;
+			height: 65px;
+			background-color: #c4c4c4;
+			border: none;
+			border-radius: 10px;
+			font-family: "KoHo", sans-serif;
+			font-weight: bold;
+			font-size: 18px;
+			color: var(--bs-gray);
+			text-align: center;
+			margin-right: 40px;
+		}
+		
+		.clean-btn .clean-icon {
+			padding: 0 5px 5px 0;
+		}
+		
+		/* 영양제 추천 받기 버튼 ---------------- */
+		.recommend-btn {
+			width: 245px;
+			height: 65px;
+			background-color: var(--bs-white);
+			border: 1px solid var(--bs-primary);
+			border-radius: 10px;
+			font-family: "KoHo", sans-serif;
+			font-weight: bold;
+			font-size: 18px;
+			color: var(--bs-primary);
+			text-align: center;
+		}
+		
+		.recommend-btn .recommend-icon {
+			padding: 0 5px 5px 0;
+		}
+		
+		.clean-btn:active, .clean-btn:focus, .recommend-btn:active, .recommend-btn:focus {
+			outline: none;
+			box-shadow: none;
+		}
+
+		
 		
 		
 	</style>
 </head>
-<body>
+<body style="-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none">
 	<th:block th:insert="~{inc/header.html :: index_header}"></th:block>
 	
 	
@@ -126,7 +178,7 @@
 							</div>
 							<div class="survey-radio-btn">
 								<input id="age2" type="radio" name="age" value="2">
-								<label for="gender-age2">20대</label>
+								<label for="age2">20대</label>
 							</div>
 							<div class="survey-radio-btn">
 								<input id="age3" type="radio" name="age" value="3">
@@ -147,19 +199,100 @@
 						</div>
 						
 						<label for="checkup" class="survey-sub-title">건강검진 관련</label>
-						<div class="survey-ceckbox-btn">
-						    <input type="checkbox" id="checkup1" name="checkup">
-						    <label for="checkup1" class="checkbox-label">간 건강</label>
+							<div class="survey-checkup">
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="checkup1" name="checkup">
+							    <label for="checkup1" class="checkbox-label">간 건강</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="checkup2" name="checkup">
+							    <label for="checkup2" class="checkbox-label">활력 / 피로</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="checkup3" name="checkup">
+							    <label for="checkup3" class="checkbox-label">체지방 관리</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="checkup4" name="checkup">
+							    <label for="checkup4" class="checkbox-label">콜레스테롤</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="checkup5" name="checkup">
+							    <label for="checkup5" class="checkbox-label">혈당 관리</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="checkup6" name="checkup">
+							    <label for="checkup6" class="checkbox-label">혈압 관리</label>
+							</div>
 						</div>
-						<div class="survey-ceckbox-btn">
-						    <input type="checkbox" id="checkup2" name="checkup">
-						    <label for="checkup2" class="checkbox-label">활력 / 피로</label>
+						
+						<label for="organ" class="survey-sub-title">주요 장기 관련</label>
+						<div class="survey-organ">
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="organ1" name="checkup">
+							    <label for="organ1" class="checkbox-label">뇌 건강</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="organ2" name="checkup">
+							    <label for="organ2" class="checkbox-label">눈 건강</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="organ3" name="checkup">
+							    <label for="organ3" class="checkbox-label">뼈 건강</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="organ4" name="checkup">
+							    <label for="organ4" class="checkbox-label">위 건강</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="organ5" name="checkup">
+							    <label for="organ5" class="checkbox-label">장 건강</label>
+							</div>
 						</div>
-						<div class="survey-ceckbox-btn">
-						    <input type="checkbox" id="checkup3" name="checkup">
-						    <label for="checkup3" class="checkbox-label">체지방 관리</label>
+						
+						<label for="life" class="survey-sub-title">일상생활 관련</label>
+						<div class="survey-life">
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="life1" name="checkup">
+							    <label for="life1" class="checkbox-label">관절 / 근육</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="life2" name="checkup">
+							    <label for="life2" class="checkbox-label">면역력</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="life3" name="checkup">
+							    <label for="life3" class="checkbox-label">모발 / 손톱</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="life4" name="checkup">
+							    <label for="life4" class="checkbox-label">수면</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="life5" name="checkup">
+							    <label for="life5" class="checkbox-label">스트레스</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="life6" name="checkup">
+							    <label for="life6" class="checkbox-label">항노화 / 항산화</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="life7" name="checkup">
+							    <label for="life7" class="checkbox-label">피부</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="life8" name="checkup">
+							    <label for="life8" class="checkbox-label">남성 건강</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="life9" name="checkup">
+							    <label for="life9" class="checkbox-label">여성 건강</label>
+							</div>
 						</div>
-
+						<div class="survey-btn">
+							<button type="button" class="clean-btn"><img src="img/survey/cleanIcon.svg" class="clean-icon">설문 항목 초기화</button>
+							<button type="button" class="recommend-btn"><img src="img/survey/recommendIcon.svg" class="recommend-icon">영양제 추천 받기</button>
+						</div>
 					</div>
 			</div> <!-- container -->
 		</div>

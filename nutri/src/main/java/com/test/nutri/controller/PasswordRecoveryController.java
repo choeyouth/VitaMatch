@@ -15,25 +15,13 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-public class AuthController {
+public class PasswordRecoveryController {
 
 	private final NutriService nutriService;
 	
-	@GetMapping("/login")
-	public String main(Model model) {
-		return "page/login";
-	}
-	
-	@GetMapping("/logout")
-	public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception  {
-		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		
-		if (authentication != null) {
-			new SecurityContextLogoutHandler().logout(request, response, authentication); //로그아웃
-		}
-		
-		return "redirect:/";
+	@GetMapping("/findpassword")
+	public String findpassword(Model model) {
+		return "page/findpassword";
 	}
 	
 }

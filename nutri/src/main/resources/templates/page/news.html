@@ -7,7 +7,8 @@
 	<link rel="stylesheet" th:href="@{css/news.css}">
 </head>
 <body>
-	<th:block th:insert="~{inc/header.html :: index_header}"></th:block>
+	<th:block th:insert="~{inc/header.html :: index_header_menu}"></th:block>
+	<th:block th:insert="~{inc/header.html :: index_header_content_basic(#{menu.news},#{menu.news.desc})}"></th:block>
 	<div class="news-container">
 		<!-- popular news -->
 		<div class="section">
