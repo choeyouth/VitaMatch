@@ -45,7 +45,7 @@
 		gap: 40px;
 	}
 	
-	.edit-btn, .del-btn {
+	.back-btn, .edit-btn {
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -58,12 +58,13 @@
 		padding: 5px;
 	}
 	
-	.edit-btn {
-		border: 2px solid #10D0A1; 
+	.back-btn {
+		border: 2px solid #10D0A1;
+		background-color: white; 
 		color:  #10D0A1;
 	}
 	
-	.del-btn {
+	.edit-btn {
 		border:  none;
 		background-color: #10D0A1;
 		font-size: 16px;
@@ -79,7 +80,7 @@
 			<div class="row mb-5">
 				<div class="col-lg-5"  data-aos="fade-up" data-aos-delay="">
 					<h3 class="subheading">Supplement Reviews</h3>
-					<h2 class="heading">리뷰 쓰기</h2>
+					<h2 class="heading">리뷰 수정하기</h2>
 				</div>		
 			</div>	
 		
@@ -88,7 +89,7 @@
 		            <tr>
 	                	<th>게시글 제목</th>
 	                	<td>
-	                		<input class="title" type="text" 
+	                		
 	                	</td>
 	                </tr>
 	                <tr>
@@ -132,9 +133,9 @@
 			</div>	
 	
 			<div class="button">
-				<button type="button" class="back" onclick="location.href='/page/reivew';">뒤로가기</button>
+				<button type="button" class="back-btn" onclick="location.href='/page/reivew';">뒤로가기</button>
 				<button type="submit" class="edit-btn">수정하기</button>
-				<--
+				<!--
 				<a href="#"	class="edit-btn" onclick="">수정하기</a>
 				<a href="#"	class="del-btn" onclick="">삭제하기</a> 
 				-->

@@ -38,7 +38,7 @@
 		margin-bottom: 20px;
 	}
 	
-	#title, #category, #name, #content {
+	#title, #category, #name, #content, #image {
 		border: 1px solid #CCCCCC;
 		border-radius: 5px;	
 	}
@@ -49,19 +49,37 @@
 	}
 	
 	#category {
-		width: 350px;
+		width: 250px;
 		height: 35px;
+		text-align: center;
 	}
 	
 	#content {
 		width:700px;
 	}
+	
+	#image {
+		width: 500px;
+		height: 35px;
+	}
+	
+	.img-btn {
+		border:  none;
+		background-color: #10D0A1;
+		color: white;
+		font-weight: bold;	
+		width: 110px;
+		height: 35px;
+		text-align: center;
+		border-radius: 5px;
+		padding: 5px;
+	}
 
 	.button {
-		margin-top: 100px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		margin-top: 100px;
 		gap: 40px;
 	}
 		
@@ -87,8 +105,8 @@
 	.add-btn {
 		border:  none;
 		background-color: #10D0A1;
-		font-size: 16px;
 		color: white;
+		font-size: 16px;
 	}
 	
 
@@ -107,9 +125,7 @@
 				<table class="review-form">
 		            <tr>
 	                	<th>게시글 제목</th>
-	                	<td>
-	                		<input type="text" name="title" id="title" required>
-	                	</td>
+	                	<td><input type="text" name="title" id="title" required></td>
 	                </tr>
 	                <tr>
 		                <th>카테고리</th>
@@ -120,27 +136,46 @@
 					            <option value="protein">단백질</option>
 					        </select>
 		                </td>
+						<!--
+						<td>
+							<select name="category" id="category">
+								<c:forEach items="${clist}" var="cdto">
+								<option value="${cdto.seq}" 
+									data-img="${cdto.img}">${cdto.name}</option>
+								</c:forEach>
+							</select>
+						</td>
+						-->
 		            </tr>
 	                <tr>
 		                <th>제품명</th>
-		                <td>
-		               		<input type="text" name="name" id="name" required>
-		               	</td>
+		                <td><input type="text" name="name" id="name" required></td>
 		            </tr>
 		            <tr>
 		                <th>사진</th>
 		                <td>
+							<input type="text" name="image" id="image">
+		                	<button type="button" class="img-btn">첨부하기</button>
 		                </td>
-						<div>
-		                	<input type="button" class="img-btn">첨부하기</tdbutton>
-						</div>
 		            </tr>    
 		            <tr>
 	                	<th>후기</th>
-	                	<td>
-	                		<textarea name="content" id="content" rows="10" required></textarea>
-	                	</td>
+	                	<td><textarea name="content" id="content" rows="10" required></textarea></td>
 	                </tr>
+		            <tr>
+						<!-- 여기 수정하기 -->
+	                	<th>별점</th>
+						<td>
+							<select class="star-rating" name="star" id="star">
+							    <option value="5">Excellent</option>
+							    <option value="4">Very Good</option>
+							    <option value="3" selected>Average</option>
+							    <option value="2">Poor</option>
+							    <option value="1">Terrible</option>
+							</select>
+						</td>
+	                </tr>
+					
 				</table>
 			</div>	
 					
