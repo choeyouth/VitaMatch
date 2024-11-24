@@ -22,7 +22,6 @@ public class NewsController {
 	@GetMapping("/news")
 	public String news(Model model, @RequestParam(defaultValue = "1", name = "page") Integer page) {
 		List<NewsDTO> list = newsService.getNewsList(page);
-		System.out.println(list);
 		
 		model.addAttribute("list", list);
 		
