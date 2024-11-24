@@ -100,7 +100,10 @@
 </head>
 
 <body>
-	<th:block th:insert="~{inc/header.html :: index_header}"></th:block>
+	<th:block th:insert="~{inc/header.html :: index_header_menu}"></th:block>
+	<th:block th:insert="~{inc/header.html :: index_header_content_basic(#{menu.combination},#{menu.combination.desc})}"></th:block>
+	<div th:utext="${good}"></div>
+	
 	<div id="combination-container">
 		<div class="section">
 			<div class="container">
