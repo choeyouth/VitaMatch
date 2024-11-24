@@ -16,7 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.test.nutri.model.NewsDTO;
+import com.test.nutri.model.NewsListDTO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -29,17 +33,18 @@ public class NewsAPI {
 
 	@Value("${api-key.news.client-secret}")
 	String clientSecret;
+	
+	private final ObjectMapper objectMapper;
 
-//	public List<NewsDTO> getNewsList() {
-	public void getNewsList() {
+	public NewsListDTO getNewsList() {
 		String search = null;
 		try {
-			URLEncoder.encode("영양제,건강", "UTF-8");
+			search = URLEncoder.encode("영양제,건강", "UTF-8");
 		} catch (Exception e) {
 			throw new RuntimeException("검색어 인코딩 실패", e);
 		}
 		
-		String apiURL = String.format("https://openapi.naver.com/v1/search/news?query=%d&display=100", search);
+		String apiURL = String.format("https://openapi.naver.com/v1/search/news?query=%s&display=100&sort=date", search);
 		
 		Map<String, String> requestHeaders = new HashMap<String, String>();
 		requestHeaders.put("X-Naver-Client-Id",  clientId);
@@ -47,8 +52,47 @@ public class NewsAPI {
 		
 		String responseBody = get(apiURL, requestHeaders);
 		
-		System.out.println(responseBody);
+		try {
+			return objectMapper.readValue(responseBody, NewsListDTO.class);
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public NewsListDTO getNewsList(int start){
+		if(start < 1) {
+			return null;
+		}
 		
+		int display = 100;
+		String search = null;
+		
+		try {
+			search = URLEncoder.encode("영양제,건강", "UTF-8");
+		} catch (Exception e) {
+			throw new RuntimeException("검색어 인코딩 실패", e);
+		}
+		
+		String apiURL = String.format("https://openapi.naver.com/v1/search/news?query=%s&display=100&sort=date&start=%d", search, (start - 1) * display + 1);
+		System.out.println("here" + apiURL);
+		
+		Map<String, String> requestHeaders = new HashMap<String, String>();
+		requestHeaders.put("X-Naver-Client-Id",  clientId);
+		requestHeaders.put("X-Naver-Client-Secret",  clientSecret);
+		
+		String responseBody = get(apiURL, requestHeaders);
+		
+		try {
+			return objectMapper.readValue(responseBody, NewsListDTO.class);
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	private String get(String apiUrl, Map<String, String> requestHeaders) {
