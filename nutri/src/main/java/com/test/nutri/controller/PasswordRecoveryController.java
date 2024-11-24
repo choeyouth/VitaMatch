@@ -14,10 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequiredArgsConstructor
 public class PasswordRecoveryController {
-
-	private final NutriService nutriService;
 	
 	@GetMapping("/findpassword")
 	public String findpassword(Model model) {

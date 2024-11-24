@@ -39,7 +39,7 @@ public class NewsAPI {
 			throw new RuntimeException("검색어 인코딩 실패", e);
 		}
 		
-		String apiURL = "https://openapi.naver.com/v1/search/news?query=" + search;
+		String apiURL = String.format("https://openapi.naver.com/v1/search/news?query=%d&display=100", search);
 		
 		Map<String, String> requestHeaders = new HashMap<String, String>();
 		requestHeaders.put("X-Naver-Client-Id",  clientId);
