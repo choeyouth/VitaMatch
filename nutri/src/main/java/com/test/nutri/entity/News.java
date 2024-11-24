@@ -1,6 +1,6 @@
 package com.test.nutri.entity;
 
-import java.time.LocalDate;
+import java.time.LocalDate; 
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
