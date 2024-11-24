@@ -148,10 +148,12 @@ SELECT g.seq,
        g.bad, 
        i2.name AS name, 
        g.reason, 
-       g.link
+       g.link,
+       c.functionalContent
 FROM badCombination g 
 LEFT JOIN ingredient i ON g.ingredient_seq = i.seq
-LEFT JOIN ingredient i2 ON g.bad = i2.seq;
+LEFT JOIN ingredient i2 ON g.bad = i2.seq
+LEFT JOIN ingredientContent c ON g.ingredient_seq = c.ingredient_seq;
 
 ----------------------------------------
 -- 남황현
