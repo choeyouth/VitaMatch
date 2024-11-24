@@ -1,33 +1,27 @@
-package com.test.nutri.entity;
+package com.test.nutri.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
-@Entity
 @Getter
+@Setter
 @ToString
-//@Table() //테이블명 동일
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class GoodCombination {
+@NoArgsConstructor
+public class VwBadCombinationDTO {
 
-	@Id
 	private Long seq;
-	
-	private String good;
+	private String bad;
 	private String reason;
 	private String link;
 	private String ingredient_seq;
-	
-	
-	
-	
-	
+	private String ingredientName;
+	private String name;
 }

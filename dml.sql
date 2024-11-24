@@ -126,7 +126,32 @@ INSERT INTO badCombination (ingredient_seq, bad, reason, link) VALUES
 select * from badCombination;
 
 commit;
+select * from vwGoodCombination;
+CREATE VIEW vwGoodCombination AS
+SELECT g.seq, 
+       g.ingredient_seq, 
+       i.name AS ingredientName, 
+       g.good, 
+       i2.name AS name, 
+       g.reason, 
+       g.link
+FROM goodCombination g 
+LEFT JOIN ingredient i ON g.ingredient_seq = i.seq
+LEFT JOIN ingredient i2 ON g.good = i2.seq;
 
+
+select * from vwBadCombination;
+CREATE VIEW vwBadCombination AS
+SELECT g.seq, 
+       g.ingredient_seq, 
+       i.name AS ingredientName, 
+       g.bad, 
+       i2.name AS name, 
+       g.reason, 
+       g.link
+FROM badCombination g 
+LEFT JOIN ingredient i ON g.ingredient_seq = i.seq
+LEFT JOIN ingredient i2 ON g.bad = i2.seq;
 
 ----------------------------------------
 -- 남황현
@@ -160,6 +185,9 @@ select * from ingredientContent;
 
 commit;
 
+select * from member;
+INSERT INTO member (username,email,password,name,nickname, dob, gender, telephone, status) 
+VALUES ('hong', 'hong@test.com','1111','hong','hong','2000-01-01','m','01012345678',1);
 
 
 

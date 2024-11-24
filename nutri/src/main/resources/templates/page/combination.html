@@ -102,7 +102,12 @@
 <body>
 	<th:block th:insert="~{inc/header.html :: index_header_menu}"></th:block>
 	<th:block th:insert="~{inc/header.html :: index_header_content_basic(#{menu.combination},#{menu.combination.desc})}"></th:block>
-	<div th:utext="${good}"></div>
+	<table>
+		<tr th:each="dto : ${list}">
+			<td th:text="${dto.seq}"></td>
+			<td th:text="${dto.name}"></td>
+		</tr>
+	</table>
 	
 	<div id="combination-container">
 		<div class="section">
@@ -112,46 +117,42 @@
 						<h3 class="subheading">영양제 조합</h3>
 						<h2 class="heading">영양제 성분 카테고리</h2>
 					</div>
-					<div class="ingredient_category">
-						<div class="ingredient_category_radio_btn">
-							<input id= "ingredient_1" type="radio" name="select_ingredient">
-							<label for="ingredient_1">비타민A</label>
+					<form method="POST" action="/combination/ajax">
+						<div class="ingredient_category">
+							<div th:each="seq : ${good}" class="ingredient_category_radio_btn">
+								<input th:id="'ingredient_' + ${seq}" type="radio" name="select_ingredient" th:value="${seq}">
+								<label th:for="'ingredient_' + ${seq}">
+									<span th:switch="${seq}">
+							            <span th:case="1">비타민A</span>
+							            <span th:case="2">비타민B</span>
+							            <span th:case="3">비타민C</span>
+							            <span th:case="4">비타민D</span>
+							            <span th:case="5">비타민B6</span>
+							            <span th:case="6">비타민K</span>
+							            <span th:case="7">비타민E</span>
+							            <span th:case="8">비타민B3</span>
+							            <span th:case="9">비타민B2</span>
+							            <span th:case="10">비타민B12</span>
+							            <span th:case="11">오메가3</span>
+							            <span th:case="12">아연</span>
+							            <span th:case="13">마그네슘</span>
+							            <span th:case="14">엽산</span>
+							            <span th:case="15">아르기닌</span>
+							            <span th:case="16">철분</span>
+							            <span th:case="17">루테인</span>
+							            <span th:case="18">칼슘</span>
+							            <span th:case="19">유산균</span>
+							            <span th:case="20">홍삼</span>
+							            <span th:case="21">밀크씨슬</span>
+							            <span th:case="22">칼륨</span>
+							            <span th:case="23">콜라겐</span>
+							            <span th:case="24">단백질</span>
+							            <span th:case="25">효소</span>
+							        </span>
+								</label>
+							</div>
 						</div>
-						<div class="ingredient_category_radio_btn">
-							<input id="ingredient_2" type="radio" name="select_ingredient">
-							<label for="ingredient_2">비타민E</label>
-						</div>
-						<div class="ingredient_category_radio_btn">
-							<input id="ingredient_3" type="radio" name="select_ingredient">
-							<label for="ingredient_3">칼슘</label>
-						</div>
-						<div class="ingredient_category_radio_btn">
-							<input id="ingredient_4" type="radio" name="select_ingredient">
-							<label for="ingredient_4">콜라겐</label>
-						</div>
-						<div class="ingredient_category_radio_btn">
-							<input id="ingredient_5" type="radio" name="select_ingredient">
-							<label for="ingredient_5">오메가3</label>
-						</div>
-						<div class="ingredient_category_radio_btn">
-							<input id="ingredient_6" type="radio" name="select_ingredient">
-							<label for="ingredient_6">철분</label>
-						</div>
-						<div class="ingredient_category_radio_btn">
-							<input id="ingredient_7" type="radio" name="select_ingredient">
-							<label for="ingredient_7">마그네슘</label>
-						</div>
-						<div class="ingredient_category_radio_btn">
-							<input id="ingredient_8" type="radio" name="select_ingredient">
-							<label for="ingredient_8">유산균</label>
-						</div>
-						<div class="ingredient_category_radio_btn">
-							<input id="ingredient_9" type="radio" name="select_ingredient">
-							<label for="ingredient_9">아연</label>
-						</div>
-						
-						
-					</div>
+					</form>							
 				</div>
 				<div class="section select_select_ingredient_one">
 					<div class="container">
@@ -247,5 +248,39 @@
 			<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
 			<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
 </body>
+<script>
+	
+	document.querySelectorAll('label').forEach(function(label) {
+	    label.addEventListener('click', function() {
+	        // 클릭된 label에 연결된 input 요소 가져오기
+	        var input = document.querySelector('#' + label.getAttribute('for'));
+	        
+	        // 라디오 버튼의 seq 값 (input의 value)과 텍스트 값
+	        var seq = input.value;
+	        var text = label.textContent.trim(); // label 텍스트 값 (여기서 .trim()을 사용해 앞뒤 공백 제거)
 
+	        // seq와 text 값을 alert로 출력
+	        //alert('Seq: ' + seq + ', Text: ' + text);
+			$.ajax({
+	            url: '/combination/ajax',  // 서버에 요청할 URL
+	            type: 'POST',
+	            data: {
+	                ingredientSeq: ingredientSeq,          // 선택된 seq 값
+	                ingredient: ingredient        // 해당하는 텍스트
+	            },
+	            success: function(response) {
+	                console.log('서버 응답:', response);
+	                // 서버 응답 처리 (예: UI 업데이트 등)
+	                alert('선택한 성분: ' + response.selectedText);  // 서버에서 처리된 값 출력
+	            },
+	            error: function(xhr, status, error) {
+	                console.error('AJAX 요청 실패:', error);
+	            }
+	        });
+	    });
+	});
+	
+	
+	
+</script>
 </html>
