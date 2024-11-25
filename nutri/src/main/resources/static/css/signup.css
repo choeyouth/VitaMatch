@@ -13,7 +13,7 @@
 input.signup, select.signup {
     width: 100%; /* Full width for better alignment */
     height: 60px; /* Uniform height */
-    padding: 15px 12px 5px 12px;
+    padding: 10px 12px 10px 12px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -38,7 +38,7 @@ select#gender {
 td#zipcode-group input.signup {
     width: 25%; /* Full width for better alignment */
     height: 60px; /* Uniform height */
-    padding: 15px 12px 5px 12px;
+    padding: 10px 12px 10px 12px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
