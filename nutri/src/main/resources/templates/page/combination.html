@@ -53,8 +53,11 @@
 
 
 /* 선택된 영양성분 -------------------------------- */
-.section.select_select_ingredient_one {
+.section.select_ingredient_one {
 	background-color: #F8F9FA;
+	padding-top : 50px;
+	padding-bottom : 10px;
+	height : 650px;
 }
 
 .row {
@@ -146,7 +149,7 @@
 						</div>
 					</form>
 				</div>
-				<div class="section select_select_ingredient_one">
+				<div class="section select_ingredient_one">
 					<div class="container">
 						<div class="row ">
 							<div class="col-lg-5 mb-5 mb-lg-0 me-auto testimonial-wrap"
@@ -256,8 +259,6 @@
 	
 	        // selectIngredient 함수 호출
 	        selectIngredient(ingredientSeq, ingredient);
-	        
-	      
 	    });
 	});
 	
@@ -290,7 +291,7 @@
 	            ingredient: ingredient
 	        }),
 	        success: function (response) {
-
+				
 				if (response.good && response.good.length > 0 && response.bad && response.bad.length > 0) {
 				    // bad와 good 모두 있을 때
 				    displayCombination('#combinationBad', response.bad[0].functionalContent);
@@ -302,7 +303,6 @@
 				    displayCombination('#combinationBad', response.bad[0].functionalContent);
 				    console.log('bad functionalContent: ' + response.bad[0].functionalContent);
 				    addBadCombinations(response.bad);
-				    buttonClick();
 				} else if (response.good && response.good.length > 0) {
 				    // good만 있을 때
 				    displayCombination('#combinationGood', response.good[0].functionalContent);
@@ -351,9 +351,7 @@
             	// #collapseTwo 내부에 새로운 항목 추가
             	collapseOne.appendChild(newElement);
 	
-	            // 콘솔에 로그 출력 (디버깅용)
-	            console.log(`good[${index}] - Name: ${item.name}, Reason: ${item.reason}, Link: ${item.link}`);
-	        });
+	       });
 	        
 	
 	    } else {
@@ -398,14 +396,6 @@
 	    }
 	}
 	
-	// 안좋은 조합만 있을 때 자동으로 열려있도록 하기
-	function buttonClick() {
-	    // #combinationButton 안에 #collapseOne이 존재하지 않으면
-	    if (!collapseOne.classList.contains('show')) {
-	        // #combinationBad h2 내 버튼을 클릭
-	        document.querySelector('#combinationBad h2 button').click();
-	    }
-	};
 	
 	
 
