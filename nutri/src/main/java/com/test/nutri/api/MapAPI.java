@@ -42,12 +42,14 @@ public class MapAPI {
     	        String encodedKeyword = keyword != null ? URLEncoder.encode(keyword, StandardCharsets.UTF_8) : "";
 
     	        // URL 생성
-    	        String finalUrl = String.format(
+    	        String url = String.format(
     	            "%s?serviceKey=%s&Q0=%s&Q1=%s&QN=%s&pageNo=%d&numOfRows=10",
     	            baseUrl, apiKey, encodedSido, encodedGugun, encodedKeyword, page
     	        );
+    	        
+    	        System.out.println(url);
 
-    	        return finalUrl;
+    	        return url;
     	        
     	    } catch (Exception e) {
     	        throw new RuntimeException("URL 생성 중 오류 발생", e);
