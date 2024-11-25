@@ -21,7 +21,8 @@
 	}
 </style>
 <body>
-	<th:block th:insert="~{inc/header.html :: index_header}"></th:block>
+	<th:block th:insert="~{inc/header.html :: index_header_menu}"></th:block>
+	<th:block th:insert="~{inc/header.html :: index_header_content_basic(#{menu.category},#{menu.health})}"></th:block>
 	
 	<div class="categories-sidebar">
 	    <h3>Categories</h3>
@@ -44,52 +45,7 @@
 	    </ul>
 	</div>
 	
-	<div class="data-table">
-	    <h3>Data Table</h3>
-	    <table border="1">
-	        <thead>
-	            <tr>
-	                <th>이름</th>
-	            </tr>
-	        </thead>
-	        <tbody id="data-body">
-	        </tbody>
-	    </table>
-	</div>
-	
 	<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
 	<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
-	<script>
-		document.querySelectorAll('.category-item').forEach(item => {
-		    item.addEventListener('click', function (e) {
-		        e.preventDefault();
-		
-		        const category = this.dataset.category;
-		
-		        // 서버로 AJAX 요청 보내기 (fetch 사용)
-		        fetch(`/getData?category=${category}`)
-		            .then(response => response.json()) // 서버에서 JSON 데이터 받기
-		            .then(data => {
-		                // 테이블 업데이트
-		                const tableBody = document.getElementById('data-body');
-		                tableBody.innerHTML = ""; // 기존 데이터 삭제
-		
-		                // 새 데이터 추가
-		                data.forEach(row => {
-		                    const tr = document.createElement('tr');
-		                    tr.innerHTML = `
-		                        <td>${row.name}</td>
-		                        <td>${row.description}</td>
-		                        <td>${row.category}</td>
-		                    `;
-		                    tableBody.appendChild(tr);
-		                });
-		            })
-		            .catch(error => {
-		                console.error("Error fetching data:", error);
-		            });
-		    });
-		});
-	</script>
 </body>
 </html>

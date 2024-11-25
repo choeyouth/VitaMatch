@@ -25,7 +25,7 @@ public class QNews extends EntityPathBase<News> {
 
     public final StringPath originalLink = createString("originalLink");
 
-    public final DatePath<java.time.LocalDate> regDate = createDate("regDate", java.time.LocalDate.class);
+    public final DateTimePath<java.time.LocalDateTime> regDate = createDateTime("regDate", java.time.LocalDateTime.class);
 
     public final NumberPath<Long> seq = createNumber("seq", Long.class);
 

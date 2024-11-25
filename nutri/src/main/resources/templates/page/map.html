@@ -5,10 +5,13 @@
 	<title>[[#{menu.map}]]</title>
 	<th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
 	<link rel="stylesheet" th:href="@{css/map.css}">
-	<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=1669ac115ebaa35601888df2a635eb83&libraries=services"></script>
+	<script type="text/javascript" 
+	    th:src="@{'https://dapi.kakao.com/v2/maps/sdk.js?appkey=' + ${kakaoApiKey} + '&libraries=services'}">
+	</script>
 </head>
 <body>
-	<th:block th:insert="~{inc/header.html :: index_header}"></th:block>
+	<th:block th:insert="~{inc/header.html :: index_header_menu}"></th:block>
+	<th:block th:insert="~{inc/header.html :: index_header_content_basic(#{menu.map},#{menu.map.desc})}"></th:block>
 	<div class="map-container">
 		<div class="section services-section">
 			<div class="col-lg-5 aos-init aos-animate" data-aos="fade-up" data-aos-delay="">
@@ -17,7 +20,6 @@
 					<img src="img/map/mapIcon.svg" class="map-icon">
 					약국 찾기
 				</h2>
-				
 				<div class="map-box">
 					<div class="map-search-box">
 						<div class="map-search">
@@ -26,11 +28,10 @@
 								<select name="gugun1" id="gugun1"></select>
 							</div>
 							<div id="menu_wrap" class="bg_white">
-								<div class="option">
-									<div class="address-search">
-										<form onsubmit="searchPlaces(); return false;">
-											<input type="text" id="keyword" placeholder="검색어를 입력하세요." class="search-input">
-										</form>
+								<div class="option"> 
+									<div class="search-container">
+									    <input type="text" id="keyword" placeholder="검색어를 입력하세요." class="search-input">
+									    <button type="button" class="search-icon-btn" onclick="searchPlaces()"></button>
 									</div>
 								</div>
 								<div class="scroll-container">
@@ -45,46 +46,9 @@
 							<div class="map-detail-title">
 								<h2>약국 상세</h2>
 								<button class="close-popup"></button>
-							</div>
-							<hr>
-							<div class="pharmacy-detail-info">
-								<h2>굿 약국</h2>	
-								<div class="map-info">
-									<div class="pharmacy-time"><span>⦁&nbsp;&nbsp;&nbsp;</span><span>영업중&nbsp;&nbsp;&nbsp;</span>(09:30 ~ 21:30)</div>		
-									<div>서울 서초구 서초대로77길 24 강남지웰타워2 1층 103호</div>
-									<div><span>전화번호 </span>02-535-0022</div>				
-								</div>
-								<div class="week-time">
-									<table>
-										<h3>평일 운영시간</h3>
-										<tr>
-											<th>평일</th>
-											<td>09:30 ~ 21:30</td>								
-										</tr>
-									</table>
-									<table>
-										<h3>토요일 운영시간</h3>
-										<tr>
-											<th>매주</th>
-											<td>09:30 ~ 21:30</td>								
-										</tr>
-									</table>
-									<table>
-										<h3>일요일 운영시간</h3>
-										<tr>
-											<th>일요일</th>
-											<td>09:30 ~ 21:30</td>								
-										</tr>
-									</table>
-									<div class="phar-otherInfo">
-										<h3>공휴일 운영시간</h3>
-										<div id="holiday-time">정기휴무</div>
-										<h3>비고</h3>
-										<div id="other-time">매달 1, 3번째 일요일 휴무</div>
-									</div>
-								</div>
-							</div>
-				        </div> <!-- detail info -->
+								<!-- 동적 추가 -->
+							</div> 
+				        </div>  
 						<div class="map-gps">
 							<input type="image" src="/img/map/move-address.svg">
 							<input type="image" src="/img/map/gps.svg">
@@ -110,21 +74,7 @@
         var map = new kakao.maps.Map(container, options);
 		*/
 		
-		document.querySelector('#placesList').addEventListener('click', (event) => {
-		    const item = event.target.closest('li'); 
-		    if (item) {
-		        const popup = document.querySelector('.detail-popup');
-		        popup.style.display = 'block'; 
-		    }
-		});
 
-
-		document.querySelector('.close-popup').addEventListener('click', () => {
-		    const popup = document.querySelector('.detail-popup');
-		    popup.style.display = 'none'; 
-		});
-
-		
 		$('document').ready(function() {
 			var area0 = ["시/도 선택","서울특별시","인천광역시","대전광역시","광주광역시","대구광역시","울산광역시","부산광역시","경기도","강원도","충청북도","충청남도","전라북도","전라남도","경상북도","경상남도","제주도"];
 			var area1 = ["강남구","강동구","강북구","강서구","관악구","광진구","구로구","금천구","노원구","도봉구","동대문구","동작구","마포구","서대문구","서초구","성동구","성북구","송파구","양천구","영등포구","용산구","은평구","종로구","중구","중랑구"];
@@ -169,6 +119,49 @@
 			});
 		}); 
 
+
+				var markers = [];
+
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+			mapOption = {
+				center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+				level: 3 // 지도의 확대 레벨
+			};  
+
+		// 지도를 생성합니다    
+		var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+		// 장소 검색 객체를 생성합니다
+		var ps = new kakao.maps.services.Places();  
+
+		// 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
+		var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+
+		// 키워드 검색을 요청하는 함수입니다
+		function searchPlaces() {
+		 
+			var keyword = document.getElementById('keyword').value.trim();
+			const sido = $('#sido1').val(); 
+			const gugun = $('#gugun1').val(); 
+			const page = $('#page').val() || 1; 
+			
+			
+			if (!sido || !gugun) {
+			    alert('시/도와 구/군을 모두 선택해주세요.');
+			    return;
+			}
+			
+			if (!keyword.replace(/^\s+|\s+$/g, '')) {
+				alert('키워드를 입력해주세요!');
+				return false;
+			}
+
+			//ps.keywordSearch( keyword, placesSearchCB); 
+			
+			getPharmacy(keyword, sido, gugun, page);
+			
+		}
+		
 		var markers = [];
 
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -186,23 +179,234 @@
 		// 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
 		var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 
-		// 키워드로 장소를 검색합니다
-		searchPlaces();
-
 		// 키워드 검색을 요청하는 함수입니다
-		function searchPlaces() {
-		 
+		function searchPlaces(i) {
+		
 			var keyword = document.getElementById('keyword').value.trim();
+			const sido = $('#sido1').val(); 
+			const gugun = $('#gugun1').val(); 
+			let page; // let으로 선언하여 값을 재할당 가능
 
+			if (i == null) {
+				page = 1; // i가 null이면 첫 페이지
+			} else {
+				page = i; // i가 주어지면 해당 페이지
+			}
+			
+			if (!sido || !gugun) {
+				alert('시/도와 구/군을 모두 선택해주세요.');
+				return;
+			}
+			
 			if (!keyword.replace(/^\s+|\s+$/g, '')) {
-				//alert('키워드를 입력해주세요!');
+				alert('키워드를 입력해주세요!');
 				return false;
 			}
 
-			// 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
-			ps.keywordSearch( keyword, placesSearchCB); 
+			//ps.keywordSearch( keyword, placesSearchCB); 
+			
+			getPharmacy(keyword, sido, gugun, page);
+			
 		}
- 
+
+
+		function getPharmacy(keyword, sido, gugun, page) {
+			$.ajax({
+				url: '/pharmacy/list', 
+				type: 'GET',
+				data: {
+					sido: sido,
+					gugun: gugun,
+					page: page,
+					keyword: keyword 
+				},
+				dataType: 'json', 
+				success: function (result) {
+				    const totalPages = Math.ceil(result.length / 10); // 한 페이지에 50개 기준
+				    displayPharmacies(result, page, totalPages);
+				},
+				error: function (a,b,c) {
+					console.error(a,b,c); 
+				}
+			});
+		}
+
+		function displayPharmacies(pharmacies, currentPage, totalPages) {
+		    const placesList = document.getElementById('placesList');
+		    const paginationEl = document.getElementById('pagination');
+
+		    // 기존 리스트 초기화
+		    removeAllChildNods(placesList);
+
+		    if (pharmacies && pharmacies.length > 0) {
+		        pharmacies.forEach((pharmacy, index) => {
+		            const listItem = getListItem(index, pharmacy); // 개별 약국 데이터를 기반으로 엘리먼트 생성
+		            placesList.appendChild(listItem);
+		        });
+
+		        // 페이지네이션 처리
+		        displayPagination(totalPages, currentPage);
+		    } else {
+		        // 데이터가 없는 경우 처리
+		        const li = document.createElement('li');
+		        li.textContent = "약국 데이터가 없습니다.";
+		        placesList.appendChild(li);
+		    }
+		}
+
+		// 약국 데이터로 리스트 아이템 생성
+		function getListItem(index, pharmacy) {
+		    const el = document.createElement('li');
+
+		    let itemStr = `
+		        <span class="markerbg marker_${index + 1}"></span>
+		        <div class="info">
+		            <h5>${pharmacy.name}</h5>
+		    `;
+
+		    if (pharmacy.address) {
+		        itemStr += `
+		            <span>${pharmacy.address}</span>
+		            <div class="map-info">
+		                <div class="pharmacy-time">
+		                    <span>⦁&nbsp;&nbsp;&nbsp;</span>
+		                    <span>${pharmacy.open ? '영업중' : '영업 종료'}&nbsp;&nbsp;&nbsp;</span>
+		                    (${pharmacy.openTime} ~ ${pharmacy.closeTime})
+		                </div>
+		                <input type="hidden" value="${pharmacy.etc}" id="etc">
+		            </div>
+		        `;
+		    } else {
+		        itemStr += `<span>주소 정보 없음</span>`;
+		    }
+
+		    itemStr += `
+		            <span class="tel">${pharmacy.tel || '전화번호 없음'}</span>
+		        </div>
+		        <a class="more d-flex align-items-center float-start map-info-button" data-hpid="${pharmacy.hpid}">
+		            <span class="label">상세 보기</span>
+		            <span class="icon-keyboard_arrow_right"></span>
+		        </a>
+		    `;
+
+		    el.innerHTML = itemStr;
+		    el.className = 'item';
+
+		    return el;
+		}
+
+		document.querySelector('#placesList').addEventListener('click', (event) => {
+
+			const listItem = event.target.closest('li');
+			var etc = listItem.querySelector('#etc').value;
+
+			if (!listItem) {
+				console.log('리스트 항목이 클릭되지 않았습니다.');
+				return;
+			}
+
+			const target = listItem.querySelector('a[data-hpid]');
+
+			if (target) {
+
+				const hpid = target.getAttribute('data-hpid');
+				getPharmacyInfo(hpid, etc);
+
+				// 상세보기 팝업 표시
+				const popup = document.querySelector('.detail-popup');
+				popup.style.display = 'block';
+			} else {
+				console.log('data-hpid 속성을 가진 요소를 찾을 수 없습니다.');
+			}
+		});
+
+		function getPharmacyInfo(hpid, etc) {
+
+			$.ajax({
+				url: '/pharmacy/info',
+				type: 'GET',
+				data: { hpid: hpid },
+				dataType: 'json',
+				success: function (result) {
+					if (Array.isArray(result) && result.length > 0) {
+		                showPharmacyInfo(result, etc); // 배열의 첫 번째 요소 전달
+		            } else {
+		                console.error("약국 데이터를 찾을 수 없습니다.");
+		            }
+				},
+			});
+		}
+
+
+		function showPharmacyInfo(result, etc) {
+
+			const popup = document.querySelector('.detail-popup'); 
+		    const pharmacy = result[0];
+			
+		    if (!pharmacy) {
+		        console.error("유효한 약국 데이터가 없습니다.");
+		        return;
+		    }
+
+			const str = `
+				<div class="map-detail-title">
+					<h2>약국 상세</h2>
+					<button class="close-popup"></button>
+				</div>
+				<hr>
+				<div class="pharmacy-detail-info">
+					<h2>${pharmacy.name}</h2>	
+					<div class="map-info">
+						<div class="pharmacy-time"><span>⦁&nbsp;&nbsp;&nbsp;</span><span id="isOpen">${pharmacy.open ? '영업중' : '영업 종료'}&nbsp;&nbsp;&nbsp;</span>(09:30 ~ 21:30)</div>		
+						<div>${pharmacy.address}</div>
+						<div><span>전화번호 </span>02-535-0022</div>				
+					</div>
+					<div class="week-time">
+						<table>
+							<h3>평일 운영시간</h3>
+							<tr>
+								<th>평일</th>
+								<td>${pharmacy.openTime} ~ ${pharmacy.closeTime}</td>								
+							</tr>
+						</table>
+						<table>
+							<h3>토요일 운영시간</h3>
+							<tr>
+								<th>매주</th>
+								<td>${pharmacy.dutyTime6s == '정기 휴무' ? '정기 휴무' : `${pharmacy.dutyTime6s} ~ ${pharmacy.dutyTime6c}`}</td>								
+							</tr>
+						</table>
+						<table>
+							<h3>일요일 운영시간</h3>
+							<tr>
+								<th>일요일</th>
+								<td>${pharmacy.dutyTime7s == '정기 휴무' ? '정기 휴무' : `${pharmacy.dutyTime7s} ~ ${pharmacy.dutyTime7c}`}</td>								
+							</tr>
+						</table>
+						<div class="phar-otherInfo">
+							<h3>공휴일 운영시간</h3>
+							<div id="holiday-time">${pharmacy.dutyTime8s == '정기 휴무' ? '정기 휴무' : `${pharmacy.dutyTime8s} ~ ${pharmacy.dutyTime8c}`}</div>
+							<h3>비고</h3>
+							<div id="other-time">${etc}</div>
+						</div>
+					</div>
+				</div> 
+			`;
+			
+			popup.innerHTML = str;
+
+		}
+
+
+		document.querySelector('.close-popup').addEventListener('click', () => {
+		    const popup = document.querySelector('.detail-popup');
+		    popup.style.display = 'none'; 
+		});
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	
+		//왜 필요하지?
 		function placesSearchCB(data, status, pagination) {
 			if (status === kakao.maps.services.Status.OK) {
 				var totalPages = Math.ceil(data.length / 8); // 총 페이지 수 계산
@@ -285,36 +489,6 @@
 			displayPagination(totalPages, currentPage, places);
 		}
 
-		// 검색결과 항목을 Element로 반환하는 함수입니다
-		function getListItem(index, places) {
-
-			var el = document.createElement('li'),
-			itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
-						'<div class="info">' +
-						'   <h5>' + places.place_name + '</h5>';
-
-			if (places.road_address_name) {
-				itemStr += '    <span>' + places.road_address_name + '</span>' +
-							'   <span class="jibun gray">' +  places.address_name  + '</span>' +
-							'<div class="map-info">' + 
-							'<div class="pharmacy-time"><span>⦁&nbsp;&nbsp;&nbsp;</span><span>영업중&nbsp;&nbsp;&nbsp;</span>(09:30 ~ 21:30)</div>	' +	
-							'</div>';
-			} else {
-				itemStr += '    <span>' +  places.address_name  + '</span>'; 
-			}
-						
-			itemStr += '  <span class="tel">' + places.phone  + '</span>' +
-						'</div> ' + 
-						'<a class="more d-flex align-items-center float-start map-info-button">' +
-						'<span class="label">상세 보기</span>' +
-						'<span class="icon-keyboard_arrow_right"></span>' +
-						'</a>';           
-
-			el.innerHTML = itemStr;
-			el.className = 'item';
-
-			return el;
-		}
 
 		// 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
 		function addMarker(position, idx, title) {
@@ -355,7 +529,8 @@
 
 		    for (var i = 1; i <= totalPages; i++) {
 		        var el = document.createElement('a');
-		        el.href = "#";
+		        //el.href = searchPlaces(i);
+				el.href = '#';
 		        el.innerHTML = i;
 
 		        if (i === currentPage) {
@@ -455,17 +630,18 @@
 		}
 
 		
-		document.getElementById('placesList').addEventListener('scroll', function () {
-		    var listEl = this; // 현재 스크롤 이벤트가 발생한 엘리먼트
-		    var paginationEl = document.getElementById('pagination');
+		// document.getElementById('placesList').addEventListener('scroll', function () {
+		//     var listEl = this; // 현재 스크롤 이벤트가 발생한 엘리먼트
+		//     var paginationEl = document.getElementById('pagination');
 
-		    // 스크롤이 맨 밑에 도달했는지 확인
-		    if (listEl.scrollTop + listEl.clientHeight >= listEl.scrollHeight) {
-		        paginationEl.style.display = 'flex'; // 페이징 바 보이기
-		    } else {
-		        paginationEl.style.display = 'none'; // 페이징 바 숨기기
-		    }
-		});
+		//     // 스크롤이 맨 밑에 도달했는지 확인
+		//     if (listEl.scrollTop + listEl.clientHeight >= listEl.scrollHeight) {
+		//         paginationEl.style.display = 'flex'; // 페이징 바 보이기
+		//     } else {
+		//         paginationEl.style.display = 'none'; // 페이징 바 숨기기
+		//     }
+		// });
+		
 
 	</script>
 </html>
