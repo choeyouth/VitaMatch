@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
@@ -81,6 +81,71 @@
 									<span class="label">Read More</span>
 									<span class="arrow"><span class="icon-keyboard_arrow_right"></span></span>
 								</a>
+							</div>
+						</div>
+					</div>
+				</div>	
+			</div>		
+		</div>
+	</div>
+	<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
+	<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+	<title>[[#{menu.faq}]]</title>
+	<th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
+</head>
+<body>
+	<th:block th:insert="~{inc/header.html :: index_header}"></th:block>
+	<div id="faq-container">
+		<div class="section">
+			<div class="container">
+	
+				<div class="row mb-5">
+					<div class="col-12 text-center" data-aos="fade-up" data-aos-delay="0">
+						<span class="subheading mb-3">Frequently Asked Questions</span>
+						<h2 class="heading">FAQ</h2>
+					</div>
+				</div>
+				<div class="row align-items-stretch">
+					<div class="col-12" data-aos="fade-up" data-aos-delay="100">
+						<div class="faq-entry">
+							<h3 class="question">What is your return policy?</h3>
+							<div class="answer">
+								<p>If you are not satisfied with your purchase, you can return it within 30 days for a full refund. Please ensure the product is in its original condition.</p>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-12" data-aos="fade-up" data-aos-delay="200">
+						<div class="faq-entry">
+							<h3 class="question">How do I track my order?</h3>
+							<div class="answer">
+								<p>You can track your order using the tracking number provided in your shipment confirmation email. Simply enter the number on our tracking page to get the latest updates.</p>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-12" data-aos="fade-up" data-aos-delay="300">
+						<div class="faq-entry">
+							<h3 class="question">Do you offer international shipping?</h3>
+							<div class="answer">
+								<p>Yes, we do offer international shipping to several countries. The shipping fees and delivery times may vary based on your location.</p>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-12" data-aos="fade-up" data-aos-delay="400">
+						<div class="faq-entry">
+							<h3 class="question">Can I change my order after it has been placed?</h3>
+							<div class="answer">
+								<p>Once an order is placed, it is processed quickly to ensure prompt delivery. If you need to make changes, please contact our customer service as soon as possible. We will try our best to accommodate your request.</p>
 							</div>
 						</div>
 					</div>
