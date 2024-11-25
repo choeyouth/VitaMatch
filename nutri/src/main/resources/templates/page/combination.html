@@ -2,105 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="UTF-8">
+<meta charset="UTF-8">
 <!--/*	<meta name="_csrf" th:content="${_csrf.token}"/>
 	<meta name="_csrf_header" th:content="${_csrf.headerName}"/> */-->
-	
-	<title>[[#{menu.combination}]]</title>
-	<th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
-	<style>
-		/* 영양성분 선택 -------------------------------- */
 
-		.ingredient_category {
-			display: grid;
-			grid-template-columns: repeat(3, 1fr);
-			margin-top: 55px;
-		}
+<title>[[#{menu.combination}]]</title>
+<th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
+<link rel="stylesheet" th:href="@{css/combination.css}" />
 
-		.ingredient_category_radio_btn {
-			display: inline-block;
-			margin-top: 20px;
-			margin-bottom: 20px;
-		}
-
-		.ingredient_category_radio_btn label {
-			width: 260px;
-			height: 70px;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			border: 1px solid var(--bs-gray);
-			border-radius: 10px;
-			margin: 0 auto;
-			font-size: 22px;
-			color: var(--bs-gray-dark);
-		}
-
-		.ingredient_category_radio_btn input[type=radio] {
-			display: none;
-		}
-
-		.ingredient_category_radio_btn input[type=radio]:checked+label {
-			background: var(--bs-primary);
-			color: var(--bs-white);
-			border: none;
-		}
-
-		.ingredient_category_radio_btn label:hover {
-			color: var(--bs-white);
-			background: var(--bs-primary);
-			border: none;
-		}
-
-
-		/* 선택된 영양성분 -------------------------------- */
-
-		.section.select_select_ingredient_one {
-			background-color: #F8F9FA;
-		}
-
-		.row {
-			margin: 10px;
-		}
-
-		/* 선택된 영양성분 기능 -------------------------------- */
-		.block-testimonial .author {
-			display: flex;
-			flex-direction: column;
-		}
-
-		.block-testimonial .author img {
-			align-self: center;
-			width: 150px;
-			height: 150px;
-		}
-
-		.block-testimonial .author h3 {
-			font-size: 25px;
-			margin-top: 30px;
-			margin-left: 20px;
-		}
-
-		.block-testimonial .author p {
-			font-size: 17px;
-			margin-top: 20px;
-			margin-left: 20px;
-		}
-
-		/* 선택된 영양제와 조합인 이유 -------------------------------- */
-		.accordion-body {
-			display: grid;
-			grid-template-columns: 100px 410px 45px;
-			background-color: white;
-			border: 1px solid var(--bs-light);
-		}
-
-		.accordion-body a {
-			margin-left: 10px;
-			margin-right: 0px;
-		}
-	</style>
-	
 </head>
 
 <body>
@@ -120,23 +29,24 @@
 					<!-- 카테고리 선택  -->
 					<form method="POST" action="/combination/ajax">
 						<div class="ingredient_category">
-							<div th:each="seqName : ${ingredientSeqName}" class="ingredient_category_radio_btn">
-								<input th:id="'ingredient_' + ${seqName.key}" type="radio" name="select_ingredient"
-									th:value="${seqName.key}">
-								<label th:for="'ingredient_' + ${seqName.key}">
-									<span th:text="${seqName.value}"></span>
+							<div th:each="seqName : ${ingredientSeqName}"
+								class="ingredient_category_radio_btn">
+								<input th:id="'ingredient_' + ${seqName.key}" type="radio"
+									name="select_ingredient" th:value="${seqName.key}"> <label
+									th:for="'ingredient_' + ${seqName.key}"> <span
+									th:text="${seqName.value}"></span>
 								</label>
 							</div>
 						</div>
 					</form>
 				</div>
-				<div class="section select_select_ingredient_one">
+				<div class="section select_ingredient_one">
 					<div class="container">
 						<div class="row ">
-							<div class="col-lg-5 mb-5 mb-lg-0 me-auto testimonial-wrap" data-aos="fade-up"
-								data-aos-delay="0">
+							<div class="col-lg-5 mb-5 mb-lg-0 me-auto testimonial-wrap"
+								data-aos="fade-up" data-aos-delay="0">
 								<h3 class="subheading">선택된 영양제</h3>
-								<h2 class="heading mb-5" id ="selectOne">오메가3</h2>
+								<h2 class="heading mb-5 selectOne">오메가3</h2>
 
 								<div class="wide-slider-testimonial-wrap">
 
@@ -146,7 +56,7 @@
 												<div class="author">
 													<img src="/img/ingredient/오메가3.png" id="selectOneImg">
 													<h3>효능</h3>
-													<p>기능 넣을 거임</p>
+													<p id="ingredientContent">기능 넣을 거임</p>
 												</div>
 											</blockquote>
 										</div>
@@ -157,64 +67,41 @@
 
 
 
-							<div class="col-lg-6 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="100">
+							<div class="col-lg-6 mt-4 mt-lg-0" data-aos="fade-up"
+								data-aos-delay="100" id="combinationButton">
 								<h3 class="subheading">선택된 영양제와 관련된 성분 조합</h3>
-								<h2 class="heading mb-5">칼슘과(와) 관련된 성분 조합은?</h2>
+								<h2 class="heading mb-5">
+									<span class="selectOne">칼슘</span>과(와) 관련된 성분 조합은?
+								</h2>
 
 								<div class="custom-accordion" id="accordion_1">
-									<div class="accordion-item">
+									<div class="accordion-item" id="combinationGood">
 										<h2 class="mb-0">
-											<button class="btn btn-link" type="button" data-bs-toggle="collapse"
-												data-bs-target="#collapseOne" aria-expanded="true"
-												aria-controls="collapseOne">같이 먹으면 좋은 조합</button>
+											<button class="btn btn-link" type="button"
+												data-bs-toggle="collapse" data-bs-target="#collapseOne"
+												aria-expanded="true" aria-controls="collapseOne">같이
+												먹으면 좋은 조합</button>
 										</h2>
 
-										<div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
-											data-bs-parent="#accordion_1">
-											<div class="accordion-body">
-												<div class="good_combination_title">비타민 D</div>
-												<div class="good_combination_content">비타민 D는 장에서 칼슘 흡수를 돕습니다.</div>
-												<a class="good_combination_link"
-													href="https://blog.naver.com/centum_surgery/221505150758">출처</a>
-											</div>
-											<div class="accordion-body">
-												<div class="good_combination_title">비타민 K</div>
-												<div class="good_combination_content">비타민 K는 골다공증 개선 효과가 있습니다.</div>
-												<a class="good_combination_link"
-													href="https://blog.naver.com/centum_surgery/221505150758">출처</a>
-											</div>
+										<div id="collapseOne" class="collapse show"
+											aria-labelledby="headingOne" data-bs-parent="#accordion_1">
+											
 
 										</div>
 									</div>
 									<!-- .accordion-item -->
 
-									<div class="accordion-item">
+									<div class="accordion-item"  id="combinationBad">
 										<h2 class="mb-0">
-											<button class="btn btn-link collapsed" type="button"
+											<button class="btn btn-link" type="button"
 												data-bs-toggle="collapse" data-bs-target="#collapseTwo"
-												aria-expanded="false" aria-controls="collapseTwo">같이 먹으면 안 좋은
-												조합</button>
+												aria-expanded="false" aria-controls="collapseTwo">같이
+												먹으면 안 좋은 조합</button>
 										</h2>
-										<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
-											data-bs-parent="#accordion_1">
-											<div class="accordion-body">
-												<div class="good_combination_title">철분</div>
-												<div class="good_combination_content">둘은 같은 통로로 흡수되어서 같이 먹으면 흡수율이 떨어질 수
-													있으므로 철분은 식사 전 섭취하는 것이 좋습니다.</div>
-												<a class="good_combination_link"
-													href="https://blog.naver.com/centum_surgery/221505150758">출처</a>
-											</div>
-											<div class="accordion-body">
-												<div class="good_combination_title">마그네슘</div>
-												<div class="good_combination_content">칼슘과 마그네슘은 모두 골다공증을 예방하는 데 도움이 되지만
-													동시에 먹으면 흡수율이 떨어진다.</div>
-												<a class="good_combination_link"
-													href="https://www.gqkorea.co.kr/2023/09/19/%ED%95%A8%EA%BB%98%ED%95%98%EB%A9%B4-%EB%8F%85%EC%9D%B4-%EB%90%98%EB%8A%94-%EC%98%81%EC%96%91%EC%A0%9C/">출처</a>
-											</div>
+										<div id="collapseTwo" class="collapse"
+											aria-labelledby="headingTwo" data-bs-parent="#accordion_1">
 										</div>
 										<!-- .accordion-item -->
-
-
 
 									</div>
 								</div>
@@ -231,71 +118,6 @@
 			<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-	document.querySelector('input[type="radio"]').checked = true;
-	
-	// CSRF 토큰과 헤더 이름을 메타 태그에서 동적으로 가져옵니다.
-	// security 아직 안됌
-	var token = $("meta[name='_csrf']").attr("content");
-	var header = $("meta[name='_csrf_header']").attr("content");
-	
-	document.querySelectorAll('label').forEach(function (label) {
-		
-		label.addEventListener('click', function () {
-			// 클릭된 label에 연결된 input 요소 가져오기
-			let input = document.querySelector('#' + label.getAttribute('for'));
-			let ingredientSeq = input.value;
-			let ingredient = label.textContent.trim();
-			
-			// 라디오 버튼을 누르면 선택된 성분 보여주기로 변경
-			document.querySelector('#selectOne').innerHTML = ingredient;
-			
-			// 라디오 버튼을 누르면 선택된 성분 이미지 보여주기로 변경
-			let image = document.querySelector('#selectOneImg');
-			image.src = '/img/ingredient/' + ingredient + '.png';
-			
-			// AJAX 요청
-			$.ajax({
-				type: 'POST',
-				url: '/combination/ajax',  // 서버에 요청할 URL
-				dataType: 'json',
-				contentType: 'application/json',
-				data: JSON.stringify({
-					ingredientSeq: ingredientSeq,
-					ingredient: ingredient
-				}),
-				/*
-				beforeSend: function (xhr) {
-					xhr.setRequestHeader(header, token); // CSRF 토큰 설정
-				},
-				*/
-				success: function (response) {
-					/*
-					console.log('서버 응답:', response);
-					alert('서버에서 처리된 성분: ' + response.ingredient);  // 서버에서 처리된 값 출력
-					*/
-					console.log(response);
-					
-					if (response.bad.length > 0) {
-						console.log(response.bad);
-						console.log(response.bad[0]);
-					
-				        // response.ingredientName을 #selectOne 요소의 innerHTML에 삽입
-				        document.querySelector('#selectOne').innerHTML = ingredient;
-				    }else if(response.good.length > 0){
-				    	 document.querySelector('#selectOne').innerHTML = ingredient;
-				    }
-				},
-				error: function (a, b, c) {
-					console.log(a, b, c);
-				}
-			});
-
-		});
-	});
-
-
-
-</script>
+<script th:src="@{js/combination.js}"></script>
 
 </html>
