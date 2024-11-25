@@ -53,6 +53,7 @@ INSERT INTO ingredient (name, category) VALUES
 ('프로폴리스', 0);
 
 select * from ingredient;
+
 -- healthIngredient 데이터 삽입
 INSERT INTO healthIngredient (health_seq, ingredient_seq) VALUES
 (1, (SELECT seq FROM ingredient WHERE name = '비타민B12')),
@@ -126,21 +127,23 @@ INSERT INTO badCombination (ingredient_seq, bad, reason, link) VALUES
 select * from badCombination;
 
 commit;
-select * from vwGoodCombination;
-CREATE VIEW vwGoodCombination AS
+
+CREATE or replace VIEW vwGoodCombination AS
 SELECT g.seq, 
        g.ingredient_seq, 
        i.name AS ingredientName, 
        g.good, 
        i2.name AS name, 
        g.reason, 
-       g.link
+       g.link,
+       c.functionalContent
 FROM goodCombination g 
 LEFT JOIN ingredient i ON g.ingredient_seq = i.seq
-LEFT JOIN ingredient i2 ON g.good = i2.seq;
+LEFT JOIN ingredient i2 ON g.good = i2.seq
+LEFT JOIN ingredientContent c ON g.ingredient_seq = c.ingredient_seq;
 
 
-select * from vwBadCombination;
+
 CREATE VIEW vwBadCombination AS
 SELECT g.seq, 
        g.ingredient_seq, 
@@ -155,6 +158,9 @@ LEFT JOIN ingredient i ON g.ingredient_seq = i.seq
 LEFT JOIN ingredient i2 ON g.bad = i2.seq
 LEFT JOIN ingredientContent c ON g.ingredient_seq = c.ingredient_seq;
 
+
+select * from vwGoodCombination;
+select * from vwBadCombination;
 ----------------------------------------
 -- 남황현
 insert into ingredientContent (seq,functionalContent,dailyIntake,precautionsForIngestion,ingredient_seq) VALUES(1,'가) 어두운 곳에서 시각 적응을 위해 필요<br/>(나) 피부와 점막을 형성하고 기능을 유지하는데 필요<br/>(다) 상피세포의 성장과 발달에 필요','210～1,000 μg RE(699.93∼3,333 IU)',' ',1);
@@ -192,22 +198,199 @@ INSERT INTO member (username,email,password,name,nickname, dob, gender, telephon
 VALUES ('hong', 'hong@test.com','1111','hong','hong','2000-01-01','m','01012345678',1);
 
 
+select * from vwDailyRecommend;
+select * from ingredientDaily;
+
+-- 유진
+-- 성별/나이대별 insert
+INSERT INTO surveyGenderAge (gender, age) VALUES
+('f', 10),
+('f', 20),
+('f', 30),
+('f', 40),
+('f', 50),
+('f', 60),
+('m', 10),
+('m', 20),
+('m', 30),
+('m', 40),
+('m', 50),
+('m', 60);
+
+select * from surveyGenderAge;
+
+-- 성별/나이대별 + 성분 연관 테이블
+INSERT INTO ingredientGenderAge (genderAge_seq, ingredient_seq) VALUES
+(1,1),
+(1,12),
+(1,18),
+(2,4),
+(2,13),
+(2,18),
+(3,13),
+(3,18),
+(3,21),
+(4,11),
+(4,13),
+(4,18),
+(5,4),
+(5,10),
+(5,22),
+(6,11),
+(6,18),
+(6,22),
+(7,1),
+(7,12),
+(7,18),
+(8,2),
+(8,11),
+(8,21),
+(9,3),
+(9,11),
+(9,14),
+(10,4),
+(10,11),
+(10,17),
+(11,11),
+(11,13),
+(11,18),
+(12,11),
+(12,13),
+(12,18);
 
 
+select * from ingredientGenderAge;
+>>>>>>> ec0e506a1380b73ab4d7e09dd0236b347cad5a2c
 
+-- 건강 검진 insert
+INSERT INTO surveyHealth (name) VALUES
+('간 건강'),
+('피로감'),
+('혈관 및 혈액 순환'),
+('콜레스테롤'),
+('혈당 관리'),
+('혈압 관리');
 
+select * from surveyHealth;
 
+INSERT INTO ingredientHealth (health_seq, ingredient_seq) VALUES
+(1,2),
+(1,21),
+(2,10),
+(2,13),
+(3,11),
+(3,13),
+(4,21),
+(4,11),
+(5,13),
+(5,3),
+(6,3),
+(6,11);
 
+select * from ingredientHealth;
 
+-- 주요 장기 관련 insert
+INSERT INTO surveyOrgan (name) VALUES
+('눈 건강'),
+('뼈 건강'),
+('장 건강');
 
+select * from surveyOrgan;
 
+INSERT INTO ingredientOrgan (organ_seq, ingredient_seq) VALUES
+(1,11),
+(1,17),
+(2,13),
+(2,18),
+(3,19);
 
+-- 일상생활 관련 insert
+INSERT INTO surveyDaily (name) VALUES
+('운동 능력 및 근육량'),
+('면역 기능'),
+('소화 및 위식도 건강'),
+('스트레스 및 수면'),
+('치아 및 잇몸'),
+('피부 건강');
 
+select * from surveyDaily;
 
+INSERT INTO ingredientDaily (daily_seq, ingredient_seq) VALUES
+(1,15),
+(1,24),
+(2,3),
+(2,4),
+(3,25),
+(3,19),
+(4,5),
+(4,8),
+(5,12),
+(5,18),
+(6,23),
+(6,3);
 
+select * from ingredientDaily;
 
+select * from ingredientDaily;
 
+-- 성별 나이대별 영양제 성분 및 내용 뷰
+CREATE VIEW vwGenderAgeRecommend AS
+SELECT ga.seq, 
+       ga.genderAge_seq as genderAgeSeq,
+       ga.ingredient_seq as ingredientSeq,
+       i.name as ingredientName,
+       ic.functionalContent
+FROM ingredientGenderAge ga
+INNER JOIN ingredient i ON ga.ingredient_seq = i.seq
+INNER JOIN ingredientContent ic ON i.seq = ic.ingredient_seq;
 
+select * from vwGenderAgeRecommend;
 
+drop view vwGenderAgeRecommend;
 
+-- 건강검진 영양제 성분 및 내용 뷰
+CREATE VIEW vwHealthRecommend AS
+SELECT h.seq, 
+       h.health_seq as healthSeq,
+       h.ingredient_seq as ingredientSeq,
+       i.name as ingredientName,
+       ic.functionalContent
+FROM ingredientHealth h
+INNER JOIN ingredient i ON h.ingredient_seq = i.seq
+INNER JOIN ingredientContent ic ON i.seq = ic.ingredient_seq;
 
+select * from vwHealthRecommend;
+
+drop view vwHealthRecommend;
+
+-- 주요 장기 영양제 성분 및 내용 뷰
+CREATE VIEW vwOrganRecommend AS
+SELECT o.seq, 
+       o.organ_seq as organSeq,
+       o.ingredient_seq as ingredientSeq,
+       i.name as ingredientName,
+       ic.functionalContent
+FROM ingredientOrgan o
+INNER JOIN ingredient i ON o.ingredient_seq = i.seq
+INNER JOIN ingredientContent ic ON i.seq = ic.ingredient_seq;
+
+select * from vwOrganRecommend;
+
+drop view vwOrganRecommend;
+
+-- 일상생활 영양제 성분 및 내용 뷰
+CREATE VIEW vwDailyRecommend AS
+SELECT d.seq, 
+       d.daily_seq as dailySeq,
+       d.ingredient_seq as ingredientSeq,
+       i.name as ingredientName,
+       ic.functionalContent
+FROM ingredientDaily d
+INNER JOIN ingredient i ON d.ingredient_seq = i.seq
+INNER JOIN ingredientContent ic ON i.seq = ic.ingredient_seq;
+
+select * from vwDailyRecommend;
+
+drop view vwDailyRecommend;
+
+commit;

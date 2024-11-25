@@ -151,9 +151,10 @@
 					
 					<div class="align-items-stretch" th:each="news : ${list}">
 						<div class="" data-aos="fade-up" data-aos-delay="100" th:object="${news}">
+						
 							<div class="media-entry">
 								<div class="bg-white m-body">
-									<span class="date">[[*{pubDate}]]</span>
+									<span class="date">[[*{#temporals.format(pubDate, 'MMM dd, yyyy HH:mm', T(java.util.Locale).ENGLISH)}]]</span>
 									<h3>
 										<a th:href="*{link}" target="_blank">
 											[(*{title})]
@@ -176,11 +177,14 @@
 						</div>
 						<div class="col-lg-6 text-center">
 							<div class="custom-pagination">
+								[(${page})]
+							<!-- 
 								<a href="#">1</a>
 								<a href="#" class="active">2</a>
 								<a href="#">3</a>
 								<a href="#">4</a>
 								<a href="#">5</a>
+							 -->
 							</div>
 						</div>
 					</div>

@@ -36,7 +36,7 @@
 	color: var(--bs-red);
 }
 
-.survey-gender, .survey-age, .survey-checkup, .survey-organ, .survey-life {
+.survey-gender, .survey-age, .survey-checkup, .survey-organ, .survey-daily {
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
@@ -82,6 +82,7 @@
 	color: var(--bs-white);
 	background: var(--bs-primary);
 	border: none;
+	cursor: pointer;
 }
 
 

@@ -1,0 +1,65 @@
+	
+html, body {
+    overflow-x: hidden; 
+}
+
+.ingredientContentview {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}
+
+.ingredientContenttable {
+/*	display: flex;
+	justify-content: center;
+	align-items: center;	*/	
+	position: relative;
+	width: 100%;
+}
+
+.ingredientContenttable th, .ingredientContenttable td { 
+    padding: 15px;
+    border: 1px solid #10D0A1;
+}
+
+.ingredientContenttable th {
+    width: 200px;  
+    font-size: 16px;
+    text-align: center;
+}
+
+.ingredientContenttable td {
+    width: 1000px; 
+    font-size: 14px; 
+	padding-left: 20px; 
+}
+
+.ingredientContentString{
+	text-align:left
+}
+
+.ingredientContentRowHeader {
+    
+	color: #10D0A1;
+}
+
+.ingredientContentImg{
+	display: flex;
+	position: relative;
+	width: 100%;
+	margin-bottom: 30px;
+}
+
+
+
+.ingredientContentIngredient {
+	margin-left:30px;
+	
+}
+
+.ingredientContentImgSize{
+	width:400px;
+	height:400px;
+
+}
