@@ -21,14 +21,7 @@ public class productInfoController {
 	public String productInfo(Model model) {
 		
 		
-		/* Optional<Address> address = addressRepository.findByName("강아지"); */
-		/* model.addAttribute("dto", address.get().toDTO()); */
-		
-		/* Optional<productInfoEntity> findByName(String productName); */
-		/*
-		 * model.addAttribute("productinfolist", productrepo.findByName("센트롬 실버 프로"));
-		 */
-		
+
 		Optional<productInfo> productInfoEntity = productrepo.findByproductName("센트룸 실버 프로");
 
 		model.addAttribute("productInfo", productInfoEntity.get().toDTO());
