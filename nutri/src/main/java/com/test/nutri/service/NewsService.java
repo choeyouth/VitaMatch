@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.test.nutri.api.NewsAPI;
-import com.test.nutri.entity.News;
 import com.test.nutri.model.NewsDTO;
 import com.test.nutri.model.NewsListDTO;
 import com.test.nutri.repository.NewsQueryDSLRepository;
@@ -22,18 +21,16 @@ public class NewsService {
 	private final NewsRepository newsRepository;
 	private final NewsQueryDSLRepository newsQueryDSLRepository;
 
-	public List<NewsDTO> getNewsList(Integer page) {
+	public List<NewsDTO> getNewsList(Integer offset, Integer limit) {
 
 //		최신 뉴스부터 2024년 11월 뉴스까지 DB에 저장
 		if (newsRepository.count() > 0) {
-			System.out.println("뉴스 데이터가 존재함");
 			updateLatestNews();
 		} else {
-			System.out.println("뉴스 데이터가 존재하지 않음");
 			insertAllNews();
 		}
 
-		return newsQueryDSLRepository.findAllPagenation(page).stream()
+		return newsQueryDSLRepository.findAllPagenation(offset, limit).stream()
 				.map(news -> NewsDTO.builder().title(news.getTitle()).originallink(news.getOriginalLink())
 						.link(news.getLink()).description(news.getDescription()).pubDate(news.getRegDate()).build())
 				.toList();
@@ -43,7 +40,6 @@ public class NewsService {
 
 		int start = 1;
 		boolean isFind = false;
-		boolean insertMode = false;
 		
 		NewsListDTO list;
 		NewsDTO news;
@@ -53,6 +49,7 @@ public class NewsService {
 			
 			if(isFind) {
 				for (int i = list.getItems().size() - 1; i >= 0; i--) {
+					
 					news = list.getItems().get(i);
 					newsRepository.save(news.toEntity());
 				}
@@ -90,6 +87,7 @@ public class NewsService {
 
 			if (list.getItems().getLast().getPubDate().compareTo(baseDate) <= 0) {
 				for (int i = list.getItems().size() - 1; i >= 0; i--) {
+					
 					news = list.getItems().get(i);
 
 					if (news.getPubDate().compareTo(baseDate) >= 0) {
@@ -100,6 +98,7 @@ public class NewsService {
 				isFind = true;
 			} else if (isFind) {
 				for (int i = list.getItems().size() - 1; i >= 0; i--) {
+					
 					news = list.getItems().get(i);
 					newsRepository.save(news.toEntity());
 				}
@@ -109,5 +108,9 @@ public class NewsService {
 			}
 
 		}
+	}
+
+	public int getCount() {
+		return (int) newsRepository.count();
 	}
 }
