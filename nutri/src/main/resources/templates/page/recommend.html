@@ -6,6 +6,11 @@
 	<th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
 	<link rel="stylesheet" th:href="@{css/recommend.css}">
 </head>
+<style>
+	.row g-5 {
+		display: inline-block;
+	}
+</style>
 <body style="-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none">
 	<th:block th:insert="~{inc/header.html :: index_header_menu}"></th:block>
 	<th:block th:insert="~{inc/header.html :: index_header_content_basic(#{menu.recommend},#{menu.recommend.desc})}"></th:block>
@@ -13,73 +18,69 @@
 	
 	<div class="recommend-container">
 		<div class="section services-section">
-				<div class="container">
-					<div class="row mb-5">
-						<div class="col-lg-5 aos-init aos-animate" data-aos="fade-up" data-aos-delay="">
-							<h3 class="subheading">RECOMMEND INGREDIENT</h3>
-							<h2 class="heading">건강 상태에 맞는 맞춤 영양제 성분</h2>
-						</div>		
+			<div class="container">
+				<div class="row mb-5">
+					<div class="col-lg-5 aos-init aos-animate" data-aos="fade-up" data-aos-delay="">
+						<h3 class="subheading">RECOMMEND INGREDIENT</h3>
+						<h2 class="heading">건강 상태에 맞는 맞춤 영양제 성분</h2>
+					</div>		
+				</div>
+
+				<div class="row g-5">
+					<div class="col-lg-4"  data-aos="fade-up" th:each="galist, iterStat : ${galist}" th:attr="data-aos-delay=${iterStat.index == 0 ? ' ' : (iterStat.index) * 100}">
+						<div class="feature-1 d-block">
+							<div class="mb-3">
+								<img th:src="'img/ingredient/'+${galist.ingredientName}+'.png'" class="ingredient-icon">
+							</div>
+							<div>
+								<h3 th:text="${galist.ingredientName}"></h3>
+								<p th:utext="${galist.functionalContent}"></p>
+							</div>
+						</div>
 					</div>
-
-					<div class="row g-5" th:each="galist, iterStat : ${galist}">
-						<div class="col-lg-4"  data-aos="fade-up"  th:attr="data-aos-delay=${iterStat.index == 0 ? '' : (iterStat.index * 100)}">
-
-							<div class="feature-1 d-block">
-								<div class="mb-3">
-									<img th:src="'img/ingredient/'+${galist.ingredientName}+'.png'" class="ingredient-icon">
-								</div>
-								<div>
-									<h3 th:text="${galist.ingredientName}"></h3>
-									<p th:utext="${galist.functionalContent}"></p>
-								</div>
+				</div>
+				
+				<div class="row g-5">
+					<div class="col-lg-4"  data-aos="fade-up" th:each="hlist, iterStat : ${hlist}" th:attr="data-aos-delay=${iterStat.index == 0 ? ' ' : (iterStat.index) * 100}">
+						<div class="feature-1 d-block">
+							<div class="mb-3">
+								<img th:src="'img/ingredient/'+${hlist.ingredientName}+'.png'" class="ingredient-icon">
 							</div>
-							
+							<div>
+								<h3 th:text="${hlist.ingredientName}"></h3>
+								<p th:utext="${hlist.functionalContent}"></p>
+							</div>
 						</div>
-<!--						<div class="col-lg-4"  data-aos="fade-up" data-aos-delay="100">
-
-							<div class="feature-1 d-block">
-								<div class="mb-3">
-									<img th:src="'img/ingredient/'+${galist.ingredientName}+'.png'" class="ingredient-icon">
-								</div>
-								<div>
-									<h3 th:text="${galist.ingredientName}"></h3>
-									<p th:utext="${galist.functionalContent}"></p>
-								</div>
-							</div>
-							
-						</div>
-						<div class="col-lg-4"  data-aos="fade-up" data-aos-delay="200">
-
-							<div class="feature-1 d-block">
-								<div class="mb-3">
-									<img th:src="'img/ingredient/'+${galist.ingredientName}+'.png'" class="ingredient-icon">
-								</div>
-								<div>
-									<h3 th:text="${galist.ingredientName}"></h3>
-									<p th:utext="${galist.functionalContent}"></p>
-								</div>
-							</div>
-							
-						</div>-->
-						
 					</div>
-					
-<!--					<div class="row g-5" th:each="hlist : ${hlist}">
-						<div class="col-lg-4"  data-aos="fade-up" data-aos-delay="">
+				</div>
 
-							<div class="feature-1 d-block">
-								<div class="mb-3">
-									<img th:src="'img/ingredient/'+${hlist.ingredientName}+'.png'" class="ingredient-icon">
-								</div>
-								<div>
-									<h3 th:text="${hlist.ingredientName}"></h3>
-									<p th:utext="${hlist.functionalContent}"></p>
-								</div>
+				<div class="row g-5">
+					<div class="col-lg-4"  data-aos="fade-up" th:each="olist, iterStat : ${olist}" th:attr="data-aos-delay=${iterStat.index == 0 ? ' ' : (iterStat.index) * 100}">
+						<div class="feature-1 d-block">
+							<div class="mb-3">
+								<img th:src="'img/ingredient/'+${olist.ingredientName}+'.png'" class="ingredient-icon">
 							</div>
-							
+							<div>
+								<h3 th:text="${olist.ingredientName}"></h3>
+								<p th:utext="${olist.functionalContent}"></p>
+							</div>
 						</div>
-						
-					</div>	-->	
+					</div>
+				</div>
+
+				<div class="row g-5">
+					<div class="col-lg-4"  data-aos="fade-up" th:each="dlist, iterStat : ${dlist}" th:attr="data-aos-delay=${iterStat.index == 0 ? ' ' : (iterStat.index) * 100}">
+						<div class="feature-1 d-block">
+							<div class="mb-3">
+								<img th:src="'img/ingredient/'+${dlist.ingredientName}+'.png'" class="ingredient-icon">
+							</div>
+							<div>
+								<h3 th:text="${dlist.ingredientName}"></h3>
+								<p th:utext="${dlist.functionalContent}"></p>
+							</div>
+						</div>
+					</div>
+				</div>
 					
 			</div>
 	</div>
