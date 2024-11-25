@@ -136,7 +136,7 @@
 							<div class="col-lg-5 mb-5 mb-lg-0 me-auto testimonial-wrap" data-aos="fade-up"
 								data-aos-delay="0">
 								<h3 class="subheading">선택된 영양제</h3>
-								<h2 class="heading mb-5" id ="selectOne"></h2>
+								<h2 class="heading mb-5" id ="selectOne">오메가3</h2>
 
 								<div class="wide-slider-testimonial-wrap">
 
@@ -144,7 +144,7 @@
 										<div class="item">
 											<blockquote class="block-testimonial">
 												<div class="author">
-													<img src="/img/ingredient/칼슘.png">
+													<img src="/img/ingredient/오메가3.png" id="selectOneImg">
 													<h3>효능</h3>
 													<p>기능 넣을 거임</p>
 												</div>
@@ -233,20 +233,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 	document.querySelector('input[type="radio"]').checked = true;
-
-	/*
-	document.querySelectorAll('label').forEach(function(label) {
-		label.addEventListener('click', function() {
-			// 클릭된 label에 연결된 input 요소 가져오기
-			var input = document.querySelector('#' + label.getAttribute('for'));
-			var ingredientSeq = input.value;
-			var ingredient = label.textContent.trim();
-			// 콘솔에 연결된 input 요소 출력
-			console.log(ingredientSeq + ingredient);
-		});
-	});
-	*/
-
 	
 	// CSRF 토큰과 헤더 이름을 메타 태그에서 동적으로 가져옵니다.
 	// security 아직 안됌
@@ -260,9 +246,14 @@
 			let input = document.querySelector('#' + label.getAttribute('for'));
 			let ingredientSeq = input.value;
 			let ingredient = label.textContent.trim();
-			// 라디오 버튼이 선택된 경우에만 작동하도록 처리
-			console.log(ingredientSeq + ingredient);
-
+			
+			// 라디오 버튼을 누르면 선택된 성분 보여주기로 변경
+			document.querySelector('#selectOne').innerHTML = ingredient;
+			
+			// 라디오 버튼을 누르면 선택된 성분 이미지 보여주기로 변경
+			let image = document.querySelector('#selectOneImg');
+			image.src = '/img/ingredient/' + ingredient + '.png';
+			
 			// AJAX 요청
 			$.ajax({
 				type: 'POST',
@@ -284,9 +275,15 @@
 					alert('서버에서 처리된 성분: ' + response.ingredient);  // 서버에서 처리된 값 출력
 					*/
 					console.log(response);
-					if (response.bad !== null) {
+					
+					if (response.bad.length > 0) {
+						console.log(response.bad);
+						console.log(response.bad[0]);
+					
 				        // response.ingredientName을 #selectOne 요소의 innerHTML에 삽입
-				        document.querySelector('#selectOne').innerHTML = response.ingredientName;
+				        document.querySelector('#selectOne').innerHTML = ingredient;
+				    }else if(response.good.length > 0){
+				    	 document.querySelector('#selectOne').innerHTML = ingredient;
 				    }
 				},
 				error: function (a, b, c) {
