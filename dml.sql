@@ -127,17 +127,19 @@ select * from badCombination;
 
 commit;
 select * from vwGoodCombination;
-CREATE VIEW vwGoodCombination AS
+CREATE or replace VIEW vwGoodCombination AS
 SELECT g.seq, 
        g.ingredient_seq, 
        i.name AS ingredientName, 
        g.good, 
        i2.name AS name, 
        g.reason, 
-       g.link
+       g.link,
+       c.functionalContent
 FROM goodCombination g 
 LEFT JOIN ingredient i ON g.ingredient_seq = i.seq
-LEFT JOIN ingredient i2 ON g.good = i2.seq;
+LEFT JOIN ingredient i2 ON g.good = i2.seq
+LEFT JOIN ingredientContent c ON g.ingredient_seq = c.ingredient_seq;
 
 
 select * from vwBadCombination;

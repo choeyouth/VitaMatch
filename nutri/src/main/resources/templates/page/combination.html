@@ -136,7 +136,7 @@
 							<div class="col-lg-5 mb-5 mb-lg-0 me-auto testimonial-wrap" data-aos="fade-up"
 								data-aos-delay="0">
 								<h3 class="subheading">선택된 영양제</h3>
-								<h2 class="heading mb-5">칼슘</h2>
+								<h2 class="heading mb-5" id ="selectOne"></h2>
 
 								<div class="wide-slider-testimonial-wrap">
 
@@ -283,6 +283,11 @@
 					console.log('서버 응답:', response);
 					alert('서버에서 처리된 성분: ' + response.ingredient);  // 서버에서 처리된 값 출력
 					*/
+					console.log(response);
+					if (response.bad !== null) {
+				        // response.ingredientName을 #selectOne 요소의 innerHTML에 삽입
+				        document.querySelector('#selectOne').innerHTML = response.ingredientName;
+				    }
 				},
 				error: function (a, b, c) {
 					console.log(a, b, c);
