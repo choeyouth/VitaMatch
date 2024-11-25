@@ -21,79 +21,65 @@
 						</div>		
 					</div>
 
-					<div class="row g-5">
-						<div class="col-lg-4"  data-aos="fade-up" data-aos-delay="">
+					<div class="row g-5" th:each="galist, iterStat : ${galist}">
+						<div class="col-lg-4"  data-aos="fade-up"  th:attr="data-aos-delay=${iterStat.index == 0 ? '' : (iterStat.index * 100)}">
 
 							<div class="feature-1 d-block">
 								<div class="mb-3">
-									<img src="img/ingredient/마그네슘.png" class="ingredient-icon">
+									<img th:src="'img/ingredient/'+${galist.ingredientName}+'.png'" class="ingredient-icon">
 								</div>
 								<div>
-									<h3>마그네슘</h3>
-									<p>(가) 에너지 이용에 필요<br/>(나) 신경과 근육 기능 유지에 필요</p>
+									<h3 th:text="${galist.ingredientName}"></h3>
+									<p th:utext="${galist.functionalContent}"></p>
 								</div>
 							</div>
 							
 						</div>
-						<div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+<!--						<div class="col-lg-4"  data-aos="fade-up" data-aos-delay="100">
+
 							<div class="feature-1 d-block">
 								<div class="mb-3">
-									<img src="img/ingredient/아연.png" class="ingredient-icon">
+									<img th:src="'img/ingredient/'+${galist.ingredientName}+'.png'" class="ingredient-icon">
 								</div>
 								<div>
-									<h3>아연</h3>
-									<p>(가) 정상적인 면역기능에 필요<br/>(나) 정상적인 세포분열에 필요</p>
+									<h3 th:text="${galist.ingredientName}"></h3>
+									<p th:utext="${galist.functionalContent}"></p>
 								</div>
 							</div>
+							
 						</div>
-						<div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+						<div class="col-lg-4"  data-aos="fade-up" data-aos-delay="200">
+
 							<div class="feature-1 d-block">
 								<div class="mb-3">
-									<img src="img/ingredient/비타민D.png" class="ingredient-icon">
+									<img th:src="'img/ingredient/'+${galist.ingredientName}+'.png'" class="ingredient-icon">
 								</div>
 								<div>
-									<h3>비타민D</h3>
-									<p>(가) 칼슘과 인이 흡수되고 이용되는데 필요<br/>(나) 뼈의 형성과 유지에 필요<br/>(다) 골다공증발생 위험 감소에 도움을 줌</p>
+									<h3 th:text="${galist.ingredientName}"></h3>
+									<p th:utext="${galist.functionalContent}"></p>
 								</div>
 							</div>
+							
+						</div>-->
+						
+					</div>
+					
+<!--					<div class="row g-5" th:each="hlist : ${hlist}">
+						<div class="col-lg-4"  data-aos="fade-up" data-aos-delay="">
+
+							<div class="feature-1 d-block">
+								<div class="mb-3">
+									<img th:src="'img/ingredient/'+${hlist.ingredientName}+'.png'" class="ingredient-icon">
+								</div>
+								<div>
+									<h3 th:text="${hlist.ingredientName}"></h3>
+									<p th:utext="${hlist.functionalContent}"></p>
+								</div>
+							</div>
+							
 						</div>
 						
-						<div class="col-lg-4"  data-aos="fade-up" data-aos-delay="">
-
-							<div class="feature-1 d-block">
-								<div class="mb-3">
-									<img src="img/ingredient/마그네슘.png" class="ingredient-icon">
-								</div>
-								<div>
-									<h3>마그네슘</h3>
-									<p>(가) 에너지 이용에 필요<br/>(나) 신경과 근육 기능 유지에 필요</p>
-								</div>
-							</div>
-							
-						</div>
-						<div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-							<div class="feature-1 d-block">
-								<div class="mb-3">
-									<img src="img/ingredient/아연.png" class="ingredient-icon">
-								</div>
-								<div>
-									<h3>아연</h3>
-									<p>(가) 정상적인 면역기능에 필요<br/>(나) 정상적인 세포분열에 필요</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-							<div class="feature-1 d-block">
-								<div class="mb-3">
-									<img src="img/ingredient/비타민D.png" class="ingredient-icon">
-								</div>
-								<div>
-									<h3>비타민D</h3>
-									<p>(가) 칼슘과 인이 흡수되고 이용되는데 필요<br/>(나) 뼈의 형성과 유지에 필요<br/>(다) 골다공증발생 위험 감소에 도움을 줌</p>
-								</div>
-							</div>
-						</div>
-					</div>	
+					</div>	-->	
 					
 			</div>
 	</div>
