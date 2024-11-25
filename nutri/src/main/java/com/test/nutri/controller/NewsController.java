@@ -30,7 +30,7 @@ public class NewsController {
 
 		StringBuilder sb = new StringBuilder();
 
-		int firstPage = (int) (((int)Math.floor(page / maxPageSize)) * maxPageSize + 1);
+		int firstPage = (int) (Math.floor((page - 1) / maxPageSize) * maxPageSize + 1);
 		int beforePage = (int) (firstPage - maxPageSize);
 		int nextPage = (int) (firstPage + maxPageSize);
 
