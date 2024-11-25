@@ -21,7 +21,7 @@
 					</div>		
 				</div>
 					<div class="survey-ingredient">
-						<div class="attention-content">각 항목당 1개만 선택 가능</div>	
+						<div class="attention-content">각 항목당 1개만 선택 가능</div>
 						<label for="gender" class="survey-sub-title">성별<span>*성별 선택 필수</span></label>
 						<div class="survey-gender">
 							<div class="survey-radio-btn">
@@ -154,13 +154,35 @@
 							</div>
 						</div>
 						<div class="survey-btn">
-							<button type="button" class="clean-btn"><img src="img/recommend/cleanIcon.svg" class="clean-icon">설문 항목 초기화</button>
+							<button type="button" class="clean-btn" onclick=" resetSurvey()"><img src="img/recommend/cleanIcon.svg" class="clean-icon">설문 항목 초기화</button>
 							<button type="button" class="recommend-btn" onclick="location.href='/recommend'"><img src="img/recommend/recommendIcon.svg" class="recommend-icon">영양제 추천 받기</button>
 						</div>
 					</div>
 			</div> <!-- container -->
 		</div>
 	</div>
+	
+	<script>
+	    function resetSurvey() {
+	        // 라디오 버튼 초기화
+	        const radioButtons = document.querySelectorAll('input[type="radio"]');
+	        radioButtons.forEach(radio => {
+	            radio.checked = false;
+	        });
+
+	        // 체크박스 초기화
+	        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+	        checkboxes.forEach(checkbox => {
+	            checkbox.checked = false;
+	        });
+			
+			// 페이지를 맨 위로 스크롤
+			window.scrollTo({
+			    top: 522,       // 상단으로 이동
+			    behavior: 'smooth'  // 부드럽게 이동
+			});
+	    }
+	</script>
 
 	<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
 	<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>

@@ -82,6 +82,7 @@
 	color: var(--bs-white);
 	background: var(--bs-primary);
 	border: none;
+	cursor: pointer;
 }
 
 
