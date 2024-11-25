@@ -79,7 +79,7 @@
                 </tr>
                 <!-- Telephone -->
 				<tr class="phone-group flex-row">
-				    <td>
+				    <td class="form-group">
 				        <select id="phone1" name="phone1" class="signup" required>
 				            <option value="010" selected>010</option>
 				            <option value="011">011</option>
@@ -87,43 +87,44 @@
 				            <option value="017">017</option>
 				            <option value="018">018</option>
 				            <option value="019">019</option>
-
 				        </select>
 				    </td>
 				    <td class="phone-separator">-</td>
-				    <td>
+				    <td class="form-group">
 				        <input id="phone2" type="text" name="phone2" maxlength="4" class="signup phone-input" required />
+				        <span class="error-message"></span>
 				    </td>
 				    <td class="phone-separator">-</td>
-				    <td>
+				    <td class="form-group">
 				        <input id="phone3" type="text" name="phone3" maxlength="4" class="signup phone-input" required />
+				        <span class="error-message"></span>
 				    </td>
 				</tr>
 				
                 <!-- Address -->
             	<tr class="flex-row">
 	            	<td id="zipcode-group" class="form-group">
-            			<input type="text" id="sample6_postcode" name="sample6_postcode" placeholder=" " class="signup" required>
-						<label for="sample6_postcode">우편번호</label>
-						<button type="button" id="search-zipcode" class="button" onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
+            			<input type="text" id="zipcode" name="zipcode" placeholder=" " class="signup" required>
+						<label for="zipcode">우편번호</label>
+						<button type="button" id="search-zipcode" class="button" onclick="execDaumPostcode()">우편번호 찾기</button>
 					</td>
 				</tr>
 				
 				<tr class="flex-row">
 					<td class="form-group">
-						<input type="text" id="sample6_address" name="sample6_address" placeholder=" " class="signup" required>
-                        <label for="sample6_address">주소</label>
+						<input type="text" id="address" name="address" placeholder=" " class="signup" required>
+                        <label for="address">주소</label>
 					</td>
 				</tr>
 				
 				<tr class="flex-row">
 					<td class="form-group">
-						<input type="text" id="sample6_detailAddress" name="sample6_detailAddress" placeholder=" " class="signup" required>
-						<label for="sample6_detailAddress">상세주소</label>
+						<input type="text" id="detailAddress" name="detailAddress" placeholder=" " class="signup">
+						<label for="detailAddress">상세주소</label>
 					</td>
 					<td class="form-group">
-						<input type="text" id="sample6_extraAddress" name="sample6_extraAddress" placeholder=" " class="signup" required>
-						<label for="sample6_extraAddress">참고항목</label>
+						<input type="text" id="extraAddress" name="extraAddress" placeholder=" " class="signup">
+						<label for="extraAddress">참고항목</label>
 					</td>
             	</tr>
             </table>
@@ -137,8 +138,11 @@
     <th:block th:insert="~{inc/footer.html :: footer}"></th:block>
     <th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script th:src="@{js/signup.js}"></script>
+
+    
 <script>
-    function sample6_execDaumPostcode() {
+    function execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -171,17 +175,17 @@
                         extraAddr = ' (' + extraAddr + ')';
                     }
                     // 조합된 참고항목을 해당 필드에 넣는다.
-                    document.getElementById("sample6_extraAddress").value = extraAddr;
+                    document.getElementById("extraAddress").value = extraAddr;
                 
                 } else {
-                    document.getElementById("sample6_extraAddress").value = '';
+                    document.getElementById("extraAddress").value = '';
                 }
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('sample6_postcode').value = data.zonecode;
-                document.getElementById("sample6_address").value = addr;
+                document.getElementById('zipcode').value = data.zonecode;
+                document.getElementById("address").value = addr;
                 // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("sample6_detailAddress").focus();
+                document.getElementById("detailAddress").focus();
             }
         }).open();
     }
