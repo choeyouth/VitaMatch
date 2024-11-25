@@ -6,7 +6,7 @@
     padding: 20px 40px; /* Add padding inside the form box */
     background-color: #ffffff; /* Ensure a clean background */
     border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for better focus */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for better focus */
 }
 
 /* Input Fields */
@@ -21,10 +21,61 @@ input.signup, select.signup {
     margin-bottom: 15px;
 }
 
+select#gender {
+    width: 50%; /* Full width for better alignment */
+    position: relative;
+    left: 50%;
+    height: 60px; /* Uniform height */
+    padding: 10px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+	
+}
+
+/* Input Fields */
+td#zipcode-group input.signup {
+    width: 25%; /* Full width for better alignment */
+    height: 60px; /* Uniform height */
+    padding: 10px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+
+td#zipcode-group button#search-zipcode {
+    position: absolute;
+    width: 25%;
+    top: 0;
+    left: 30%;
+    padding-left: auto;
+    padding-right: auto;
+    height: 60px;
+    padding: 0 20px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #10D0A1;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    white-space: nowrap; /* Prevent button text from wrapping */
+}
+
+td#zipcode-group button#search-zipcode:hover {
+	box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
+	transition: background-color 0.3s ease;
+    background-color: #0EBA90;
+}
+
 /* Floating Labels for Input and Select Fields */
 label {
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 15px;
     font-size: 14px;
     color: #AAA;
@@ -37,7 +88,7 @@ input:focus + label,
 input:not(:placeholder-shown) + label,
 select:focus + label,
 select:not([value=""]) + label {
-    top: -10px;
+    top: 12px;
     font-size: 12px;
     color: #10D0A1;
 }
@@ -48,9 +99,9 @@ select:not([value=""]) + label {
     width: 100%; /* Ensure it takes up full width */
 }
 
-.id-group div.id-container {
+.id-group input#id {
     position: relative;
-    width: 100%; /* Ensure it takes up full width */
+    width: 75%; /* Ensure it takes up 75% width */
 }
 
 .id-container {
@@ -84,7 +135,9 @@ select:not([value=""]) + label {
 }
 
 .check-id-button:hover {
-    background-color: #0e9c81;
+	box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
+	transition: background-color 0.3s ease;
+    background-color: #0EBA90;
 }
 
 /* Flexbox Rows for Grouped Inputs */
@@ -107,17 +160,20 @@ select:not([value=""]) + label {
     gap: 10px; /* Add spacing between inputs */
     align-items: center;
 }
+/* 휴대폰 통신사 번호 3글자가 다 출력되게 공간 할당 */
+tr.phone-group td:first-child {
+	width: 100px;
+}
 
 .phone-group select,
 .phone-group input {
     flex: 1; /* Ensure consistent widths for all inputs */
-    text-align: center;
 }
 
 .phone-separator {
     font-size: 18px;
-    color: #333;
-    padding: 0 5px;
+    color: #AAA;
+    padding: 0 5px 15px 5px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -140,7 +196,9 @@ button.login-button {
 }
 
 button.login-button:hover {
-    background-color: #0e9c81;
+	box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
+	transition: background-color 0.3s ease;
+    background-color: #0EBA90;
 }
 
 /* Styling for VitaMatch title and description */
