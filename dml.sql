@@ -53,6 +53,7 @@ INSERT INTO ingredient (name, category) VALUES
 ('프로폴리스', 0);
 
 select * from ingredient;
+
 -- healthIngredient 데이터 삽입
 INSERT INTO healthIngredient (health_seq, ingredient_seq) VALUES
 (1, (SELECT seq FROM ingredient WHERE name = '비타민B12')),
@@ -126,21 +127,23 @@ INSERT INTO badCombination (ingredient_seq, bad, reason, link) VALUES
 select * from badCombination;
 
 commit;
-select * from vwGoodCombination;
-CREATE VIEW vwGoodCombination AS
+
+CREATE or replace VIEW vwGoodCombination AS
 SELECT g.seq, 
        g.ingredient_seq, 
        i.name AS ingredientName, 
        g.good, 
        i2.name AS name, 
        g.reason, 
-       g.link
+       g.link,
+       c.functionalContent
 FROM goodCombination g 
 LEFT JOIN ingredient i ON g.ingredient_seq = i.seq
-LEFT JOIN ingredient i2 ON g.good = i2.seq;
+LEFT JOIN ingredient i2 ON g.good = i2.seq
+LEFT JOIN ingredientContent c ON g.ingredient_seq = c.ingredient_seq;
 
 
-select * from vwBadCombination;
+
 CREATE VIEW vwBadCombination AS
 SELECT g.seq, 
        g.ingredient_seq, 
@@ -155,6 +158,9 @@ LEFT JOIN ingredient i ON g.ingredient_seq = i.seq
 LEFT JOIN ingredient i2 ON g.bad = i2.seq
 LEFT JOIN ingredientContent c ON g.ingredient_seq = c.ingredient_seq;
 
+
+select * from vwGoodCombination;
+select * from vwBadCombination;
 ----------------------------------------
 -- 남황현
 insert into ingredientContent (seq,functionalContent,dailyIntake,precautionsForIngestion,ingredient_seq) VALUES(1,'가) 어두운 곳에서 시각 적응을 위해 필요<br/>(나) 피부와 점막을 형성하고 기능을 유지하는데 필요<br/>(다) 상피세포의 성장과 발달에 필요','210～1,000 μg RE(699.93∼3,333 IU)',' ',1);

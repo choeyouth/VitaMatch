@@ -24,12 +24,11 @@ public class NewsQueryDSLRepository {
 	}
 
 
-	public List<News> findAllPagenation(Integer page) {
-		int count = 6;
-		
+	public List<News> findAllPagenation(Integer offset, Integer limit) {
 		return jpaQueryFactory.selectFrom(news)
-				.offset(page)
-				.limit(count)
+				.orderBy(news.regDate.desc())
+				.offset(offset)
+				.limit(limit)
 				.fetch();
 	}
 

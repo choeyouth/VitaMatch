@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
+	<link rel="stylesheet" th:href="@{css/main.css}">
+</head>
+<body>
+	<th:block th:insert="~{inc/header.html :: main_header}"></th:block>
+	<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
+	<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
+</body>
+</html>
