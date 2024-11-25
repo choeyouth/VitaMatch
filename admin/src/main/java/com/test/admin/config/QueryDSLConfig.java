@@ -1,6 +1,6 @@
-package com.test.nutri.config;
+package com.test.admin.config;
 
-import org.springframework.context.annotation.Bean; 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
