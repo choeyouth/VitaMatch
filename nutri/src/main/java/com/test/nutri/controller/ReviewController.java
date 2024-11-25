@@ -1,20 +1,41 @@
 package com.test.nutri.controller;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.test.nutri.entity.VwReview;
+import com.test.nutri.repository.ReviewRepository;
+
+import lombok.RequiredArgsConstructor;
+
 @Controller
+@RequiredArgsConstructor
 public class ReviewController {
 
+	private final ReviewRepository reviewRepository;
+	
 	@GetMapping("/review")
 	public String review(Model model) {
+		
+		//전체리스트 가져오기
+		List<VwReview> list = reviewRepository.findAll();
+		
+		model.addAttribute("list", list);
 		
 		return "page/review";
 	}
 	
 	@GetMapping("/viewReview")
-	public String viewtReview(Model model) {
+	public String viewReview(Model model) {
+		
+		/* Optional <VwReview> vwReview = reviewRepository.findReviewBySeq(); */
+		
+	
+		
 		
 		return "page/viewReview";
 	}
