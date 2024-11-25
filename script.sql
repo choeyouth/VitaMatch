@@ -1,19 +1,21 @@
+select * from goodCombination;
+commit;
 CREATE TABLE `productInfo` (
 	`seq`	INT	AUTO_INCREMENT PRIMARY KEY,
 	`productImage`	VARCHAR(1000)	NULL,
 	`CompanyName`	VARCHAR(500)	NULL,
 	`productName`	VARCHAR(500)	NOT NULL,
 	`ReportNo`	VARCHAR(500)	NOT NULL,
-	`registrationTIMESTAMP`	TIMESTAMP	NOT NULL,
-	`expirationTIMESTAMP`	VARCHAR(500)	NULL,
+	`registrationDate`	TIMESTAMP	NOT NULL,
+	`expirationDate`	VARCHAR(500)	NULL,
 	`medicationType`	VARCHAR(1000)	NULL,
 	`ingestionMethod`	VARCHAR(1000)	NULL,
 	`packagingMaterial`	VARCHAR(1000)	NULL,
 	`packagingMethod`	VARCHAR(1000)	NULL,
 	`preservation`	VARCHAR(1000)	NULL,
 	`precautionsForIngestion`	VARCHAR(2000)	NULL,
-	`functionalContent`	VARCHAR(4000)	NULL,
-	`standardsAndSpecifications`	VARCHAR(4000)	NULL
+	`functionalContent`	TEXT 	NULL,
+	`standardsAndSpecifications`	TEXT 	NULL
 );
 
 CREATE TABLE `member` (
@@ -29,27 +31,10 @@ CREATE TABLE `member` (
 	`address`	VARCHAR(300)	NULL,
 	`status`	INT	NOT NULL	DEFAULT 1,
 	`createTime`	TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP,
-	`upTIMESTAMPTime`	TIMESTAMP	NULL	DEFAULT CURRENT_TIMESTAMP,
+	`updateTime`	TIMESTAMP	NULL	DEFAULT CURRENT_TIMESTAMP,
     UNIQUE (username)
 );
 
-CREATE TABLE `goodCombination` (
-	`seq`	INT	AUTO_INCREMENT PRIMARY KEY,
-	`good`	VARCHAR(50)	NOT NULL,
-	`reason`	VARCHAR(1500)	NOT NULL,
-	`link`	VARCHAR(1000)	NOT NULL,
-	`ingredient_seq`	INT	NOT NULL,
-    FOREIGN KEY (ingredient_seq) REFERENCES ingredient(seq)
-);
-
-CREATE TABLE `badCombination` (
-	`seq`	INT	AUTO_INCREMENT PRIMARY KEY,
-	`bad`	VARCHAR(50)	NOT NULL,
-	`reason`	VARCHAR(1500)	NOT NULL,
-	`link`	VARCHAR(1000)	NOT NULL,
-	`ingredient_seq`	INT	NOT NULL,
-    FOREIGN KEY (ingredient_seq) REFERENCES ingredient(seq)
-);
 
 CREATE TABLE `review` (
 	`seq`	INT	AUTO_INCREMENT PRIMARY KEY,
@@ -58,7 +43,7 @@ CREATE TABLE `review` (
     `category`	VARCHAR(100)	NOT NULL,
     `name`	VARCHAR(300)	NOT NULL,
 	`content`	VARCHAR(1000)	NOT NULL,
-	`regTIMESTAMP`	TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP,
+	`regDate`	TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP,
 	`score`	INT	NULL,
     FOREIGN KEY (member_seq) REFERENCES member(seq)  
 );
@@ -68,7 +53,7 @@ CREATE TABLE `reviewComment` (
 	`review_seq`	INT	NOT NULL,
 	`member_seq`	INT	NOT NULL,
 	`content`	VARCHAR(500)	NOT NULL,
-	`regTIMESTAMP`	TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP,
+	`regDate`	TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (review_seq) REFERENCES review(seq),
     FOREIGN KEY (member_seq) REFERENCES member(seq)
 );
@@ -92,7 +77,7 @@ CREATE TABLE `productMedication` (
 CREATE TABLE `medicationRecord` (
 	`seq`	INT	AUTO_INCREMENT PRIMARY KEY,
 	`medicationList_seq`	INT	NOT NULL,
-	`startTIMESTAMP`	TIMESTAMP	NOT NULL,
+	`startDate`	TIMESTAMP	NOT NULL,
 	`duration`	INT	NOT NULL,
 	`alertTime`	TIME	NOT NULL,
 	`status`	VARCHAR(1)	NULL	DEFAULT 1,
@@ -105,7 +90,7 @@ CREATE TABLE `admin` (
 	`id`	VARCHAR(50)	NOT NULL,
 	`pw`	VARCHAR(100)	NOT NULL,
 	`name`	VARCHAR(50)	NOT NULL,
-	`birthTIMESTAMP`	TIMESTAMP	NOT NULL,
+	`birthDate`	TIMESTAMP	NOT NULL,
 	`email`	VARCHAR(100)	NOT NULL
 );
 
@@ -115,7 +100,7 @@ CREATE TABLE `noticePost` (
 	`admin_seq`	INT	NOT NULL,
 	`title`	VARCHAR(50)	NOT NULL,
 	`content`	VARCHAR(1000)	NOT NULL,
-	`regTIMESTAMP`	TIMESTAMP	NOT NULL,
+	`regDate`	TIMESTAMP	NOT NULL,
     FOREIGN KEY (admin_seq) REFERENCES admin(seq)
 );
 
@@ -124,7 +109,7 @@ CREATE TABLE `faqPost` (
 	`admin_seq`	INT	NOT NULL,
 	`title`	VARCHAR(50)	NOT NULL,
 	`content`	VARCHAR(1000)	NOT NULL,
-	`regTIMESTAMP`	TIMESTAMP	NOT NULL,
+	`regDate`	TIMESTAMP	NOT NULL,
     FOREIGN KEY (admin_seq) REFERENCES admin(seq)
     
 );
@@ -134,7 +119,7 @@ CREATE TABLE `communityPost` (
 	`member_seq`	INT	NOT NULL,
 	`title`	VARCHAR(50)	NOT NULL,
 	`content`	VARCHAR(1000)	NOT NULL,
-	`regTIMESTAMP`	TIMESTAMP	NOT NULL,
+	`regDate`	TIMESTAMP	NOT NULL,
     FOREIGN KEY (member_seq) REFERENCES member(seq)
 );
 
@@ -143,7 +128,7 @@ CREATE TABLE `communityComment` (
 	`member_seq`	INT	NOT NULL,
 	`communityPost_seq`	INT	NOT NULL,
 	`content`	VARCHAR(300)	NOT NULL,
-	`regTIMESTAMP`	TIMESTAMP	NOT NULL,
+	`regDate`	TIMESTAMP	NOT NULL,
     FOREIGN KEY (member_seq) REFERENCES member(seq),
     FOREIGN KEY (communityPost_seq) REFERENCES communityPost(seq)
     
@@ -182,7 +167,7 @@ CREATE TABLE `news` (
 	`link`	VARCHAR(300)	NOT NULL,
 	`originalLink`	VARCHAR(300)	NOT NULL,
 	`description`	VARCHAR(500)	NOT NULL,
-	`regTIMESTAMP`	TIMESTAMP	NOT NULL
+	`regDate`	TIMESTAMP	NOT NULL
 );
 
 
@@ -209,7 +194,23 @@ CREATE TABLE `ingredientProduct` (
     FOREIGN KEY (ingredient_seq) REFERENCES ingredient(seq)
 );
 
+CREATE TABLE `goodCombination` (
+	`seq`	INT	AUTO_INCREMENT PRIMARY KEY,
+	`good`	VARCHAR(50)	NOT NULL,
+	`reason`	VARCHAR(1500)	NOT NULL,
+	`link`	VARCHAR(1000)	NOT NULL,
+	`ingredient_seq`	INT	NOT NULL,
+    FOREIGN KEY (ingredient_seq) REFERENCES ingredient(seq)
+);
 
+CREATE TABLE `badCombination` (
+	`seq`	INT	AUTO_INCREMENT PRIMARY KEY,
+	`bad`	VARCHAR(50)	NOT NULL,
+	`reason`	VARCHAR(1500)	NOT NULL,
+	`link`	VARCHAR(1000)	NOT NULL,
+	`ingredient_seq`	INT	NOT NULL,
+    FOREIGN KEY (ingredient_seq) REFERENCES ingredient(seq)
+);
 
 CREATE TABLE `emailVerification` (
 	`seq`	INT	AUTO_INCREMENT PRIMARY KEY,
@@ -300,10 +301,10 @@ CREATE TABLE `address` (
 	`latitude`	VARCHAR(20)	NULL,
 	`longitude`	VARCHAR(20)	NULL,
 	`createTime`	TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP,
-	`upTIMESTAMPTime`	TIMESTAMP	NULL
+	`updateTime`	TIMESTAMP	NULL
 );
 
-CREATE TABLE `member-address` (
+CREATE TABLE `memberAddress` (
 	`seq`	INT	AUTO_INCREMENT PRIMARY KEY,
 	`member_seq`	INT	NOT NULL,
 	`address_seq`	INT	NOT NULL,

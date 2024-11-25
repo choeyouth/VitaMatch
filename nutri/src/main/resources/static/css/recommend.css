@@ -1,0 +1,189 @@
+@charset "UTF-8";
+
+/* survey.css */
+.survey-container {
+	font-family: "KoHo", sans-serif;
+	font-weight: bold;
+	
+}
+
+.survey-container .heading {
+	width: 700px;
+}
+.attention-content {
+	font-family: "KoHo", sans-serif;
+	font-weight: bold;
+	font-size: 18px;
+	padding-bottom: 15px;
+	border-bottom: 1px solid var(--bs-gray);
+}
+
+.survey-ingredient {
+	margin: 0 80px;
+}
+
+
+/* 설문 항목 버튼 -------------------------------- */
+.survey-sub-title {
+	font-weight: 400;
+	font-size: 17px;
+	margin: 30px 0 20px 0 ;
+}
+
+.survey-sub-title span {
+	padding-left: 15px;
+	font-size: 14px;
+	color: var(--bs-red);
+}
+
+.survey-gender, .survey-age, .survey-checkup, .survey-organ, .survey-life {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.survey-radio-btn, .survey-ceckbox-btn {
+	margin-bottom: 40px;	
+	display: inline-block;	
+}
+
+.survey-radio-btn label, .survey-ceckbox-btn label{
+	width: 245px;
+	height: 65px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid var(--bs-gray);
+	border-radius: 10px;
+	margin-right: 40px;
+	font-size: 20px;
+	text-align: center;
+	color: var(--bs-gray-dark);
+}	
+
+.survey-radio-btn:nth-child(4n), .survey-ceckbox-btn:nth-child(4n) {
+	margin-right: -20px;
+}
+
+
+.survey-radio-btn input[type=radio], .survey-ceckbox-btn input[type=checkbox] {
+	display: none;
+}
+
+.survey-radio-btn input[type=radio]:checked + label, .survey-ceckbox-btn input[type=checkbox]:checked  + label {
+	background: var(--bs-primary);
+	color: var(--bs-white);
+	border: none;
+}
+
+.survey-radio-btn label:hover, .survey-ceckbox-btn label:hover {
+	color: var(--bs-white);
+	background: var(--bs-primary);
+	border: none;
+}
+
+
+.survey-btn {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	margin: 50px 35px 0 0;
+}
+
+/* 설문 항목 초기화 버튼 ---------------- */
+.clean-btn {
+	width: 245px;
+	height: 65px;
+	background-color: #c4c4c4;
+	border: none;
+	border-radius: 10px;
+	font-family: "KoHo", sans-serif;
+	font-weight: bold;
+	font-size: 18px;
+	color: var(--bs-gray);
+	text-align: center;
+	margin-right: 40px;
+}
+
+.clean-btn .clean-icon {
+	padding: 0 5px 5px 0;
+}
+
+/* 영양제 추천 받기 버튼 ---------------- */
+.recommend-btn {
+	width: 245px;
+	height: 65px;
+	background-color: var(--bs-white);
+	border: 1px solid var(--bs-primary);
+	border-radius: 10px;
+	font-family: "KoHo", sans-serif;
+	font-weight: bold;
+	font-size: 18px;
+	color: var(--bs-primary);
+	text-align: center;
+}
+
+.recommend-btn .recommend-icon {
+	padding: 0 5px 5px 0;
+}
+
+.clean-btn:active, .clean-btn:focus, .recommend-btn:active, .recommend-btn:focus {
+	outline: none;
+	box-shadow: none;
+}
+
+/* recommend.css */
+.recommend-container {
+	font-family: "KoHo", sans-serif;
+	font-weight: bold;
+	background-color: #f8f9fa;
+	position: relative;
+	
+}
+
+.recommend-container::before {
+	content: "";
+	position: absolute;
+	background-color: var(--bs-white);
+	left: 0;
+	right: 0;
+	top: 0;
+	height: 320px;
+	width: 100%;
+	z-index: 0;
+}
+
+.recommend-container .heading {
+	width: 700px;
+}
+.attention-content {
+	font-family: "KoHo", sans-serif;
+	font-weight: bold;
+	font-size: 18px;
+	padding-bottom: 15px;
+	border-bottom: 1px solid var(--bs-gray);
+}
+
+.row {
+	padding-top: 50px;
+}
+
+.col-lg-4 {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  width: 33%; }
+
+
+.ingredient-icon {
+	width: 100px;
+	height: 100px;
+}
+
+.feature-1 p {
+	font-family: "KoHo", sans-serif;
+	font-weight: 400;
+	line-height: 30px;
+}

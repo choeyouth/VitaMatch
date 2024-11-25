@@ -5,10 +5,13 @@
 	<title>[[#{menu.map}]]</title>
 	<th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
 	<link rel="stylesheet" th:href="@{css/map.css}">
-	<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=1669ac115ebaa35601888df2a635eb83&libraries=services"></script>
+	<script type="text/javascript" 
+	    th:src="@{'https://dapi.kakao.com/v2/maps/sdk.js?appkey=' + ${kakaoApiKey} + '&libraries=services'}">
+	</script>
 </head>
 <body>
-	<th:block th:insert="~{inc/header.html :: index_header}"></th:block>
+	<th:block th:insert="~{inc/header.html :: index_header_menu}"></th:block>
+	<th:block th:insert="~{inc/header.html :: index_header_content_basic(#{menu.map},#{menu.map.desc})}"></th:block>
 	<div class="map-container">
 		<div class="section services-section">
 			<div class="col-lg-5 aos-init aos-animate" data-aos="fade-up" data-aos-delay="">
@@ -17,7 +20,6 @@
 					<img src="img/map/mapIcon.svg" class="map-icon">
 					약국 찾기
 				</h2>
-				
 				<div class="map-box">
 					<div class="map-search-box">
 						<div class="map-search">
@@ -26,11 +28,10 @@
 								<select name="gugun1" id="gugun1"></select>
 							</div>
 							<div id="menu_wrap" class="bg_white">
-								<div class="option">
-									<div class="address-search">
-										<form onsubmit="searchPlaces(); return false;">
-											<input type="text" id="keyword" placeholder="검색어를 입력하세요." class="search-input">
-										</form>
+								<div class="option"> 
+									<div class="search-container">
+									    <input type="text" id="keyword" placeholder="검색어를 입력하세요." class="search-input">
+									    <button type="button" class="search-icon-btn" onclick="searchPlaces()"></button>
 									</div>
 								</div>
 								<div class="scroll-container">
@@ -187,20 +188,32 @@
 		var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 
 		// 키워드로 장소를 검색합니다
-		searchPlaces();
+		//searchPlaces();
 
 		// 키워드 검색을 요청하는 함수입니다
 		function searchPlaces() {
 		 
 			var keyword = document.getElementById('keyword').value.trim();
-
+			const sido = $('#sido1').val(); 
+			const gugun = $('#gugun1').val(); 
+			const page = $('#page').val() || 1; 
+			
+			
+			if (!sido || !gugun) {
+			    alert('시/도와 구/군을 모두 선택해주세요.');
+			    return;
+			}
+			
 			if (!keyword.replace(/^\s+|\s+$/g, '')) {
-				//alert('키워드를 입력해주세요!');
+				alert('키워드를 입력해주세요!');
 				return false;
 			}
 
-			// 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
-			ps.keywordSearch( keyword, placesSearchCB); 
+			// 장소검색 객체를 통해 키워드로 장소검색을 요청합니다 > kakao 거지롱 
+			//ps.keywordSearch( keyword, placesSearchCB); 
+			
+			getPharmacy(keyword, sido, gugun, page);
+			
 		}
  
 		function placesSearchCB(data, status, pagination) {
@@ -466,6 +479,91 @@
 		        paginationEl.style.display = 'none'; // 페이징 바 숨기기
 		    }
 		});
+		
+		function getPharmacy(keyword, sido, gugun, page) {
+			$.ajax({
+				url: '/pharmacy/search', 
+				type: 'GET',
+				data: {
+					sido: sido,
+					gugun: gugun,
+					page: page,
+					keyword: keyword 
+				},
+				dataType: 'json', 
+				success: function (result) {
+				    const totalPages = Math.ceil(result.length / 10); // 한 페이지에 10개 기준
+				    displayPharmacies(result, page, totalPages);
+				},
+				error: function (a,b,c) {
+					console.error(a,b,c); 
+				}
+			});
+		}
+
+		function displayPharmacies(pharmacies, currentPage, totalPages) {
+		    const placesList = document.getElementById('placesList');
+		    const paginationEl = document.getElementById('pagination');
+
+		    // 기존 리스트 초기화
+		    removeAllChildNods(placesList);
+
+		    if (pharmacies && pharmacies.length > 0) {
+		        pharmacies.forEach((pharmacy, index) => {
+		            const listItem = getListItem(index, pharmacy); // 개별 약국 데이터를 기반으로 엘리먼트 생성
+		            placesList.appendChild(listItem);
+		        });
+
+		        // 페이지네이션 처리
+		        displayPagination(totalPages, currentPage);
+		    } else {
+		        // 데이터가 없는 경우 처리
+		        const li = document.createElement('li');
+		        li.textContent = "약국 데이터가 없습니다.";
+		        placesList.appendChild(li);
+		    }
+		}
+
+		// 약국 데이터로 리스트 아이템 생성
+		function getListItem(index, pharmacy) {
+		    const el = document.createElement('li');
+
+		    let itemStr = `
+		        <span class="markerbg marker_${index + 1}"></span>
+		        <div class="info">
+		            <h5>${pharmacy.name}</h5>
+		    `;
+
+		    if (pharmacy.address) {
+		        itemStr += `
+		            <span>${pharmacy.address}</span>
+		            <div class="map-info">
+		                <div class="pharmacy-time">
+		                    <span>⦁&nbsp;&nbsp;&nbsp;</span>
+		                    <span>${pharmacy.open ? '영업중' : '영업 종료'}&nbsp;&nbsp;&nbsp;</span>
+		                    (${pharmacy.openTime} ~ ${pharmacy.closeTime})
+		                </div>
+		                <input type="hidden" value="${pharmacy.hpid}" id="hpid">
+		            </div>
+		        `;
+		    } else {
+		        itemStr += `<span>주소 정보 없음</span>`;
+		    }
+
+		    itemStr += `
+		            <span class="tel">${pharmacy.tel || '전화번호 없음'}</span>
+		        </div>
+		        <a class="more d-flex align-items-center float-start map-info-button">
+		            <span class="label">상세 보기</span>
+		            <span class="icon-keyboard_arrow_right"></span>
+		        </a>
+		    `;
+
+		    el.innerHTML = itemStr;
+		    el.className = 'item';
+
+		    return el;
+		}
 
 	</script>
 </html>

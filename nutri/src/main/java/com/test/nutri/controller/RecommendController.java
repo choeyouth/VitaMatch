@@ -14,12 +14,19 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-public class surveyController {
+public class RecommendController {
 	
 	@GetMapping("/survey")
 	public String survey(Model model) {
 		
 		return "page/survey";
+	}
+	
+	
+	@GetMapping("/recommend")
+	public String recommend(Model model) {
+		
+		return "page/recommend";
 	}
 	
 }

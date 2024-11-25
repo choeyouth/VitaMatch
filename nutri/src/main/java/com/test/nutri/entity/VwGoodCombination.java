@@ -27,6 +27,8 @@ public class VwGoodCombination {
 	private String link;
 	private String ingredientName;
 	private String name;
+	private String functionalContent;
+	
 	
 	@Column(name = "ingredient_seq")
 	private String ingredientSeq;
