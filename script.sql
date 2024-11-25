@@ -1,4 +1,5 @@
-
+select * from goodCombination;
+commit;
 CREATE TABLE `productInfo` (
 	`seq`	INT	AUTO_INCREMENT PRIMARY KEY,
 	`productImage`	VARCHAR(1000)	NULL,
@@ -13,8 +14,8 @@ CREATE TABLE `productInfo` (
 	`packagingMethod`	VARCHAR(1000)	NULL,
 	`preservation`	VARCHAR(1000)	NULL,
 	`precautionsForIngestion`	VARCHAR(2000)	NULL,
-	`functionalContent`	VARCHAR(4000)	NULL,
-	`standardsAndSpecifications`	VARCHAR(4000)	NULL
+	`functionalContent`	TEXT 	NULL,
+	`standardsAndSpecifications`	TEXT 	NULL
 );
 
 CREATE TABLE `member` (

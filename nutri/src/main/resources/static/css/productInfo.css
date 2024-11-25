@@ -1,0 +1,65 @@
+	
+html, body {
+    overflow-x: hidden; 
+}
+
+.productInfoview {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}
+
+.productInfotable {
+/*	display: flex;
+	justify-content: center;
+	align-items: center;	*/	
+	position: relative;
+	width: 100%;
+}
+
+.productInfotable th, .productInfotable td { 
+    padding: 15px;
+    border: 1px solid #10D0A1;
+}
+
+.productInfotable th {
+    width: 200px;  
+    font-size: 16px;
+    text-align: center;
+}
+
+.productInfotable td {
+    width: 1000px; 
+    font-size: 14px; 
+	padding-left: 20px; 
+}
+
+.productLongString{
+	text-align:left
+}
+
+.productInfoRowHeader {
+    
+	color: #10D0A1;
+}
+
+.productInfoImg{
+	display: flex;
+	position: relative;
+	width: 100%;
+	margin-bottom: 30px;
+}
+
+
+
+.productInfoIngredient {
+	margin-left:30px;
+	
+}
+
+.productImgSize{
+	width:400px;
+	height:400px;
+
+}

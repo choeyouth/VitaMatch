@@ -77,7 +77,6 @@ public class NewsAPI {
 		}
 		
 		String apiURL = String.format("https://openapi.naver.com/v1/search/news?query=%s&display=100&sort=date&start=%d", search, (start - 1) * display + 1);
-		System.out.println("here" + apiURL);
 		
 		Map<String, String> requestHeaders = new HashMap<String, String>();
 		requestHeaders.put("X-Naver-Client-Id",  clientId);

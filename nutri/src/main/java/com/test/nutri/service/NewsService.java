@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.test.nutri.api.NewsAPI;
-import com.test.nutri.entity.News;
 import com.test.nutri.model.NewsDTO;
 import com.test.nutri.model.NewsListDTO;
 import com.test.nutri.repository.NewsQueryDSLRepository;
@@ -22,24 +21,18 @@ public class NewsService {
 	private final NewsRepository newsRepository;
 	private final NewsQueryDSLRepository newsQueryDSLRepository;
 
-	public List<NewsDTO> getNewsList(Integer page) {
+	public List<NewsDTO> getNewsList(Integer offset, Integer limit) {
 
 //		최신 뉴스부터 2024년 11월 뉴스까지 DB에 저장
 		if (newsRepository.count() > 0) {
-//			updateLatestNews();
+			updateLatestNews();
 		} else {
-//			insertAllNews();
+			insertAllNews();
 		}
 
-		return newsQueryDSLRepository.findAllPagenation(page).stream()
-				.map(news -> 
-					NewsDTO.builder()
-					.title(news.getTitle())
-					.originallink(news.getOriginalLink())
-					.link(news.getLink())
-					.description(news.getDescription())
-					.pubDate(news.getRegDate())
-					.build())
+		return newsQueryDSLRepository.findAllPagenation(offset, limit).stream()
+				.map(news -> NewsDTO.builder().title(news.getTitle()).originallink(news.getOriginalLink())
+						.link(news.getLink()).description(news.getDescription()).pubDate(news.getRegDate()).build())
 				.toList();
 	}
 
@@ -54,28 +47,38 @@ public class NewsService {
 		while (start > 0) {
 			list = newsAPI.getNewsList(start);
 			
-			if(newsQueryDSLRepository.countByTitleAndLinkAndRegDate(list.getItems().getLast()) == 0) {
-				System.out.println("마지막꺼가 없음");
+			if(isFind) {
+				for (int i = list.getItems().size() - 1; i >= 0; i--) {
+					
+					news = list.getItems().get(i);
+					newsRepository.save(news.toEntity());
+				}
+				start--;
+				return;
+			} if(!isFind && newsQueryDSLRepository.countByTitleAndLinkAndRegDate(list.getItems().getLast()) == 0) {
 				start++;
 				return;
 			}
-
 			for (int i = list.getItems().size() - 1; i >= 0; i--) {
 				
-//				news = list.get
+				news = list.getItems().get(i);
 				
-//				News result = newsRepository.findByTitleAndLinkAndRegDate(news)
+				if (newsQueryDSLRepository.countByTitleAndLinkAndRegDate(news) == 0) {
+					newsRepository.save(news.toEntity());
+				}
 			}
+			isFind = true;
+			start--;
 		}
 
 	}
 
 	public void insertAllNews() {
-		
+
 		int start = 1;
 		boolean isFind = false;
 		LocalDateTime baseDate = LocalDateTime.of(2024, 11, 1, 0, 0);
-		
+
 		NewsListDTO list;
 		NewsDTO news;
 
@@ -84,9 +87,10 @@ public class NewsService {
 
 			if (list.getItems().getLast().getPubDate().compareTo(baseDate) <= 0) {
 				for (int i = list.getItems().size() - 1; i >= 0; i--) {
-					news = list.getItems().get(i);
 					
-					if(news.getPubDate().compareTo(baseDate) >= 0) {
+					news = list.getItems().get(i);
+
+					if (news.getPubDate().compareTo(baseDate) >= 0) {
 						newsRepository.save(news.toEntity());
 					}
 				}
@@ -94,6 +98,7 @@ public class NewsService {
 				isFind = true;
 			} else if (isFind) {
 				for (int i = list.getItems().size() - 1; i >= 0; i--) {
+					
 					news = list.getItems().get(i);
 					newsRepository.save(news.toEntity());
 				}
@@ -103,5 +108,9 @@ public class NewsService {
 			}
 
 		}
+	}
+
+	public int getCount() {
+		return (int) newsRepository.count();
 	}
 }
