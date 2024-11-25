@@ -5,6 +5,8 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +19,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.test.nutri.api.MapAPI;
 import com.test.nutri.model.MapDTO;
@@ -70,6 +73,7 @@ public class MapService {
                         dto.setName(getTagValue("dutyName", itemElement, "정보 없음"));
                         dto.setAddress(getTagValue("dutyAddr", itemElement, "정보 없음"));
                         dto.setTel(getTagValue("dutyTel1", itemElement, "정보 없음"));
+                        dto.setHpid(getTagValue("hpid", itemElement, null));
 
                         // Latitude와 Longitude
                         String latStr = getTagValue("wgs84Lat", itemElement, "0");
@@ -77,12 +81,18 @@ public class MapService {
                         dto.setLatitude(Double.parseDouble(latStr.isEmpty() ? "0" : latStr));
                         dto.setLongitude(Double.parseDouble(lonStr.isEmpty() ? "0" : lonStr));
 
+                        //요일 숫자 구하기
+                        LocalDate date = LocalDate.now();
+                        DayOfWeek week = date.getDayOfWeek();
+                        int weekNum = week.getValue();
+                        System.out.println(weekNum);
+                        
                         // 영업 시간
-                        String openTime = getTagValue("dutyTime1s", itemElement, null);
-                        String closeTime = getTagValue("dutyTime1c", itemElement, null);
+                        String openTime = getTagValue("dutyTime" + weekNum + "s", itemElement, null);
+                        String closeTime = getTagValue("dutyTime" + weekNum + "c", itemElement, null);
                         dto.setOpenTime(openTime);
                         dto.setCloseTime(closeTime);
-
+                        
                         // 영업 여부 계산
                         if (openTime != null && closeTime != null) {
                             int currentHour = LocalTime.now().getHour();
@@ -99,7 +109,6 @@ public class MapService {
                         } else {
                             dto.setOpen(false); // 영업 시간 정보가 없으면 false
                         }
-
                         pharmacyList.add(dto);
                     }
                 }

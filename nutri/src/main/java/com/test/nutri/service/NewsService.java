@@ -26,20 +26,16 @@ public class NewsService {
 
 //		최신 뉴스부터 2024년 11월 뉴스까지 DB에 저장
 		if (newsRepository.count() > 0) {
-//			updateLatestNews();
+			System.out.println("뉴스 데이터가 존재함");
+			updateLatestNews();
 		} else {
-//			insertAllNews();
+			System.out.println("뉴스 데이터가 존재하지 않음");
+			insertAllNews();
 		}
 
 		return newsQueryDSLRepository.findAllPagenation(page).stream()
-				.map(news -> 
-					NewsDTO.builder()
-					.title(news.getTitle())
-					.originallink(news.getOriginalLink())
-					.link(news.getLink())
-					.description(news.getDescription())
-					.pubDate(news.getRegDate())
-					.build())
+				.map(news -> NewsDTO.builder().title(news.getTitle()).originallink(news.getOriginalLink())
+						.link(news.getLink()).description(news.getDescription()).pubDate(news.getRegDate()).build())
 				.toList();
 	}
 
@@ -47,6 +43,7 @@ public class NewsService {
 
 		int start = 1;
 		boolean isFind = false;
+		boolean insertMode = false;
 		
 		NewsListDTO list;
 		NewsDTO news;
@@ -54,28 +51,37 @@ public class NewsService {
 		while (start > 0) {
 			list = newsAPI.getNewsList(start);
 			
-			if(newsQueryDSLRepository.countByTitleAndLinkAndRegDate(list.getItems().getLast()) == 0) {
-				System.out.println("마지막꺼가 없음");
+			if(isFind) {
+				for (int i = list.getItems().size() - 1; i >= 0; i--) {
+					news = list.getItems().get(i);
+					newsRepository.save(news.toEntity());
+				}
+				start--;
+				return;
+			} if(!isFind && newsQueryDSLRepository.countByTitleAndLinkAndRegDate(list.getItems().getLast()) == 0) {
 				start++;
 				return;
 			}
-
 			for (int i = list.getItems().size() - 1; i >= 0; i--) {
 				
-//				news = list.get
+				news = list.getItems().get(i);
 				
-//				News result = newsRepository.findByTitleAndLinkAndRegDate(news)
+				if (newsQueryDSLRepository.countByTitleAndLinkAndRegDate(news) == 0) {
+					newsRepository.save(news.toEntity());
+				}
 			}
+			isFind = true;
+			start--;
 		}
 
 	}
 
 	public void insertAllNews() {
-		
+
 		int start = 1;
 		boolean isFind = false;
 		LocalDateTime baseDate = LocalDateTime.of(2024, 11, 1, 0, 0);
-		
+
 		NewsListDTO list;
 		NewsDTO news;
 
@@ -85,8 +91,8 @@ public class NewsService {
 			if (list.getItems().getLast().getPubDate().compareTo(baseDate) <= 0) {
 				for (int i = list.getItems().size() - 1; i >= 0; i--) {
 					news = list.getItems().get(i);
-					
-					if(news.getPubDate().compareTo(baseDate) >= 0) {
+
+					if (news.getPubDate().compareTo(baseDate) >= 0) {
 						newsRepository.save(news.toEntity());
 					}
 				}

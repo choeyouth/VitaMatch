@@ -5,11 +5,15 @@ import java.time.format.DateTimeFormatter;
 
 import com.test.nutri.entity.News;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class NewsDTO {
 
 	private String title;
