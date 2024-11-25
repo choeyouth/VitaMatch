@@ -1,10 +1,6 @@
 package com.test.nutri.entity;
 
-<<<<<<< HEAD
-import java.time.LocalDate; 
-=======
 import java.time.LocalDateTime;
->>>>>>> branch 'main' of https://github.com/chimy2/nutritional-supplement-recommendations.git
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
