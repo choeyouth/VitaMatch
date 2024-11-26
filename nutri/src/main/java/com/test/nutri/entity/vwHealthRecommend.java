@@ -21,6 +21,8 @@ public class vwHealthRecommend {
 	@Id
 	private Long seq;
 	
+	private String name;
+	
 	private Integer healthSeq;
 	private Integer ingredientSeq;
 	private String ingredientName;
