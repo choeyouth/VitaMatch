@@ -5,122 +5,7 @@
 	<title>[[#{menu.category}]]</title>
 	<th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
 </head>
-<style>
-	.max_container {
-	    min-height: 1062px;
-	}
-	.categories-sidebar {
-		margin-top: 3%;
-		padding-left: 15%;
-		float: left;
-        width: 20%;
-	}
- 	.categories-list {
-	    list-style: none;
-	    padding: 0;
-	}
-	.categories-list li {
-	    margin-bottom: 10px;
-	}
-	.categories-list li a {
-	    text-decoration: none; 
-	    font-size: 17px;
-	}
-	.categories-list li a:hover {
-	    font-size: 20px;
-	    color : cornflowerblue;
-	}
-	
-	.container_category {
-	    display: flex; 
-	    flex-wrap: wrap; 
-	    gap: 20px;
-	    width: 65%;
-	    margin-left: auto; 
-	    margin-right: auto;
-	    margin-top: 60px;
-	}
-	
-	.container_category .item {
-	    flex: 1 1 calc(30% - 20px); 
-	    max-width: calc(30% - 20px);
-	    padding: 33px;
-	    text-align: center;
-	    background-color: #fff;
-	}
-	
-	.container_category .item img {
-	    max-width: 100%;
-	    height: auto;
-	    margin-bottom: 10px; 
-	}
-	
-	.container_category .item .product-name {
-	    font-size: 18px;
-	    font-weight: bold;
-	    margin-bottom: 5px;
-	    color: #333;
-	}
-
-	.container_category .item .product-company {
-	    font-size: 14px;
-	    color: #666;
-	}
-	.paging ul {
-	    list-style: none;
-	    padding: 0;
-	    display: flex;
-	    justify-content: center; 
-	    align-items: center !important;
-	    margin: 0 auto;
-	    padding-top: 3rem !important;
-	    padding-bottom: 3rem !important;
-	}
-	
-	.paging li {
-	    display: inline-block;
-	    width: 40px;
-	    height: 40px;
-	    line-height: 40px;
-	    font-weight: 700;
-	    border-radius: 50%;
-	    background: rgba(16, 208, 161, 0.1);
-	    color: #10D0A1;
-	    text-align: center;
-	    margin: 0 5px;
-	}
-	
-	.paging li a {
-	    text-decoration: none;
-	    background-color: #E8FBF6; 
-	    color: #10D0A1;
-	    border-radius: 50%;
-	    width: 40px;
-	    height: 40px;
-	    display: flex; /* Flexbox 적용 */
-	    justify-content: center; /* 가로 중앙 정렬 */
-	    align-items: center; /* 세로 중앙 정렬 */
-	    font-size: 14px;
-	    transition: background-color 0.3s, color 0.3s;
-	}
-	
-	.paging li a:hover {
-	    background-color: #10D0A1;
-	    color: white;
-	}
-	
-	.paging li.active a {
-	    background-color: #10D0A1; 
-	    color: white;
-	    pointer-events: none; 
-	}
-	
-	.paging li {
-	    width: 40px;
-	    height: 40px;
-	    text-align: center; 
-	}
-</style>
+<link rel="stylesheet" th:href="@{css/category.css}" />
 <body>
 	<th:block th:insert="~{inc/header.html :: index_header_menu}"></th:block>
 	<th:block th:insert="~{inc/header.html :: index_header_content_basic(#{menu.category},#{menu.health})}"></th:block>
@@ -171,17 +56,6 @@
 	<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
 	<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
 	
-	<script>
-	    document.querySelectorAll('.category-item').forEach(function (item) {
-	        item.addEventListener('click', function (event) {
-	            event.preventDefault();
-	            const category = this.getAttribute('data-category'); 
-	            const url = `?category=${encodeURIComponent(category)}`; 
-	            window.location.href = url;
-	        });
-	    });
-	    
-	    
-	</script>
+	<script th:src="@{js/category.js}"></script>
 </body>
 </html>
