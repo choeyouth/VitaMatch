@@ -21,6 +21,9 @@ public class vwGenderAgeRecommend {
 	@Id
 	private Long seq;
 	
+	private String gender;
+	private String age;
+	
 	private Integer genderAgeSeq;
 	private Integer ingredientSeq;
 	private String ingredientName;

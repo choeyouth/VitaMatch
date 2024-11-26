@@ -30,10 +30,10 @@
                             <a href="#" th:text="#{menu.menu}"></a>
                             <ul class="dropdown">
                                 <li class="has-children">
-                                    <a href="#">[[#{menu.category}]]</a>
+                                    <a href="/ingredient?category=비타민A">[[#{menu.category}]]</a>
                                     <ul class="dropdown">
-                                        <li><a href="/ingredient">[[#{menu.ingredient}]]</a></li>
-                                        <li><a href="/health">[[#{menu.health}]]</a></li>
+                                        <li><a href="/ingredient?category=비타민A">[[#{menu.ingredient}]]</a></li>
+                                        <li><a href="/health?category=피로감">[[#{menu.health}]]</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="/survey">[[#{menu.recommend}]]</a></li>
@@ -116,10 +116,10 @@
                             <a href="#">[[#{menu.menu}]]</a>
                             <ul class="dropdown">
                                 <li class="has-children">
-                                	<a href="#">[[#{menu.category}]]</a>
+                                	<a href="/ingredient?category=비타민A">[[#{menu.category}]]</a>
                                     <ul class="dropdown">
-                                        <li><a href="/ingredient">[[#{menu.ingredient}]]</a></li>
-                                        <li><a href="/health">[[#{menu.health}]]</a></li>
+                                        <li><a href="/ingredient?category=비타민A">[[#{menu.ingredient}]]</a></li>
+                                        <li><a href="/health?category=피로감">[[#{menu.health}]]</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="/survey">[[#{menu.recommend}]]</a></li>
