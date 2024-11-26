@@ -3,8 +3,8 @@
 
 <head>
 <meta charset="UTF-8">
-<!--/*	<meta name="_csrf" th:content="${_csrf.token}"/>
-	<meta name="_csrf_header" th:content="${_csrf.headerName}"/> */-->
+<meta name="_csrf" th:content="${_csrf.token}"/>
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 
 <title>[[#{menu.combination}]]</title>
 <th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
@@ -112,6 +112,7 @@
 			</div>
 		</div>
 	</div>
+	
 	<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
 	<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
 	<script th:src="@{js/combination.js}"></script>
