@@ -1,7 +1,5 @@
 package com.test.nutri.entity;
 
-import java.time.LocalDateTime;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,18 +15,23 @@ import lombok.ToString;
 @Getter
 @ToString
 @Builder
-@Table(name = "news")
+@Table(name="vwReview")
 @AllArgsConstructor
 @NoArgsConstructor
-public class News {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long seq;
+public class VwReview {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)	//데이터베이스 기본키 자동 생성
+	private long seq;
+	
+	private String nickname;
+	private String createDate;
 	private String title;
-	private String link;
-	private String originalLink;
-	private String description;
-	private LocalDateTime regDate;
+	private String category;
+	private String name;
+	private String content;
+	private String image;
+	private String score;
+
 }
+

@@ -10,7 +10,7 @@
 <body>
     <th:block th:insert="~{inc/header.html :: index_header_menu}"></th:block>
    	<th:block th:insert="~{inc/header.html :: index_header_content_basic(#{menu.signup},#{menu.signup.desc})}"></th:block>
-    <div class="font-size-40 font-koho font-bold align-center">VitaMatch</div>
+    <div class="login-title">[[#{title}]]</div>
     <div class="font-size-20 font-koho align-center">회원가입 하시고 저희 웹사이트의 다양한 혜택을 누리세요!</div>
     <form method="POST" action="/signupok" id="signupForm">
         <div class="login-form-box">
@@ -133,7 +133,6 @@
             </div>
         </div>
     </form>
-    
     
     <th:block th:insert="~{inc/footer.html :: footer}"></th:block>
     <th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
