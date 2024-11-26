@@ -11,5 +11,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProductInfoRepository extends JpaRepository<productInfo, Long> {
 
-	Optional<productInfo> findByproductName(String productName);
+	//Optional<productInfo> findByproductName(String productName);
+	
+	Optional<productInfo> findByseq(Long seq);
+	
 }
