@@ -88,7 +88,7 @@
 									</div>
 									<!-- .accordion-item -->
 
-									<div class="accordion-item"  id="combinationBad">
+									<div class="accordion-item" id="combinationBad">
 										<h2 class="mb-0">
 											<button class="btn btn-link" type="button"
 												data-bs-toggle="collapse" data-bs-target="#collapseTwo"
@@ -109,13 +109,11 @@
 					</div>
 					<!-- /.untree_co-section -->
 				</div>
-
-
 			</div>
-			<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
-			<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
+		</div>
+	</div>
+	<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
+	<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
+	<script th:src="@{js/combination.js}"></script>
 </body>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script th:src="@{js/combination.js}"></script>
-
 </html>
