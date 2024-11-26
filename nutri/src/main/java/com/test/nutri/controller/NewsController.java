@@ -52,6 +52,8 @@ public class NewsController {
 			}
 		}
 
+		//퍼가요~♥
+		
 		sb.append(String.format("<a href=\"/news?page=%d\">&gt;</a>", nextPage));
 
 		model.addAttribute("list", list);
