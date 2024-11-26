@@ -11,5 +11,8 @@ public interface HealthRecommendRepository extends JpaRepository<vwHealthRecomme
 
 	@Query("select h from vwHealthRecommend h where h.healthSeq = ?1")
 	List<vwHealthRecommend> listAll(int healthSeq);
+
+	@Query("select h from vwHealthRecommend h where h.healthSeq = ?1")
+	List<vwHealthRecommend> findAll(String healthSeq);
 	
 }

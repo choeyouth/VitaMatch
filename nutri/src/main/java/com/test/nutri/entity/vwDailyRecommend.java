@@ -21,6 +21,8 @@ public class vwDailyRecommend {
 	@Id
 	private Long seq;
 	
+	private String name;
+	
 	private Integer dailySeq;
 	private Integer ingredientSeq;
 	private String ingredientName;

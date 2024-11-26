@@ -21,6 +21,8 @@ public class vwOrganRecommend {
 	@Id
 	private Long seq;
 	
+	private String name;
+	
 	private Integer organSeq;
 	private Integer ingredientSeq;
 	private String ingredientName;
