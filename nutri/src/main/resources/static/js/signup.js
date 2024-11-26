@@ -133,14 +133,14 @@ function execDaumPostcode() {
                 if (extraAddr !== '') {
                     extraAddr = ' (' + extraAddr + ')';
                 }
-                document.getElementById('extraAddress').value = extraAddr;
+                document.getElementById('addressExtra').value = extraAddr;
             } else {
-                document.getElementById('extraAddress').value = '';
+                document.getElementById('addressExtra').value = '';
             }
 
             document.getElementById('zipcode').value = data.zonecode;
             document.getElementById('address').value = addr;
-            document.getElementById('detailAddress').focus();
+            document.getElementById('addressDetail').focus();
         }
     }).open();
 }
@@ -178,17 +178,17 @@ function execDaumPostcode() {
                     extraAddr = ' (' + extraAddr + ')';
                 }
                 // 조합된 참고항목을 해당 필드에 넣는다.
-                document.getElementById("extraAddress").value = extraAddr;
+                document.getElementById("addressExtra").value = extraAddr;
             
             } else {
-                document.getElementById("extraAddress").value = '';
+                document.getElementById("addressExtra").value = '';
             }
 
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
             document.getElementById('zipcode').value = data.zonecode;
             document.getElementById("address").value = addr;
             // 커서를 상세주소 필드로 이동한다.
-            document.getElementById("detailAddress").focus();
+            document.getElementById("addressDetail").focus();
         }
     }).open();
 }
