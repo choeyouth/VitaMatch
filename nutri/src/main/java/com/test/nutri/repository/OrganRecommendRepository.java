@@ -12,6 +12,9 @@ public interface OrganRecommendRepository extends JpaRepository<vwOrganRecommend
 	@Query("select o from vwOrganRecommend o where o.organSeq = ?1")
 	List<vwOrganRecommend> listAll(int organSeq);
 
+	@Query("select o from vwOrganRecommend o where o.organSeq = ?1")
+	List<vwOrganRecommend> findAll(String organSeq);
+
 	
 
 }

@@ -1,5 +1,6 @@
 package com.test.nutri.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -37,12 +38,53 @@ public class RecommendController {
 	
 	
 	@GetMapping("/recommend")
-	public String recommend(Model model) {
+	public String recommend(@RequestParam(value = "gender", required = false)String gender
+							, @RequestParam(value = "age", required = false) String age
+							, @RequestParam(value = "healthSeq", required = false)String healthSeq
+							, @RequestParam(value = "organSeq", required = false)String organSeq
+							, @RequestParam(value = "dailySeq", required = false)String dailySeq, Model model) {
 		
-		List<vwGenderAgeRecommend> galist = genderAgeRecommendRepository.listAll(5);
-		List<vwHealthRecommend> hlist = healthRecommendRepository.listAll(1);
-		List<vwOrganRecommend> olist = organRecommendRepository.listAll(2);
-		List<vwDailyRecommend> dlist = dailyRecommendRepository.listAll(1);
+		List<vwGenderAgeRecommend> galist = new ArrayList<>();
+		List<vwHealthRecommend> hlist = new ArrayList<>();
+		List<vwOrganRecommend> olist = new ArrayList<>();
+		List<vwDailyRecommend> dlist = new ArrayList<>();
+		
+		if (gender != null & age != null ) {
+			galist = genderAgeRecommendRepository.findAll(gender, age+"0");
+			System.out.println("gender: " + gender + "age: " + age);
+			System.out.println(galist);
+		} else {
+			System.out.println("성별과 나이대를 선택해주세요.");
+		}
+		
+		if (healthSeq != null || organSeq != null || dailySeq != null) {
+			hlist = healthRecommendRepository.findAll(healthSeq);
+			System.out.println("health: " + healthSeq);
+			System.out.println(hlist);
+			
+			olist = organRecommendRepository.findAll(organSeq);
+			System.out.println("organ: " + organSeq);
+			System.out.println(olist);
+			
+			dlist = dailyRecommendRepository.findAll(dailySeq);
+			System.out.println("daily: " + dailySeq);
+			System.out.println(dlist);
+		
+		} else if (healthSeq == null) {
+			System.out.println("건강 검진 선택해주세요.");
+		} else if (organSeq == null) {
+			System.out.println("주요 장기 선택해주세요.");
+		} else if (dailySeq == null) {
+			System.out.println("일상 생활 선택해주세요.");
+		}
+		
+//		if (organSeq != null) {
+//			olist = organRecommendRepository.findAll(organSeq);
+//			System.out.println("organ: " + organSeq);
+//			System.out.println(olist);
+//		} else {
+//			System.out.println("주요 장기를 선택해주세요.");
+//		}
 		
 		
 		model.addAttribute("galist", galist);
