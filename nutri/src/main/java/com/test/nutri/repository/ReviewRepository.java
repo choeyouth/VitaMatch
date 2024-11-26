@@ -28,5 +28,28 @@ public class ReviewRepository {
 				.where(vwReview.seq.eq(seq))
 				.fetchOne();
 	}
+	
+	public List<VwReview> findAllPagenation(int offset, int limit) {
+		
+		//페이징
+		return jpaQueryFactory
+					.selectFrom(vwReview)
+					.offset(offset)	//offset: 몇번째부터 가져와라
+					.limit(limit)	//limit: 몇개까지 가져와라
+					.fetch();
+	}
+
+	public int count() {
+		
+		return (int)jpaQueryFactory
+					.selectFrom(vwReview)
+					.fetchCount();
+	}
+
+	public int countBySearch(String search) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }	
 	
