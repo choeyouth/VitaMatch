@@ -104,3 +104,13 @@
 #combinationBad{
 	display : none; 
 }
+
+/* 안내 문구 추가 */
+.combinationInfo{
+	font-size : 15px;
+	color : var(--bs-danger);
+	padding : 10px;
+	margin-top : 10px;
+}
+
+
