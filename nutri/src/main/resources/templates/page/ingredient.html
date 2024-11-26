@@ -120,7 +120,6 @@
 	    height: 40px;
 	    text-align: center; 
 	}
-	
 </style>
 <body>
 	<th:block th:insert="~{inc/header.html :: index_header_menu}"></th:block>
@@ -160,13 +159,15 @@
 		
 		<div class="container_category">
 		    <div class="item" th:each="dto : ${list}">
-		        <img th:src="@{${dto.productImage}}" alt="Product Image">
+		    	<a th:href="@{/productInfo(seq=${dto.id})}">
+		        	<img th:src="@{${dto.productImage}}" alt="Product Image">
+		        </a>
 		        <div class="product-name" th:text="${dto.productName}"></div>
 		        <div class="product-company" th:text="${dto.productcompany}"></div>
 		    </div>
 		</div>
 		
-		<div class="paging">
+		<div class="paging" th:if="${totalPages > 1}">
 		    <ul>
 		        <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
 		            th:classappend="${i == currentPage} ? 'active'">
@@ -174,6 +175,7 @@
 		        </li>
 		    </ul>
 		</div>
+
 		
 	</div>
 	
@@ -190,6 +192,8 @@
 	            window.location.href = url;
 	        });
 	    });
+	    
+	    
 	</script>
 </body>
 </html>
