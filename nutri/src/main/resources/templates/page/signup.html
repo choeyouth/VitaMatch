@@ -13,6 +13,17 @@
    	<th:block th:insert="~{inc/header.html :: index_header_content_basic(#{menu.signup},#{menu.signup.desc})}"></th:block>
     <div class="login-title">[[#{title}]]</div>
     <!-- <div class="font-size-20 font-koho align-center">회원가입 하시고 저희 웹사이트의 다양한 혜택을 누리세요!</div> -->
+
+
+    
+    
+    <ul>
+        <li>성별에 한글 길어서 짤리는 거 폭 조정</li>
+        <li>가입하기 버튼 반짝이 애니메이션 설정 (not sure if the css is applied correctly)</li>
+        <li>validity check--mostly length--for username, name, nickname</li>
+        <li>might as well make a span tag for error-message for every input</li>
+        <li>link it up with DB ASAP</li>
+    </ul>
     <form method="POST" action="/signupok" id="signupForm">
         <div class="login-form-box">
             <table class="stretch">
