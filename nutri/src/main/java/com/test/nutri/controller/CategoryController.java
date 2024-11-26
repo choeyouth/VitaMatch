@@ -23,16 +23,24 @@ public class CategoryController {
 		Pageable pageable = PageRequest.of(page, 12);
         Page<?> categoryPage = categoryRepository.findByCategory(category, pageable);
 		
-        model.addAttribute("list", categoryPage.getContent()); // 현재 페이지의 데이터
-        model.addAttribute("totalPages", categoryPage.getTotalPages()); // 전체 페이지 수
-        model.addAttribute("currentPage", page); // 현재 페이지
-        model.addAttribute("category", category); // 카테고리 정보 유지
+        model.addAttribute("list", categoryPage.getContent());
+        model.addAttribute("totalPages", categoryPage.getTotalPages()); 
+        model.addAttribute("currentPage", page);
+        model.addAttribute("category", category); 
 				
 		return "page/ingredient";
 	}
 	
 	@GetMapping("/health")
-	public String map(Model model) {
+	public String map(Model model, @RequestParam(name="category", required = false)String category , @RequestParam(name="page", required = false, defaultValue = "0") Integer page) {
+		
+		Pageable pageable = PageRequest.of(page,12);
+		Page<?> categoryHealth = categoryRepository.findByHealth(category, pageable);
+		
+		model.addAttribute("list", categoryHealth.getContent());
+        model.addAttribute("totalPages", categoryHealth.getTotalPages()); 
+        model.addAttribute("currentPage", page);
+        model.addAttribute("category", category); 
 		
 		return "page/health";
 	}

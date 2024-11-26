@@ -1,12 +1,21 @@
+div.login-title {
+	margin-top: 50px;
+	font-size: 40px;
+	font-family: 'KoHo';
+	font-weight: bold;
+	text-align: center;
+}
+
 /* General Form Box Styling */
 .login-form-box {
     position: relative;
-    margin: 20px auto;
+    margin: 10px auto 60px auto;
     width: 600px;
     padding: 20px 40px; /* Add padding inside the form box */
     background-color: #ffffff; /* Ensure a clean background */
     border-radius: 10px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for better focus */
+    border: 1px solid rgba(192, 192, 192, 0.5);
+   /* box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); */
 }
 
 /* Input Fields */
@@ -93,31 +102,18 @@ select:not([value=""]) + label {
 }
 
 /* ID Input and Button Group Styling */
-.id-group {
+.username-group {
     position: relative;
     width: 100%; /* Ensure it takes up full width */
 }
 
-.id-group input#id {
+.username-group input#username {
     position: relative;
     width: 75%; /* Ensure it takes up 75% width */
 }
 
-.id-container {
-    position: relative;
-    display: flex;
-    width: 100%; /* Ensure full width alignment */
-}
-
-/* Input Field in ID Group */
-.id-container input.signup {
-    flex: 1; /* Ensures the input takes up remaining space */
-    width: auto; /* Allow the input to stretch */
-    padding-right: 120px; /* Add space for the button */
-}
-
 /* Button in ID Group */
-.check-id-button {
+.check-username-button {
     position: absolute;
     top: 0;
     right: 0;
@@ -133,7 +129,7 @@ select:not([value=""]) + label {
     white-space: nowrap; /* Prevent button text from wrapping */
 }
 
-.check-id-button:hover {
+.check-username-button:hover {
 	box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
 	transition: background-color 0.3s ease;
     background-color: #0EBA90;
@@ -243,6 +239,10 @@ button.login-button:hover {
 .error-message.active {
     opacity: 1;
     visibility: visible;
+}
+
+.error-message.success {
+	color: green;
 }
 
 .align-center {
