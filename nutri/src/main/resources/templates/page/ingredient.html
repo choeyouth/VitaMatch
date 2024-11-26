@@ -44,7 +44,7 @@
 		
 		<div class="container_category">
 		    <div class="item" th:each="dto : ${list}">
-		    	<a th:href="@{/productinfo(seq=${dto.id})}">
+		    	<a th:href="@{/productInfo(seq=${dto.id})}">
 		        	<img th:src="@{${dto.productImage}}" alt="Product Image">
 		        </a>
 		        <div class="product-name" th:text="${dto.productName}"></div>

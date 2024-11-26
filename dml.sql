@@ -334,15 +334,20 @@ select * from ingredientDaily;
 select * from ingredientDaily;
 
 -- 성별 나이대별 영양제 성분 및 내용 뷰
-CREATE VIEW vwGenderAgeRecommend AS
-SELECT ga.seq, 
-       ga.genderAge_seq as genderAgeSeq,
-       ga.ingredient_seq as ingredientSeq,
-       i.name as ingredientName,
-       ic.functionalContent
-FROM ingredientGenderAge ga
-INNER JOIN ingredient i ON ga.ingredient_seq = i.seq
-INNER JOIN ingredientContent ic ON i.seq = ic.ingredient_seq;
+
+CREATE OR REPLACE VIEW vwGenderAgeRecommend AS
+SELECT 
+    iga.seq,
+    ga.gender as gender,
+    ga.age as age,
+    iga.genderAge_seq as genderAgeSeq,
+    iga.ingredient_seq as ingredientSeq,
+    i.name as ingredientName,
+    ic.functionalContent
+FROM surveyGenderAge ga
+INNER JOIN ingredientGenderAge iga ON ga.seq = iga.genderAge_seq
+INNER JOIN ingredient i ON iga.ingredient_seq = i.seq
+INNER JOIN ingredientContent ic ON iga.seq = ic.ingredient_seq;
 
 select * from vwGenderAgeRecommend;
 

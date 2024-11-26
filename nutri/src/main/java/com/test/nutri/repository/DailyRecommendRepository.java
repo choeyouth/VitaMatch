@@ -12,4 +12,7 @@ public interface DailyRecommendRepository extends JpaRepository<vwDailyRecommend
 	@Query("select d from vwDailyRecommend d where d.dailySeq = ?1")
 	List<vwDailyRecommend> listAll(int dailySeq);
 
+	@Query("select d from vwDailyRecommend d where d.dailySeq = ?1")
+	List<vwDailyRecommend> findAll(String dailySeq);
+
 }
