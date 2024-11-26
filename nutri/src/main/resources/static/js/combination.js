@@ -1,8 +1,8 @@
 document.querySelector('input[type="radio"]').checked = true;
 	
 // CSRF 토큰과 헤더 이름을 메타 태그에서 동적으로 가져옵니다.
-//var token = $("meta[name='_csrf']").attr("content");
-//var header = $("meta[name='_csrf_header']").attr("content");
+var token = $("meta[name='_csrf']").attr("content");
+var header = $("meta[name='_csrf_header']").attr("content");
 
 
 // 페이지 로딩 시 첫 번째 라디오 버튼에 해당하는 성분을 선택하여 처리
@@ -13,12 +13,13 @@ document.addEventListener('DOMContentLoaded', function() {
     let firstIngredientSeq = firstInput.value;
     let firstIngredient = firstLabel.textContent.trim();
 
+	
+	let image = document.querySelector('#selectOneImg');
+	image.src = '/img/ingredient/' + firstIngredient + '.png';
+	
     // 첫 번째 라디오 버튼에 해당하는 성분을 표시
     selectIngredient(firstIngredientSeq, firstIngredient);
 	
-
-	image.src = '/img/ingredient/' + firstIngredient + '.png';
-			
 	document.querySelectorAll('.selectOne')[0].innerHTML = firstIngredient;
 	document.querySelectorAll('.selectOne')[1].innerHTML = firstIngredient;
 });
@@ -34,7 +35,7 @@ document.querySelectorAll('label').forEach(function (label) {
         let ingredientSeq = input.value;
         let ingredient = label.textContent.trim();
 		console.log(ingredient);
-		image = document.querySelector('#selectOneImg');
+		let image = document.querySelector('#selectOneImg');
 		image.src = '/img/ingredient/' + ingredient + '.png';
 		
 		document.querySelectorAll('.selectOne')[0].innerHTML = ingredient;
@@ -61,6 +62,9 @@ function selectIngredient(ingredientSeq, ingredient) {
             ingredientSeq: ingredientSeq,
             ingredient: ingredient
         }),
+		beforeSend : function(xhr) {
+            xhr.setRequestHeader(header, token);
+        },
         success: function (response) {
             handleCombinations(response);
         },

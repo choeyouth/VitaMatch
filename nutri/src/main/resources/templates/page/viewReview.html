@@ -93,7 +93,7 @@
 		
 			<div class="review-view">
 				<table th class="review-table">
-		            <tr>
+		           <tr>
 	                	<th>번호</th>
 						<td th:text="${review.seq}"></td>
 	                </tr>
@@ -121,14 +121,12 @@
 		                <th>후기</th>
 						<td th:text="${review.content}"></td>
 					</tr>
-		           <!-- <tr>
+		            <tr>
 		                <th>사진</th>
-						<td th:text="${dto.image}"></td>
 						<td>
-						  <img th:if="${dto.image != null}" th:src="@{/img/review/{image}(image=${dto.image})}" alt="Image" />
-						  <span th:if="${dto.image == null}">No image available</span>
+							 <img th:if="${review.image != null}" th:src="@{img/review/{image}(image=${review.image})}"/>
 						</td>
-					</tr>-->
+					</tr>
 	                <tr>
 		                <th>평점</th>
 						<td th:text="${review.score}"></td>

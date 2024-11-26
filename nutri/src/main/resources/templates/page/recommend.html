@@ -23,12 +23,12 @@
 					<div class="col-lg-5 aos-init aos-animate" data-aos="fade-up" data-aos-delay="">
 						<h3 class="subheading">RECOMMEND INGREDIENT</h3>
 						<h2 class="heading">건강 상태에 맞는 맞춤 영양제 성분</h2>
+						<div class="sub-info">* 알고리즘에 따른 영양제 추천으로 자세한 정보는 반드시 의사 혹은 약사에게 문의하시길 바랍니다.</div>
 					</div>		
 				</div>
 
-				<div th:text="'성별: ' + (${galist[0].gender == 'f' ? '여자' : '남자'}) + ', ' + '연령대: ' + ${galist[0].age}" class="category"></div>
-				
 				<!-- 성별 나이대별 -->
+				<div th:text="'성별: ' + (${galist[0].gender == 'f' ? '여자' : '남자'}) + ' & ' + '연령: ' + ${galist[0].age} + '대'" class="category"></div>
 				<div class="row g-5">
 				    <div class="col-lg-4" data-aos="fade-up" th:each="galist, iterStat : ${galist}"
 				         th:attr="data-aos-delay=${iterStat.index == 0 ? ' ' : (iterStat.index) * 100}">
@@ -40,6 +40,7 @@
 				            <div>
 				                <!-- ingredientName과 functionalContent를 표시 -->
 				                <h3 th:text="${galist.ingredientName}"></h3>
+								<hr>
 				                <p th:utext="${galist.functionalContent}"></p>
 				            </div>
 				        </div>
@@ -56,6 +57,7 @@
 							</div>
 							<div>
 								<h3 th:text="${hlist.ingredientName}"></h3>
+								<hr>
 								<p th:utext="${hlist.functionalContent}"></p>
 							</div>
 						</div>
@@ -72,6 +74,7 @@
 							</div>
 							<div>
 								<h3 th:text="${olist.ingredientName}"></h3>
+								<hr>
 								<p th:utext="${olist.functionalContent}"></p>
 							</div>
 						</div>
@@ -88,6 +91,7 @@
 							</div>
 							<div>
 								<h3 th:text="${dlist.ingredientName}"></h3>
+								<hr>
 								<p th:utext="${dlist.functionalContent}"></p>
 							</div>
 						</div>
