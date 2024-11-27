@@ -26,7 +26,7 @@ public class MapController {
         return mapAPI.getMap(model); 
     }
 
-    @GetMapping("/pharmacy/search")
+    @GetMapping("/pharmacy/list")
     @ResponseBody
     public List<MapDTO> getPharmacy(
         @RequestParam(name = "sido") String sido,
@@ -34,9 +34,20 @@ public class MapController {
         @RequestParam(name = "page", defaultValue = "1") int page,
         @RequestParam(name = "keyword", required = false) String keyword
     ) {
-        String url = mapAPI.createPharmacyUrl(sido, gugun, page, keyword);
+        String url = mapAPI.pharmacyListUrl(sido, gugun, page, keyword);
         return mapService.getPharmacyList(url);
     }
     
+    @GetMapping("/pharmacy/info") 
+    @ResponseBody
+    public List<MapDTO> getPharmacyInfo (@RequestParam(name="hpid") String hpid) {
+    	
+    	String url = mapAPI.pharmacyInfoUrl(hpid);
+    	
+    	//List말고 MapDTO로 나누고 싶음... 
+    	List<MapDTO> list = mapService.getPharmacyList(url);
+    		
+    	return list;
+    }
 
 }

@@ -283,6 +283,7 @@ CREATE TABLE `adminAuth` (
 	`role`	VARCHAR(50)	NOT NULL
 );
 
+------여기서부터 시작 > adminAuthList
 CREATE TABLE `adminAuthList` (
 	`Key`	INT	AUTO_INCREMENT PRIMARY KEY,
 	`admin_seq`	INT	NOT NULL,

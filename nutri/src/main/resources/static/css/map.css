@@ -126,10 +126,10 @@
 }
 
 #pagination {
-    display: none; 
+    display: flex; 
     justify-content: center;
     gap: 10px;  
-	padding: 10px 0px;
+	padding: 15px 0px;
     background-color: #fff;
     border-bottom: 1px solid #F3F2F2;
 }
@@ -186,7 +186,7 @@
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-    /* display: none; 기본적으로 숨김 */
+    display: none; 
     z-index: 10;
 }
 
@@ -247,8 +247,13 @@
 	font-size: 16px;
 }
 
-.pharmacy-time span {
+.open-phar {
 	color: #0DA681;
+}
+
+
+.close-phar {
+	color: #B3261E;
 }
 
 .pharmacy-time span:first-child {
@@ -259,6 +264,10 @@
 
 .map-info div {
 	padding: 5px 0;
+}
+
+.map-info-head h5 {
+	font-weight: bold;
 }
 
 .week-time {

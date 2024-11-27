@@ -3,13 +3,12 @@
 
 <head>
 <meta charset="UTF-8">
-<!--/*	<meta name="_csrf" th:content="${_csrf.token}"/>
-	<meta name="_csrf_header" th:content="${_csrf.headerName}"/> */-->
+<meta name="_csrf" th:content="${_csrf.token}"/>
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 
 <title>[[#{menu.combination}]]</title>
 <th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
 <link rel="stylesheet" th:href="@{css/combination.css}" />
-
 </head>
 
 <body>
@@ -71,7 +70,7 @@
 								data-aos-delay="100" id="combinationButton">
 								<h3 class="subheading">선택된 영양제와 관련된 성분 조합</h3>
 								<h2 class="heading mb-5">
-									<span class="selectOne">칼슘</span>과(와) 관련된 성분 조합은?
+									<span class="selectOne">오메가3</span>과(와) 관련된 성분 조합은?
 								</h2>
 
 								<div class="custom-accordion" id="accordion_1">
@@ -79,23 +78,21 @@
 										<h2 class="mb-0">
 											<button class="btn btn-link" type="button"
 												data-bs-toggle="collapse" data-bs-target="#collapseOne"
-												aria-expanded="true" aria-controls="collapseOne">같이
+												aria-expanded="true" aria-controls="collapseOne" id="buttonOne">같이
 												먹으면 좋은 조합</button>
 										</h2>
 
 										<div id="collapseOne" class="collapse show"
 											aria-labelledby="headingOne" data-bs-parent="#accordion_1">
-											
-
 										</div>
 									</div>
 									<!-- .accordion-item -->
 
-									<div class="accordion-item"  id="combinationBad">
+									<div class="accordion-item" id="combinationBad">
 										<h2 class="mb-0">
 											<button class="btn btn-link" type="button"
 												data-bs-toggle="collapse" data-bs-target="#collapseTwo"
-												aria-expanded="false" aria-controls="collapseTwo">같이
+												aria-expanded="false" aria-controls="collapseTwo" id="buttonTwo">같이
 												먹으면 안 좋은 조합</button>
 										</h2>
 										<div id="collapseTwo" class="collapse"
@@ -105,19 +102,19 @@
 
 									</div>
 								</div>
+								<div class="combinationInfo">** 자세한 정보는 반드시 의사나 약사에게 확인하시기 바랍니다.</div>
 							</div>
 						</div>
 						<!-- .container -->
 					</div>
 					<!-- /.untree_co-section -->
 				</div>
-
-
 			</div>
-			<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
-			<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
+		</div>
+	</div>
+	
+	<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
+	<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
+	<script th:src="@{js/combination.js}"></script>
 </body>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script th:src="@{js/combination.js}"></script>
-
 </html>

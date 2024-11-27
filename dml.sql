@@ -198,22 +198,5 @@ INSERT INTO member (username,email,password,name,nickname, dob, gender, telephon
 VALUES ('hong', 'hong@test.com','1111','hong','hong','2000-01-01','m','01012345678',1);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+select * from vwDailyRecommend;
+select * from ingredientDaily;

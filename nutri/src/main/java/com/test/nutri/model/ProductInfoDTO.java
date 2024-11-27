@@ -1,6 +1,6 @@
 package com.test.nutri.model;
 
-import com.test.nutri.entity.productInfo;
+import com.test.nutri.entity.ProductInfo;
 
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -37,8 +37,8 @@ public class ProductInfoDTO {
 	    private String functionalContent;
 	    private String standardsAndSpecifications;
 	    
-	    public productInfo toEntity() {
-	        return productInfo.builder()
+	    public ProductInfo toEntity() {
+	        return ProductInfo.builder()
 	                .seq(this.seq)
 	                .productImage(this.productImage)
 	                .companyName(this.companyName)

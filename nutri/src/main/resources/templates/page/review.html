@@ -18,6 +18,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;             
+		
 	    gap: 15px; /* 입력창과 버튼 사이 간격 */
 	}
 	
@@ -27,7 +28,7 @@
 		border-radius: 5px;
 		height: 42px;
 		padding: 3px;
-		font-size: 17px;
+		font-size: 16px;
 	}
 	
 	.search-txt {
@@ -37,6 +38,7 @@
 	
 	.search-btn {
 		border:  none;
+		font-weight: bold;
 		background-color: #10D0A1;
 		color: white;
 		width: 110px;
@@ -94,7 +96,34 @@
 		/* border-bottom: 1px solid #ADB5BD; */ /* 아래쪽만 줄을 넣음 */
 		border-bottom: 1px solid #f4f4f4; 
 	}
-
+	
+	.table-body a {
+		color: black;
+	}
+	
+	.table-body a:hover {
+		font-weight: bold;
+		color: #10D0A1;
+	}
+	
+	.custom-button a {
+	    display: inline-block;
+	    width: 40px;
+	    height: 40px;
+	    line-height: 40px;
+	    font-weight: bold;
+	    border-radius: 50%;
+	    background: rgba(16, 208, 161, 0.1);
+	    color: #10D0A1;
+	    text-align: center;
+		margin: 5px;
+	}
+	
+	.custom-button a:hover, .custom-button a.active {
+	    background: #10D0A1;
+	    color: #fff;
+	}
+	
 </style>
 <body>
 	<th:block th:insert="~{inc/header.html :: index_header_menu}"></th:block>
@@ -109,13 +138,14 @@
 			</div>	
 			
 			<div class="review-search">
-				<form class="search-box" action="" method="get">
-					<input class="search-txt" type="text" placeholder="검색어를 입력하세요.">
-					<button class="search-btn" type="submit">검색하기</button>		
+				<form class="search-box" method="GET" action="/review">
+					<input class="search-txt" type="text" placeholder="검색어를 입력하세요" required>
+					<button class="search-btn" type="submit">검색하기</button>
+					<!--<button class="search-btn" type="submit">검색하기</button>-->	
 				</form>
 			</div>
 
-			<table class="review-list">
+			<table th:if="${list != null}" class="review-list">
 	        	<thead class="table-header">
 	            	<tr>
 	                	<th>번호</th>
@@ -127,116 +157,35 @@
 	             	</tr>
 	          	</thead>   
 	          	<tbody class="table-body">
-	             	<tr>
-	                	<td>14</td>
-		                <td>오메가3</td>
-						<td>내돈내산 오메가3 리뷰입니다.</td>
-		                <td>얼룩말</td>
-		                <td>5</td>
-		                <td>2024-11-22</td>
-	             	</tr>
-	             	<tr>
-	                	<td>13</td>
-		                <td>오메가3</td>
-						<td>내돈내산 오메가3 리뷰입니다.</td>
-		                <td>얼룩말</td>
-		                <td>5</td>
-		                <td>2024-11-22</td>
-	             	</tr>
-					
+	             	<tr th:each="dto : ${list}">
+	                	<td th:text="${dto.seq}"></td>
+		                <td th:text="${dto.category}"></td>
+						<td>
+		                	<a th:href="'/viewReview?seq=' + ${dto.seq}" th:text="${dto.title}"></a>
+						</td>
+						<td th:text="${dto.nickname}"></td>
+						<td th:text="${dto.score}"></td>
+		                <td th:text="${dto.createDate}"></td>
+	             	</tr>			
 	           	</tbody>
 			</table>
-		
-				<div class="row g-5">
-					<div class="col-lg-4"  data-aos="fade-up" data-aos-delay="">
-
-						<div class="feature-1 d-block">
-							<div class="mb-3">
-								<span class="hex color-1 mb-3">
-									<i class="flaticon-bacteria-1"></i>
-								</span>
-							</div>
-							<div>
-								<h3>Infectious Bacteria</h3>
-								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, error numquam culpa placeat pariatur fuga illo veniam doloremque ea optio beatae velit</p>
-							</div>
-						</div>
-						
-					</div>
-					<div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-						<div class="feature-1 d-block">
-							<div class="mb-3">
-								<span class="hex color-2 mb-3">
-									<i class="flaticon-lungs"></i>
-								</span>
-							</div>
-							<div>
-								<h3>Lung Infection</h3>
-								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, error numquam culpa placeat pariatur fuga illo veniam doloremque ea optio beatae velit</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-						<div class="feature-1 d-block">
-							<div class="mb-3">
-								<span class="hex color-3 mb-3">
-									<i class="flaticon-bacteria"></i>
-								</span>
-							</div>
-							<div>
-								<h3>Viruses</h3>
-								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, error numquam culpa placeat pariatur fuga illo veniam doloremque ea optio beatae velit</p>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-4" data-aos="fade-up" data-aos-delay="">
-
-						<div class="feature-1 d-block">
-							<div class="mb-3">
-								<span class="hex color-4 mb-3">
-									<i class="flaticon-test-tubes"></i>
-								</span>
-							</div>
-							<div>
-								<h3>Laboratory</h3>
-								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, error numquam culpa placeat pariatur fuga illo veniam doloremque ea optio beatae velit</p>
-							</div>
-						</div>
-						
-					</div>
-					<div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-						<div class="feature-1 d-block">
-							<div class="mb-3">
-								<span class="hex color-5 mb-3">
-									<i class="flaticon-vaccine"></i>
-								</span>
-							</div>
-							<div>
-								<h3>Vaccination</h3>
-								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, error numquam culpa placeat pariatur fuga illo veniam doloremque ea optio beatae velit</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-						<div class="feature-1 d-block">
-							<div class="mb-3">
-								<span class="hex color-6 mb-3">
-									<i class="flaticon-mask"></i>
-								</span>
-							</div>
-							<div>
-								<h3>Face Mask</h3>
-								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, error numquam culpa placeat pariatur fuga illo veniam doloremque ea optio beatae velit</p>
-							</div>
-						</div>
-					</div>
-				</div>	
-			</div>		
 		</div>
-
-
-	
+		
+		<div class="row align-items-center py-5">
+			<div class="col-lg-3">
+				<!-- Pagination (1 of 10) -->
+			</div>
+			<div class="col-lg-6 text-center">
+				<div class="custom-button">
+					[(${page})]
+				</div>
+			</div>
+		</div>
+	</div>
+		
+		
+	</div>
+		
 		<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
 		<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
 

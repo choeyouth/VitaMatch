@@ -58,8 +58,6 @@ public class CombinationController {
 	    
 		List<VwGoodCombination> good = goodCombinationRepository.findByIngredientSeq(ingredientSeq);
 		List<VwBadCombination> bad = badCombinationRepository.findByIngredientSeq(ingredientSeq);
-		System.out.println("good>>>>>>>>>>" + good);
-		System.out.println("bad>>>>>>>>>>" + bad);
 		
 		
 		Map<String, Object> combination = new HashMap<>();
@@ -76,13 +74,6 @@ public class CombinationController {
 				combination.put("functionalContent", bad.get(0).getFunctionalContent());
 			}
 		}
-		
-		System.out.println(combination);
-		System.out.println(">>>>"+combination.get("functionalContent"));
-		
-		System.out.println(ingredientSeq);
-		System.out.println(ingredient);
-		
 		return ResponseEntity.ok(combination);
 		//return null;
 	}
