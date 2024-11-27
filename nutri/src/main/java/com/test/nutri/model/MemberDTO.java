@@ -18,7 +18,10 @@ public class MemberDTO {
 	private String dob;
 	private String gender;
 	private String telephone;
+	private String zipcode;
 	private String address;
+	private String addressDetail;
+	private String addressExtra;
 	private String status;
 	private String createTime;
 	private String updateTime;

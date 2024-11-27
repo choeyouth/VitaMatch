@@ -20,8 +20,8 @@ public class SecurityConfig {
 		http.headers((headerConfig) -> headerConfig.frameOptions((frameOptionConfig -> frameOptionConfig.disable())));
 		
 		//페이지 접근 허용
-		http.authorizeHttpRequests((authorizeRequests) -> 
-	            authorizeRequests
+		http.authorizeHttpRequests((auth) -> 
+	            auth
                 .requestMatchers("/**").permitAll()
                 .anyRequest().authenticated());
 		

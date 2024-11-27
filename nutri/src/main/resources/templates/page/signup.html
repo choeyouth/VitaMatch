@@ -77,10 +77,10 @@
 				    <td class="form-group">
 				        <select id="gender" name="gender" class="signup" required>
 				            <option value="">[[#{signup.gender}]]</option>
-				            <option value="male">[[#{signup.gender.male}]]</option>
-				            <option value="female">[[#{signup.gender.female}]]</option>
-				            <option value="undisclosed">[[#{signup.gender.undisclosed}]]</option>
-				            <option value="other">[[#{signup.gender.other}]]</option>
+				            <option value="m">[[#{signup.gender.male}]]</option>
+				            <option value="f">[[#{signup.gender.female}]]</option>
+				            <option value="u">[[#{signup.gender.undisclosed}]]</option>
+				            <option value="o">[[#{signup.gender.other}]]</option>
 				        </select>
 				        <!-- <label for="gender">성별</label> -->
 				    </td>
@@ -88,7 +88,7 @@
                 <!-- Telephone -->
 				<tr class="phone-group flex-row">
 				    <td class="form-group">
-				        <select id="phone1" name="phone1" class="signup" required>
+				        <select id="phone1" name="telephone1" class="signup" required>
 				            <option value="010" selected>010</option>
 				            <option value="011">011</option>
 				            <option value="016">016</option>
@@ -99,12 +99,12 @@
 				    </td>
 				    <td class="phone-separator">-</td>
 				    <td class="form-group">
-				        <input id="phone2" type="text" name="phone2" maxlength="4" class="signup phone-input" required />
+				        <input id="phone2" type="text" name="telephone2" maxlength="4" class="signup phone-input" required />
 				        <span id="phone2-check" class="error-message"></span>
 				    </td>
 				    <td class="phone-separator">-</td>
 				    <td class="form-group">
-				        <input id="phone3" type="text" name="phone3" maxlength="4" class="signup phone-input" required />
+				        <input id="phone3" type="text" name="telephone3" maxlength="4" class="signup phone-input" required />
 				        <span id="phone3-check" class="error-message"></span>
 				    </td>
 				</tr>
@@ -142,6 +142,7 @@
             <div>
                 <button type="submit" class="signup-button button">[[#{signup.signup}]]</button>
             </div>
+             	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
         </div>
     </form>
     
