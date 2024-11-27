@@ -4,6 +4,7 @@ import com.test.nutri.model.ProductInfoDTO;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,7 +19,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class productInfo {
+@Table(name="productInfo")
+public class ProductInfo {
 
     @Id
     private Long seq;
