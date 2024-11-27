@@ -20,19 +20,25 @@ html, body {
 
 .productInfotable th, .productInfotable td { 
     padding: 15px;
-    border: 1px solid #10D0A1;
+   
 }
 
 .productInfotable th {
     width: 200px;  
     font-size: 16px;
     text-align: center;
+	background-color:#10D0A1;
+	color: white;
+	border-top: 1px solid white;
+	border-bottom: 1px solid white;
 }
 
 .productInfotable td {
     width: 1000px; 
     font-size: 14px; 
 	padding-left: 20px; 
+	border-top: 1px solid #10D0A1;
+	border-bottom: 1px solid #10D0A1;
 }
 
 .productLongString{
