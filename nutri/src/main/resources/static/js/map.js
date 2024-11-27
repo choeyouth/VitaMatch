@@ -1,5 +1,5 @@
- 
 $('document').ready(function() {
+
 	var area0 = ["시/도 선택","서울특별시","인천광역시","대전광역시","광주광역시","대구광역시","울산광역시","부산광역시","경기도","강원도","충청북도","충청남도","전라북도","전라남도","경상북도","경상남도","제주도"];
 	var area1 = ["강남구","강동구","강북구","강서구","관악구","광진구","구로구","금천구","노원구","도봉구","동대문구","동작구","마포구","서대문구","서초구","성동구","성북구","송파구","양천구","영등포구","용산구","은평구","종로구","중구","중랑구"];
 	var area2 = ["계양구","남구","남동구","동구","부평구","서구","연수구","중구","강화군","옹진군"];
@@ -18,32 +18,138 @@ $('document').ready(function() {
 	var area15 = ["거제시","김해시","마산시","밀양시","사천시","양산시","진주시","진해시","창원시","통영시","거창군","고성군","남해군","산청군","의령군","창녕군","하동군","함안군","함양군","합천군"];
 	var area16 = ["서귀포시","제주시","남제주군","북제주군"];
 
+
 	// 시/도 선택 박스 초기화
-	$("select[name^=sido]").each(function() {
-		$selsido = $(this);
-		$.each(eval(area0), function() {
-			$selsido.append("<option value='"+this+"'>"+this+"</option>");
+	$("select[name^=sido]").each(function () {
+		var $selsido = $(this);
+		$.each(eval(area0), function () {
+			$selsido.append("<option value='" + this + "'>" + this + "</option>");
 		});
 		$selsido.next().append("<option value=''>구/군 선택</option>");
 	});
-	
-	 // 시/도 선택시 구/군 설정
-	$("select[name^=sido]").change(function() {
-		
-		var area = "area"+$("option",$(this)).index($("option:selected",$(this))); // 선택지역의 구군 Array
-		var $gugun = $(this).next(); // 선택영역 군구 객체
-		$("option",$gugun).remove(); // 구군 초기화
 
-		if(area == "area0")  $gugun.append("<option value=''>구/군 선택</option>");
+	// 시/도 선택 시 구/군 설정
+	$("select[name^=sido]").change(function () {
+		var area = "area" + $("option", $(this)).index($("option:selected", $(this))); // 선택지역의 구군 Array
+		var $gugun = $(this).next(); // 선택영역 군구 객체
+		$("option", $gugun).remove(); // 구군 초기화
+
+		if (area == "area0") $gugun.append("<option value=''>구/군 선택</option>");
 		else {
-			$.each(eval(area), function() {
-				$gugun.append("<option value='"+this+"'>"+this+"</option>");
+			$.each(eval(area), function () {
+				$gugun.append("<option value='" + this + "'>" + this + "</option>");
 			});
 		}
 	});
-}); 
 
+	// 시/도 매칭 함수
+	function matchSido(sido) {
+		sido = sido.trim(); // 공백 제거
+		var matchedSido = null;
+
+		// 시/도 값이 포함되었는지 확인
+		$("select[name^=sido] option").each(function () {
+			if ($(this).val().includes(sido)) {
+				matchedSido = $(this).val();
+			}
+		});
+
+		return matchedSido || sido; // 매칭되는 값이 없으면 원래 값 반환
+	}
+
+	// 구/군 매칭 함수
+	function matchGugun(gugun, areaList) {
+		gugun = gugun.trim(); // 공백 제거
+		var matchedGugun = null;
+
+		// 구/군 값이 포함되었는지 확인
+		$.each(areaList, function (index, areaGugun) {
+			if (areaGugun.includes(gugun)) {
+				matchedGugun = areaGugun;
+			}
+		});
+
+		return matchedGugun || gugun; // 매칭되는 값이 없으면 원래 값 반환
+	}
+
+	// GPS로 시/도, 구/군 자동 선택
+	function selectLocation(sido, gugun) {
+		var matchedSido = matchSido(sido); // 시/도 값 매칭
+		var $sidoSelect = $("select[name^=sido]");
+		$sidoSelect.val(matchedSido).prop("selected", true).change();
+
+		setTimeout(function () {
+			var $gugunSelect = $sidoSelect.next(); // 구/군 셀렉트 박스
+			var areaList = [];
+
+			// 현재 시/도에 해당하는 구/군 리스트 가져오기
+			var selectedAreaIndex = $sidoSelect[0].selectedIndex; // 선택된 시/도의 인덱스
+			if (selectedAreaIndex >= 0) {
+				areaList = eval("area" + (selectedAreaIndex - 1)); // -1은 "시/도 선택" 제외
+			}
+
+			var matchedGugun = matchGugun(gugun, areaList);
+
+			if ($gugunSelect.find("option[value='" + matchedGugun + "']").length > 0) {
+				$gugunSelect.val(matchedGugun).prop("selected", true);
+			} else {
+				console.error("구/군 값이 리스트에 없습니다:", matchedGugun);
+			}
+		}, 500); // 구/군 리스트가 로드되기 전 대기
+	}
+
+	// GPS 위치 기반 현재 위치 설정
+	function currentLocation() {
+
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(function (position) {
+				var lat = position.coords.latitude, // 위도
+					lon = position.coords.longitude; // 경도
+
+				var locPosition = new kakao.maps.LatLng(lat, lon);
+
+				getAddressFromCoords(locPosition, function (result, status) {
+					if (status === kakao.maps.services.Status.OK) {
+						var address = result[0].address; // 변환된 주소 정보
+						var sido = address.region_1depth_name; // 시/도
+						var gugun = address.region_2depth_name; // 구/군
+
+						console.log(`시/도: ${sido}, 구/군: ${gugun}`);
+
+						// 시/도와 구/군 자동 선택
+						selectLocation(sido, gugun);
+
+						var message = `
+							<div style="padding:5px;">
+								여기에 계신가요?!  
+							</div>
+						`;
+						displayMarker(locPosition, message);
+					}
+				});
+			});
+
+			$("#pagination").css("display", "none");
+			$("#placesList").css("display", "none");
+			closePopup();
+			$("#keyword").val("");
+
+		} else {
+			var locPosition = new kakao.maps.LatLng(37.566826, 126.9786567),
+				message = 'geolocation을 사용할수 없어요..';
+
+			displayMarker(locPosition, message);
+		}
+	}
+
+	// 전역으로 함수 등록
+    window.selectLocation = selectLocation;
+    window.currentLocation = currentLocation;
+
+	currentLocation(); // 현재 위치 실행
 	
+});
+
 var markers = [];
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -94,7 +200,6 @@ function searchPlaces(i) {
 
 function getPharmacy(keyword, sido, gugun, page) {
 	
-	//setTimeout(function(){
 	$.ajax({
 		url: '/pharmacy/list', 
 		type: 'GET',
@@ -109,12 +214,13 @@ function getPharmacy(keyword, sido, gugun, page) {
 		    const totalPages = Math.ceil(result.length / 10); // 한 페이지에 10개 기준
 			displayPharmacies(result, page, totalPages);
 			closePopup();
+			$("#pagination").css("display", "flex");
+			$("#placesList").css("display", "block");
 		},
 		error: function (a,b,c) {
 			console.error(a,b,c); 
 		}
 	});
-	//}, 100); 
 }
 
 function displayPharmacies(pharmacies, currentPage, totalPages) {
@@ -156,8 +262,6 @@ function getListItem(index, pharmacy) {
     const el = document.createElement('li');
 	const isOpen = pharmacy.open ? 'open-phar' : 'close-phar';
 
-	console.log(isOpen);
-
     let itemStr = `
         <span class="markerbg marker_${index + 1}"></span>
         <div class="map-info-head">
@@ -169,7 +273,7 @@ function getListItem(index, pharmacy) {
             <span>${pharmacy.address}</span>
             <div class="map-info">
                 <div class="pharmacy-time">
-                    <span class="${isOpen}">⦁&nbsp;&nbsp;&nbsp;</span>
+                    <span class="${isOpen} time-circle"><i class="fa-solid fa-circle"></i>&nbsp;&nbsp;</span>
                     <span class="${isOpen}">${pharmacy.open ? '영업중' : '영업 종료'}&nbsp;&nbsp;&nbsp;</span>
                     (${pharmacy.openTime} ~ ${pharmacy.closeTime})
                 </div>
@@ -191,6 +295,9 @@ function getListItem(index, pharmacy) {
 
     el.innerHTML = itemStr;
     el.className = 'item';
+
+	//페이징 
+	displayPagination();
 
     return el;
 }
@@ -223,7 +330,6 @@ document.querySelector('#placesList').addEventListener('click', (event) => {
 });
 
 function getPharmacyInfo(hpid, etc) {
-	//setTimeout(function(){
 	$.ajax({
 		url: '/pharmacy/info',
 		type: 'GET',
@@ -237,7 +343,6 @@ function getPharmacyInfo(hpid, etc) {
             }
 		},
 	});
-	//}, 100); 
 }
 
 
@@ -262,7 +367,7 @@ function showPharmacyInfo(result, etc) {
 		<div class="pharmacy-detail-info">
 			<h2>${pharmacy.name}</h2>	
 			<div class="map-info">
-				<div class="pharmacy-time"><span class="${isOpen}">⦁&nbsp;&nbsp;&nbsp;</span><span id="isOpen" class="${isOpen}">${pharmacy.open ? '영업중' : '영업 종료'}&nbsp;&nbsp;&nbsp;</span>(${pharmacy.openTime} ~ ${pharmacy.closeTime})</div>		
+				<div class="pharmacy-time"><span class="${isOpen}"><i class="fa-solid fa-circle"></i>&nbsp;&nbsp;&nbsp;</span><span id="isOpen" class="${isOpen}">${pharmacy.open ? '영업중' : '영업 종료'}&nbsp;&nbsp;&nbsp;</span>(${pharmacy.openTime} ~ ${pharmacy.closeTime})</div>		
 				<div>${pharmacy.address}</div>
 				<div><span>전화번호 </span>${pharmacy.tel}</div>				
 			</div>
@@ -304,6 +409,15 @@ function showPharmacyInfo(result, etc) {
 	var centerPosition = new kakao.maps.LatLng(pharmacy.latitude, pharmacy.longitude);
 	map.setCenter(centerPosition);
 	map.setLevel(1);
+
+	var locPosition = new kakao.maps.LatLng(pharmacy.latitude, pharmacy.longitude);
+	var message = `
+		<div style="padding:5px;">
+			${pharmacy.name}
+		</div>
+	`;
+
+	displayMarker(locPosition, message);
 
 }
 
@@ -459,11 +573,39 @@ function removeAllChildNods(el) {
 }
 
 
+//GPS!!!!!!
+// x
 
+// 지도에 마커와 인포윈도우를 표시하는 함수입니다
+function displayMarker(locPosition, message) {
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        map: map,
+        position: locPosition
+    });
 
+    var iwContent = message, // 인포윈도우에 표시할 내용
+        iwRemoveable = true;
 
+    // 인포윈도우를 생성합니다
+    var infowindow = new kakao.maps.InfoWindow({
+        content: iwContent,
+        removable: iwRemoveable
+    });
 
+    // 인포윈도우를 마커위에 표시합니다
+    infowindow.open(map, marker);
 
+    // 지도 중심좌표를 접속위치로 변경합니다
+    map.setCenter(locPosition);
+}
+
+// 좌표로 주소를 얻어오는 함수입니다
+function getAddressFromCoords(coords, callback) {
+    var geocoder = new kakao.maps.services.Geocoder();
+
+    geocoder.coord2Address(coords.getLng(), coords.getLat(), callback); // 위도, 경도를 주소로 변환
+}
 
 
 

@@ -8,13 +8,14 @@
 	<script type="text/javascript" 
 	    th:src="@{'https://dapi.kakao.com/v2/maps/sdk.js?appkey=' + ${kakaoApiKey} + '&libraries=services'}">
 	</script>
+	<script src="https://kit.fontawesome.com/0c69fdf2c0.js" crossorigin="anonymous"></script>
 </head>
 <body>
 	<th:block th:insert="~{inc/header.html :: index_header_menu}"></th:block>
 	<th:block th:insert="~{inc/header.html :: index_header_content_basic(#{menu.map},#{menu.map.desc})}"></th:block>
 	<div class="map-container">
 		<div class="section services-section">
-			<div class="col-lg-5 aos-init aos-animate" data-aos="fade-up" data-aos-delay="">
+			<div class="map-col aos-init aos-animate" data-aos="fade-up" data-aos-delay="">
 				<h3 class="subheading">Pharmacy Map</h3>
 				<h2 class="map-heading heading">
 					<img src="img/map/mapIcon.svg" class="map-icon">
@@ -42,7 +43,7 @@
 						</div>
 					</div>
 					<div id="map">
-						<div class="detail-popup">
+						<div class="detail-popup" id="detail-popup">
 							<div class="map-detail-title">
 								<h2>약국 상세</h2>
 								<button class="close-popup"></button>
@@ -50,13 +51,13 @@
 							</div> 
 				        </div>  
 						<div class="map-gps">
-							<input type="image" src="/img/map/move-address.svg">
-							<input type="image" src="/img/map/gps.svg">
+							<!-- <input type="image" src="/img/map/move-address.svg"> -->
+							<input type="image" src="/img/map/gps.svg" onclick="currentLocation();">
 						</div>
 					</div> 
 				</div>
-			</div>		
-		</div>		 
+			</div>	
+		</div>	
 	</div>
 	<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
 	<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>

@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.test.nutri.entity.vwDailyRecommend;
+import com.test.nutri.entity.VwDailyRecommend;
 
-public interface DailyRecommendRepository extends JpaRepository<vwDailyRecommend, Long> {
+public interface DailyRecommendRepository extends JpaRepository<VwDailyRecommend, Long> {
 
-	@Query("select d from vwDailyRecommend d where d.dailySeq = ?1")
-	List<vwDailyRecommend> listAll(int dailySeq);
+	@Query("select d from VwDailyRecommend d where d.dailySeq = ?1")
+	List<VwDailyRecommend> listAll(int dailySeq);
 
-	@Query("select d from vwDailyRecommend d where d.dailySeq = ?1")
-	List<vwDailyRecommend> findAll(String dailySeq);
-
+	@Query("select d from VwDailyRecommend d where d.dailySeq = ?1")
+	List<VwDailyRecommend> findAll(String dailySeq);
+	
 }

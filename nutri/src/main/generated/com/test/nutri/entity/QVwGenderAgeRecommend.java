@@ -10,14 +10,14 @@ import com.querydsl.core.types.Path;
 
 
 /**
- * QvwGenderAgeRecommend is a Querydsl query type for vwGenderAgeRecommend
+ * QVwGenderAgeRecommend is a Querydsl query type for VwGenderAgeRecommend
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QvwGenderAgeRecommend extends EntityPathBase<vwGenderAgeRecommend> {
+public class QVwGenderAgeRecommend extends EntityPathBase<VwGenderAgeRecommend> {
 
-    private static final long serialVersionUID = 603938801L;
+    private static final long serialVersionUID = 801412113L;
 
-    public static final QvwGenderAgeRecommend vwGenderAgeRecommend = new QvwGenderAgeRecommend("vwGenderAgeRecommend");
+    public static final QVwGenderAgeRecommend vwGenderAgeRecommend = new QVwGenderAgeRecommend("vwGenderAgeRecommend");
 
     public final StringPath age = createString("age");
 
@@ -33,16 +33,16 @@ public class QvwGenderAgeRecommend extends EntityPathBase<vwGenderAgeRecommend> 
 
     public final NumberPath<Long> seq = createNumber("seq", Long.class);
 
-    public QvwGenderAgeRecommend(String variable) {
-        super(vwGenderAgeRecommend.class, forVariable(variable));
+    public QVwGenderAgeRecommend(String variable) {
+        super(VwGenderAgeRecommend.class, forVariable(variable));
     }
 
-    public QvwGenderAgeRecommend(Path<? extends vwGenderAgeRecommend> path) {
+    public QVwGenderAgeRecommend(Path<? extends VwGenderAgeRecommend> path) {
         super(path.getType(), path.getMetadata());
     }
 
-    public QvwGenderAgeRecommend(PathMetadata metadata) {
-        super(vwGenderAgeRecommend.class, metadata);
+    public QVwGenderAgeRecommend(PathMetadata metadata) {
+        super(VwGenderAgeRecommend.class, metadata);
     }
 
 }

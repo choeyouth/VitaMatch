@@ -31,8 +31,6 @@ public class QVwReview extends EntityPathBase<VwReview> {
 
     public final StringPath nickname = createString("nickname");
 
-    public final StringPath score = createString("score");
-
     public final NumberPath<Long> seq = createNumber("seq", Long.class);
 
     public final StringPath title = createString("title");

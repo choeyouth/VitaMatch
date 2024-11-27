@@ -1,22 +1,29 @@
-package com.test.nutri.model;
+package com.test.nutri.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
+@Entity
 @Getter
-@Setter
 @ToString
+@Table(name="vwDailyRecommend") //테이블명 동일
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class vwGenderAgeRecommendDTO {
+@AllArgsConstructor
+public class VwDailyRecommend {
 
+	@Id
 	private Long seq;
-	private Integer genderAgeSeq;
+	
+	private String name;
+	
+	private Integer dailySeq;
 	private Integer ingredientSeq;
 	private String ingredientName;
 	private String functionalContent;

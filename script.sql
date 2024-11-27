@@ -35,16 +35,14 @@ CREATE TABLE `member` (
     UNIQUE (username)
 );
 
-
 CREATE TABLE `review` (
 	`seq`	INT	AUTO_INCREMENT PRIMARY KEY,
 	`member_seq`	INT	NOT NULL,
 	`title`	VARCHAR(300)	NOT NULL,
-    `category`	VARCHAR(100)	NOT NULL,
-    `name`	VARCHAR(300)	NOT NULL,
+   	`category`	VARCHAR(100)	NOT NULL,
+    	`name`	VARCHAR(300)	NOT NULL,
 	`content`	VARCHAR(1000)	NOT NULL,
 	`regDate`	TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP,
-	`score`	INT	NULL,
     FOREIGN KEY (member_seq) REFERENCES member(seq)  
 );
 
