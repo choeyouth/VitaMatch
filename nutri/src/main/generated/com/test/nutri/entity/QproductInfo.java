@@ -10,14 +10,14 @@ import com.querydsl.core.types.Path;
 
 
 /**
- * QproductInfo is a Querydsl query type for productInfo
+ * QProductInfo is a Querydsl query type for ProductInfo
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QproductInfo extends EntityPathBase<ProductInfo> {
+public class QProductInfo extends EntityPathBase<ProductInfo> {
 
-    private static final long serialVersionUID = -338411893L;
+    private static final long serialVersionUID = 1329456747L;
 
-    public static final QproductInfo productInfo = new QproductInfo("productInfo");
+    public static final QProductInfo productInfo = new QProductInfo("productInfo");
 
     public final StringPath companyName = createString("companyName");
 
@@ -49,15 +49,15 @@ public class QproductInfo extends EntityPathBase<ProductInfo> {
 
     public final StringPath standardsAndSpecifications = createString("standardsAndSpecifications");
 
-    public QproductInfo(String variable) {
+    public QProductInfo(String variable) {
         super(ProductInfo.class, forVariable(variable));
     }
 
-    public QproductInfo(Path<? extends ProductInfo> path) {
+    public QProductInfo(Path<? extends ProductInfo> path) {
         super(path.getType(), path.getMetadata());
     }
 
-    public QproductInfo(PathMetadata metadata) {
+    public QProductInfo(PathMetadata metadata) {
         super(ProductInfo.class, metadata);
     }
 
