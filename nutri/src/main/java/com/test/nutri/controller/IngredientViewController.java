@@ -22,7 +22,7 @@ public class IngredientViewController {
     public String ingredientView(Model model) {
         // View에서 특정 ingredientName 조회
         Optional<IngredientViewDTO> ingredientView = ingredientViewService
-                .getIngredientViewByName("마그네슘");
+                .getIngredientViewByName("오메가3");
 
         // Model에 추가
         ingredientView.ifPresent(view -> model.addAttribute("ingredientView", view));
