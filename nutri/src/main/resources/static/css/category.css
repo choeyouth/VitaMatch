@@ -7,9 +7,10 @@
 	float: left;
        width: 20%;
 }
-	.categories-list {
+.categories-list {
     list-style: none;
     padding: 0;
+    width: 300px;
 }
 .categories-list li {
     margin-bottom: 10px;
