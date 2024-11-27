@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
 <head>
 <meta charset="UTF-8">
 	<title>header.html</title>
 </head>
 <body>
+	<!-- header main 버전 -->
     <th:block th:fragment="main_header">
         <div class="site-mobile-menu site-navbar-target">
             <div class="site-mobile-menu-header">
@@ -25,24 +29,34 @@
                         <li class="has-children">
                             <a href="#" th:text="#{menu.menu}"></a>
                             <ul class="dropdown">
-                                <li><a href="#">Menu One</a></li>
                                 <li class="has-children">
-                                    <a href="#">Menu Two</a>
+                                    <a href="#">[[#{menu.category}]]</a>
                                     <ul class="dropdown">
-                                        <li><a href="#">Sub Menu One</a></li>
-                                        <li><a href="#">Sub Menu Two</a></li>
-                                        <li><a href="#">Sub Menu Three</a></li>
+                                        <li><a href="/ingredient">[[#{menu.ingredient}]]</a></li>
+                                        <li><a href="/health">[[#{menu.health}]]</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="/news">[[#{menu.news}]]</a></li>
-                                <li><a href="/map">[[#{menu.map}]]</a></li>
+                                <li><a href="/survey">[[#{menu.recommend}]]</a></li>
+								<li><a href="/combination">[[#{menu.combination}]]</a></li>
+								<li><a href="/review">[[#{menu.review}]]</a></li>
+								<li><a href="/news">[[#{menu.news}]]</a></li>
+								<li><a href="/map">[[#{menu.map}]]</a></li>
                             </ul>
                         </li>
                         
                     </ul>
 
                     <ul class="js-clone-nav d-none d-lg-inline-block text-end site-menu float-end">
-                        <li class="cta-button"><a href="contact.html">Contact Us</a></li>
+						<!-- 인증이 없는 비사용자일 시 로그인 메뉴 출력 -->
+						<th:block sec:authorize="isAnonymous()">
+                        <li class="cta-button"><a href="/login">Login</a></li>
+						</th:block>
+						
+						<!-- 인증이 없는 사용자일 시 로그아웃 및 마이 페이지 출력 -->
+						<th:block sec:authorize="isAuthenticated()">
+                        <li class="cta-button"><a href="/logout">Logout</a></li>
+                        <li class="cta-button"><a href="/my">My</a></li>
+                        </th:block>
                     </ul>
 
                     <a href="#" class="burger ms-auto float-end site-menu-toggle js-menu-toggle d-inline-block d-lg-none" data-toggle="collapse" data-target="#main-navbar">
@@ -80,8 +94,9 @@
         </div>
     </th:block>
     
-    <th:block th:fragment="index_header">
-        <div class="site-mobile-menu site-navbar-target">
+	<!-- header index 버전 메뉴 모음 -->
+    <th:block th:fragment="index_header_menu">
+		<div class="site-mobile-menu site-navbar-target">
             <div class="site-mobile-menu-header">
                 <div class="site-mobile-menu-close">
                     <span class="icofont-close js-menu-toggle"></span>
@@ -100,23 +115,33 @@
                         <li class="has-children">
                             <a href="#">[[#{menu.menu}]]</a>
                             <ul class="dropdown">
-                                <li><a href="#">Menu One</a></li>
                                 <li class="has-children">
-                                    <a href="#">Menu Two</a>
+                                	<a href="#">[[#{menu.category}]]</a>
                                     <ul class="dropdown">
-                                        <li><a href="#">Sub Menu One</a></li>
-                                        <li><a href="#">Sub Menu Two</a></li>
-                                        <li><a href="#">Sub Menu Three</a></li>
+                                        <li><a href="/ingredient">[[#{menu.ingredient}]]</a></li>
+                                        <li><a href="/health">[[#{menu.health}]]</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="/news">[[#{menu.news}]]</a></li>
-                                <li><a href="/map">[[#{menu.map}]]</a></li>
+                                <li><a href="/survey">[[#{menu.recommend}]]</a></li>
+								<li><a href="/combination">[[#{menu.combination}]]</a></li>
+								<li><a href="/review">[[#{menu.review}]]</a></li>
+								<li><a href="/news">[[#{menu.news}]]</a></li>
+								<li><a href="/map">[[#{menu.map}]]</a></li>
                             </ul>
                         </li>
                     </ul>
 
                     <ul class="js-clone-nav d-none d-lg-inline-block text-end site-menu float-end">
-                        <li class="cta-button"><a href="contact.html">Contact Us</a></li>
+						<!-- 인증이 없는 비사용자일 시 로그인 메뉴 출력 -->
+						<th:block sec:authorize="isAnonymous()">
+                        <li class="cta-button"><a href="/login">Login</a></li>
+						</th:block>
+						
+						<!-- 인증이 없는 사용자일 시 로그아웃 및 마이 페이지 출력 -->
+						<th:block sec:authorize="isAuthenticated()">
+                        <li class="cta-button"><a href="/logout">Logout</a></li>
+                        <li class="cta-button"><a href="/my">My</a></li>
+                        </th:block>
                     </ul>
 
                     <a href="#" class="burger ms-auto float-end site-menu-toggle js-menu-toggle d-inline-block d-lg-none" data-toggle="collapse" data-target="#main-navbar">
@@ -126,18 +151,37 @@
                 </div>
             </div>
         </nav>
+	</th:block>
 
-
+	<!-- 헤더 하단버튼이 필요없을 때 -->
+	<th:block th:fragment="index_header_content_basic(header_title, header_desc)">
         <div class="hero hero-bg overlay inner bg-light" style="background-image: url('images/hero-img-1-min.jpg');">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-5 h-100">
                         <div class="masthead" data-aos="fade-up" data-aos-delay="">
-                            <h1 class="text-white">Current News, Updates</h1>
-                            <p class="mb-5 text-light-opacity-50">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita voluptatum quo soluta vero perspiciatis cumque sed doloremque nihil aliquid at?.</p>
+                            <h1 class="text-white">[[${header_title}]]</h1>
+                            <p class="mb-5 text-light-opacity-50">[[${header_desc}]]</p>
+                        </div>
+                    </div>		
+                    
+                </div>		
+            </div>		
+        </div>
+    </th:block>
+
+	<!-- 헤더 하단버튼이 필요할 때 -->
+	<th:block th:fragment="index_header_content_full(header_title, header_desc, header_a_link_first, header_a_content_first, header_a_link_second, header_a_content_second)">
+        <div class="hero hero-bg overlay inner bg-light" style="background-image: url('images/hero-img-1-min.jpg');">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-5 h-100">
+                        <div class="masthead" data-aos="fade-up" data-aos-delay="">
+                            <h1 class="text-white">[[${header_title}]]</h1>
+                            <p class="mb-5 text-light-opacity-50">[[${header_desc}]]</p>
                             <p>
-                                <a href="#" class="btn btn-primary me-4">Get in touch</a>
-                                <a href="#">Learn more</a>
+                                <a th:href="${header_a_link_first}" class="btn btn-primary me-4">[[${header_a_content_first}]]</a>
+                                <a th:href="${header_a_link_second}">[[${header_a_content_second}]]</a>
                             </p>
                         </div>
                     </div>		

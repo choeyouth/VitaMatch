@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+	<title>[[#{menu.review}]]</title>
+	<th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
+</head>
+<style>
+		
+	html, body {
+	    overflow-x: hidden; /* 좌우 스크롤 방지 */
+	}
+	
+	.review-add {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	.review-form {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	.review-form th, 
+	.review-form td {
+		display: block;
+		padding-bottom: 8px;
+		font-size: 16px;
+	}
+	
+	.review-form th {
+
+	}
+
+	.review-form td {
+		margin-bottom: 20px;
+	}
+	
+	#title, #category, #name, #content, #image {
+		border: 1px solid #CCCCCC;
+		border-radius: 5px;	
+	}
+	
+	#title, #name {
+		width: 700px;
+		height: 35px;
+	}
+	
+	#category {
+		width: 250px;
+		height: 35px;
+		text-align: center;
+	}
+	
+	#content {
+		width:700px;
+	}
+	
+	#image {
+		width: 500px;
+		height: 35px;
+	}
+	
+	.img-btn {
+		border:  none;
+		background-color: #10D0A1;
+		color: white;
+		font-weight: bold;	
+		width: 110px;
+		height: 35px;
+		text-align: center;
+		border-radius: 5px;
+		padding: 5px;
+	}
+
+	.button {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-top: 100px;
+		gap: 40px;
+	}
+		
+	.cancle-btn, .add-btn {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		width: 110px;
+		height: 40px;
+		font-size: 16px;
+		font-weight: bold;	
+		border-radius: 5px;
+		padding: 5px;
+	}
+		
+	.cancle-btn {
+		border: 2px solid #10D0A1; 
+		background-color: white;
+		color:  #10D0A1;
+	}
+		
+	.add-btn {
+		border:  none;
+		background-color: #10D0A1;
+		color: white;
+		font-size: 16px;
+	}
+	
+
+</style>
+<body>
+	<th:block th:insert="~{inc/header.html :: index_header_menu}"></th:block>
+	<th:block th:insert="~{inc/header.html :: index_header_content_basic(#{menu.review},#{menu.review.desc})}"></th:block>
+	<div class="section services-section">
+		<div class="container">
+			<div class="row mb-5">
+				<div class="col-lg-5"  data-aos="fade-up" data-aos-delay="">
+					<h3 class="subheading">리뷰 작성하기</h3>
+					<h2 class="heading">Write Supplement Review</h2>
+				</div>		
+			</div>	
+			<div class="review-add">
+				<table class="review-form">
+		            <tr>
+	                	<th>게시글 제목</th>
+	                	<td><input type="text" name="title" id="title" required></td>
+	                </tr>
+	                <tr>
+		                <th>카테고리</th>
+		                <td>
+		                	<select name="category" id="category" required>
+					            <option value="omega3">오메가3</option>
+					            <option value="vitaminC">비타민C</option>
+					            <option value="protein">단백질</option>
+					        </select>
+		                </td>
+						<!--
+						<td>
+							<select name="category" id="category">
+								<c:forEach items="${clist}" var="cdto">
+								<option value="${cdto.seq}" 
+									data-img="${cdto.img}">${cdto.name}</option>
+								</c:forEach>
+							</select>
+						</td>
+						-->
+		            </tr>
+	                <tr>
+		                <th>제품명</th>
+		                <td><input type="text" name="name" id="name" required></td>
+		            </tr>
+		            <tr>
+		                <th>사진</th>
+		                <td>
+							<input type="text" name="image" id="image">
+		                	<button type="button" class="img-btn">첨부하기</button>
+		                </td>
+		            </tr>    
+		            <tr>
+	                	<th>후기</th>
+	                	<td><textarea name="content" id="content" rows="10" required></textarea></td>
+	                </tr>
+		            <tr>
+						<!-- 여기 수정하기 -->
+	                	<th>별점</th>
+						<td>
+							<select class="star-rating" name="star" id="star">
+							    <option value="5">Excellent</option>
+							    <option value="4">Very Good</option>
+							    <option value="3" selected>Average</option>
+							    <option value="2">Poor</option>
+							    <option value="1">Terrible</option>
+							</select>
+						</td>
+	                </tr>
+					
+				</table>
+			</div>	
+					
+					
+	
+			<div class="button">
+				<button type="button" class="cancle-btn" onclick="location.href='';">취소하기</button>
+				<button type="submit" class="add-btn">작성하기</button>
+			</div>	
+		</div>	
+	</div>
+	
+		<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
+		<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
+
+</body>
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>	
+
+	</script>
+</html>

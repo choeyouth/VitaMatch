@@ -1,0 +1,253 @@
+/* General Form Box Styling */
+.login-form-box {
+    position: relative;
+    margin: 20px auto;
+    width: 600px;
+    padding: 20px 40px; /* Add padding inside the form box */
+    background-color: #ffffff; /* Ensure a clean background */
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for better focus */
+}
+
+/* Input Fields */
+input.signup, select.signup {
+    width: 100%; /* Full width for better alignment */
+    height: 60px; /* Uniform height */
+    padding: 10px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+
+select#gender {
+    width: 50%; /* Full width for better alignment */
+    position: relative;
+    left: 50%;
+    height: 60px; /* Uniform height */
+    padding: 10px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+	
+}
+
+/* Input Fields */
+td#zipcode-group input.signup {
+    width: 25%; /* Full width for better alignment */
+    height: 60px; /* Uniform height */
+    padding: 10px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+
+td#zipcode-group button#search-zipcode {
+    position: absolute;
+    width: 25%;
+    top: 0;
+    left: 30%;
+    padding-left: auto;
+    padding-right: auto;
+    height: 60px;
+    padding: 0 20px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #10D0A1;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    white-space: nowrap; /* Prevent button text from wrapping */
+}
+
+td#zipcode-group button#search-zipcode:hover {
+	box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
+	transition: background-color 0.3s ease;
+    background-color: #0EBA90;
+}
+
+/* Floating Labels for Input and Select Fields */
+label {
+    position: absolute;
+    top: 40%;
+    left: 15px;
+    font-size: 14px;
+    color: #AAA;
+    pointer-events: none;
+    transform: translateY(-50%);
+    transition: all 0.3s ease;
+}
+
+input:focus + label,
+input:not(:placeholder-shown) + label,
+select:focus + label,
+select:not([value=""]) + label {
+    top: 12px;
+    font-size: 12px;
+    color: #10D0A1;
+}
+
+/* ID Input and Button Group Styling */
+.id-group {
+    position: relative;
+    width: 100%; /* Ensure it takes up full width */
+}
+
+.id-group input#id {
+    position: relative;
+    width: 75%; /* Ensure it takes up 75% width */
+}
+
+.id-container {
+    position: relative;
+    display: flex;
+    width: 100%; /* Ensure full width alignment */
+}
+
+/* Input Field in ID Group */
+.id-container input.signup {
+    flex: 1; /* Ensures the input takes up remaining space */
+    width: auto; /* Allow the input to stretch */
+    padding-right: 120px; /* Add space for the button */
+}
+
+/* Button in ID Group */
+.check-id-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 60px;
+    padding: 0 20px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #10D0A1;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    white-space: nowrap; /* Prevent button text from wrapping */
+}
+
+.check-id-button:hover {
+	box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
+	transition: background-color 0.3s ease;
+    background-color: #0EBA90;
+}
+
+/* Flexbox Rows for Grouped Inputs */
+.flex-row {
+    display: flex;
+    gap: 20px; /* Space between columns */
+    justify-content: space-between; /* Distribute evenly */
+    align-items: center; /* Vertically align fields */
+}
+
+/* Ensure equal width for grouped fields (e.g., birthday and gender) */
+.flex-row > .form-group {
+    flex: 1;
+    position: relative;
+}
+
+/* Telephone Group */
+.phone-group {
+    display: flex;
+    gap: 10px; /* Add spacing between inputs */
+    align-items: center;
+}
+/* 휴대폰 통신사 번호 3글자가 다 출력되게 공간 할당 */
+tr.phone-group td:first-child {
+	width: 100px;
+}
+
+.phone-group select,
+.phone-group input {
+    flex: 1; /* Ensure consistent widths for all inputs */
+}
+
+.phone-separator {
+    font-size: 18px;
+    color: #AAA;
+    padding: 0 5px 15px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Signup Button */
+button.login-button {
+    display: block;
+    width: 100%;
+    height: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #10D0A1;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+button.login-button:hover {
+	box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
+	transition: background-color 0.3s ease;
+    background-color: #0EBA90;
+}
+
+/* Styling for VitaMatch title and description */
+.header-content h1 {
+    font-family: 'KoHo', sans-serif;
+    font-size: 48px;
+    font-weight: bold;
+    color: #10D0A1;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.header-content .description {
+    font-family: 'KoHo', sans-serif;
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Description Text */
+.description {
+    font-size: 16px;
+    color: #555;
+    text-align: center;
+    margin-top: -10px;
+    margin-bottom: 20px;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.font-size-20 {
+    font-size: 20px;
+}
+
+.font-size-30 {
+    font-size: 30px;
+}
+
+.font-size-40 {
+    font-size: 40px;
+}
+
+.font-koho {
+    font-family: 'KoHo';
+}
+
+.font-bold {
+    font-weight: bold;
+}

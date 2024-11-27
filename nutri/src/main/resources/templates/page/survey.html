@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+	<title>[[#{menu.recommend}]]</title>
+	<th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
+	<link rel="stylesheet" th:href="@{css/recommend.css}">
+</head>
+<body style="-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none">
+	<th:block th:insert="~{inc/header.html :: index_header_menu}"></th:block>
+	<th:block th:insert="~{inc/header.html :: index_header_content_basic(#{menu.recommend},#{menu.recommend.desc})}"></th:block>
+	
+	
+	<div class="survey-container">
+		<div class="section services-section">
+			<div class="container">
+				<div class="row mb-5">
+					<div class="col-lg-5 aos-init aos-animate" data-aos="fade-up" data-aos-delay="">
+						<h3 class="subheading">RECOMMEND INGREDIENT</h3>
+						<h2 class="heading">건강 상태에 맞는 맞춤 영양제 성분</h2>
+					</div>		
+				</div>
+					<div class="survey-ingredient">
+						<div class="attention-content">각 항목당 1개만 선택 가능</div>	
+						<label for="gender" class="survey-sub-title">성별<span>*성별 선택 필수</span></label>
+						<div class="survey-gender">
+							<div class="survey-radio-btn">
+								<input id="gender-woman" type="radio" name="gender" value="1">
+								<label for="gender-woman">여자</label>
+							</div>
+							<div class="survey-radio-btn">
+								<input id="gender-man" type="radio" name="gender" value="2">
+								<label for="gender-man">남자</label>
+							</div>
+						</div>
+
+						<label for="age" class="survey-sub-title">연령대<span>*연령대 선택 필수</span></label>
+						<div class="survey-age">
+							<div class="survey-radio-btn">
+								<input id="age1" type="radio" name="age" value="1">
+								<label for="age1">10대</label>
+							</div>
+							<div class="survey-radio-btn">
+								<input id="age2" type="radio" name="age" value="2">
+								<label for="age2">20대</label>
+							</div>
+							<div class="survey-radio-btn">
+								<input id="age3" type="radio" name="age" value="3">
+								<label for="age3">30대</label>
+							</div>
+							<div class="survey-radio-btn">
+								<input id="age4" type="radio" name="age" value="4">
+								<label for="age4">40대</label>
+							</div>
+							<div class="survey-radio-btn">
+								<input id="age5" type="radio" name="age" value="5">
+								<label for="age5">50대</label>
+							</div>
+							<div class="survey-radio-btn">
+								<input id="age6" type="radio" name="age" value="6">
+								<label for="age6">60대 이상</label>
+							</div>
+						</div>
+						
+						<label for="checkup" class="survey-sub-title">건강검진 관련</label>
+							<div class="survey-checkup">
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="checkup1" name="checkup">
+							    <label for="checkup1" class="checkbox-label">간 건강</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="checkup2" name="checkup">
+							    <label for="checkup2" class="checkbox-label">활력 / 피로</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="checkup3" name="checkup">
+							    <label for="checkup3" class="checkbox-label">체지방 관리</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="checkup4" name="checkup">
+							    <label for="checkup4" class="checkbox-label">콜레스테롤</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="checkup5" name="checkup">
+							    <label for="checkup5" class="checkbox-label">혈당 관리</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="checkup6" name="checkup">
+							    <label for="checkup6" class="checkbox-label">혈압 관리</label>
+							</div>
+						</div>
+						
+						<label for="organ" class="survey-sub-title">주요 장기 관련</label>
+						<div class="survey-organ">
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="organ1" name="checkup">
+							    <label for="organ1" class="checkbox-label">뇌 건강</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="organ2" name="checkup">
+							    <label for="organ2" class="checkbox-label">눈 건강</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="organ3" name="checkup">
+							    <label for="organ3" class="checkbox-label">뼈 건강</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="organ4" name="checkup">
+							    <label for="organ4" class="checkbox-label">위 건강</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="organ5" name="checkup">
+							    <label for="organ5" class="checkbox-label">장 건강</label>
+							</div>
+						</div>
+						
+						<label for="life" class="survey-sub-title">일상생활 관련</label>
+						<div class="survey-life">
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="life1" name="checkup">
+							    <label for="life1" class="checkbox-label">관절 / 근육</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="life2" name="checkup">
+							    <label for="life2" class="checkbox-label">면역력</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="life3" name="checkup">
+							    <label for="life3" class="checkbox-label">모발 / 손톱</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="life4" name="checkup">
+							    <label for="life4" class="checkbox-label">수면</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="life5" name="checkup">
+							    <label for="life5" class="checkbox-label">스트레스</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="life6" name="checkup">
+							    <label for="life6" class="checkbox-label">항노화 / 항산화</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="life7" name="checkup">
+							    <label for="life7" class="checkbox-label">피부</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="life8" name="checkup">
+							    <label for="life8" class="checkbox-label">남성 건강</label>
+							</div>
+							<div class="survey-ceckbox-btn">
+							    <input type="checkbox" id="life9" name="checkup">
+							    <label for="life9" class="checkbox-label">여성 건강</label>
+							</div>
+						</div>
+						<div class="survey-btn">
+							<button type="button" class="clean-btn"><img src="img/recommend/cleanIcon.svg" class="clean-icon">설문 항목 초기화</button>
+							<button type="button" class="recommend-btn" onclick="location.href='/recommend'"><img src="img/recommend/recommendIcon.svg" class="recommend-icon">영양제 추천 받기</button>
+						</div>
+					</div>
+			</div> <!-- container -->
+		</div>
+	</div>
+
+	<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
+	<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
+</body>
+</html>

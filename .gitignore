@@ -37,3 +37,5 @@ Thumbs.db
 *.class
 *.jar
 *.war
+
+demo/HELP.md
