@@ -156,8 +156,8 @@
 		        alert("성별과 연령대를 선택해주세요.");
 				// 페이지를 맨 위로 스크롤
 				window.scrollTo({
-				    top: 550,       // 상단으로 이동
-				    behavior: 'smooth'  // 부드럽게 이동
+				    top: 550,
+				    behavior: 'smooth'
 				});
 		        return false;  // 폼 제출을 막고 알림을 표시
 		    }
@@ -166,6 +166,7 @@
 		    return true;
 		}
 		
+		// 초기화 버튼 누르면 초기화 되고 화면 위치 맨 위로 ----------------------------
 		function resetSurvey() {
 		    // 라디오 버튼 초기화
 		    const radioButtons = document.querySelectorAll('input[type="radio"]');
@@ -187,6 +188,51 @@
 			});
 
 		}
+		
+		// 체크박스 하나씩만 선택되게 -----------------------------
+		const checkupCheckboxes = document.querySelectorAll('.survey-checkup input[type="checkbox"]');
+		const organCheckboxes = document.querySelectorAll('.survey-organ input[type="checkbox"]');
+		const dailyCheckboxes = document.querySelectorAll('.survey-daily input[type="checkbox"]');
+		
+		// 건강검진 관련 체크박스 그룹에서 하나만 선택 가능하게 하기
+		checkupCheckboxes.forEach(checkbox => {
+		  checkbox.addEventListener('change', function () {
+		    checkupCheckboxes.forEach(otherCheckbox => {
+		      if (otherCheckbox !== checkbox) {
+		        otherCheckbox.checked = false; // 다른 체크박스를 해제
+		      }
+		    });
+		  });
+		});
+
+		// 주요 장기 관련 체크박스 그룹에서 하나만 선택 가능하게 하기
+		organCheckboxes.forEach(checkbox => {
+		  checkbox.addEventListener('change', function () {
+		    organCheckboxes.forEach(otherCheckbox => {
+		      if (otherCheckbox !== checkbox) {
+		        otherCheckbox.checked = false; // 다른 체크박스를 해제
+		      }
+		    });
+		  });
+		});
+		
+		// 건강검진 관련 체크박스 그룹에서 하나만 선택 가능하게 하기
+		dailyCheckboxes.forEach(checkbox => {
+		  checkbox.addEventListener('change', function () {
+		    dailyCheckboxes.forEach(otherCheckbox => {
+		      if (otherCheckbox !== checkbox) {
+		        otherCheckbox.checked = false; // 다른 체크박스를 해제
+		      }
+		    });
+		  });
+		});
+		
+		// 초기화 버튼 활성화/비활성화
+		const cleanBtn = document.querySelector('.clean-btn');
+		var gender = document.querySelector('input[name="gender"]:checked');
+		var age = document.querySelector('input[name="age"]:checked');
+		
+		
 		
 	</script>
 

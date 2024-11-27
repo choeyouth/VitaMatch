@@ -22,12 +22,21 @@
 	margin: 0 80px;
 }
 
+/* 영양제 추천 하단 내용 */
+.sub-info {
+	font-size: 15px;
+	width: 1000px;
+	color: var(--bs-red);
+	font-weight: 400;
+}
+
 
 /* 설문 항목 버튼 -------------------------------- */
 .survey-sub-title {
 	font-weight: bold;
 	font-size: 17px;
 	margin: 30px 0 20px 0 ;
+	border-bottom: 1px solid var(--bs-primary);
 }
 
 .survey-sub-title span {
@@ -97,8 +106,8 @@
 .clean-btn {
 	width: 245px;
 	height: 65px;
-	background-color: #c4c4c4;
-	border: none;
+/*	background-color: #c4c4c4;*/
+	border: 2px solid #c4c4c4;
 	border-radius: 10px;
 	font-family: "KoHo", sans-serif;
 	font-weight: bold;
@@ -117,7 +126,7 @@
 	width: 245px;
 	height: 65px;
 	background-color: var(--bs-white);
-	border: 1px solid var(--bs-primary);
+	border: 2px solid var(--bs-primary);
 	border-radius: 10px;
 	font-family: "KoHo", sans-serif;
 	font-weight: bold;
@@ -138,11 +147,13 @@
 /* recommend.css */
 
 .category {
-	margin-top: 20px;
+	margin-top: 25px;
 	font-family: "KoHo", sans-serif;
 	font-weight: bold;
 	font-size: 18px;
 	color: var(--bs-gray-dark);
+	border-bottom: 1px solid #D9D9D9;
+	padding-bottom: 10px;
 }
 
 .recommend-container {
@@ -160,7 +171,7 @@
 	left: 0;
 	right: 0;
 	top: 0;
-	height: 320px;
+	height: 350px;
 	width: 100%;
 	z-index: 0;
 }
@@ -191,6 +202,21 @@
   width: 33%; }
 
 
+  /* 추천 영양제 박스 수정 */
+  .mb-3 {
+  	text-align: center;
+  	padding-bottom: 5px;
+  }
+
+  .feature-1 {
+  	height: 100%;
+  }
+
+  .feature-1 h3, .feature-1 .h3{
+  	text-align: center;
+  	padding-bottom: 5px;
+  }
+  
 .ingredient-icon {
 	width: 100px;
 	height: 100px;
@@ -206,7 +232,7 @@
 	width: 245px;
 	height: 65px;
 	background-color: var(--bs-white);
-	border: 1px solid var(--bs-primary);
+	border: 2px solid var(--bs-primary);
 	border-radius: 10px;
 	font-family: "KoHo", sans-serif;
 	font-weight: bold;
