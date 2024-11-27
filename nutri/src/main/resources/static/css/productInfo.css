@@ -69,3 +69,33 @@ html, body {
 	height:400px;
 
 }
+
+.productImgtableContent{
+	margin-left: 100px;
+	text-align: left;
+	font-size: 50px;
+	
+}
+
+.productImgtableContentheader{
+	color: #10D0A1;
+	font-size: 35px;
+}
+
+.productImgtableContentName{
+	margin-top: 30px;
+	margin-bottom: 30px;
+	font-size: 30px;
+	color: gray;
+	
+}
+
+.productImgtableContentCompany{
+	font-size: 30px;
+	color: gray;
+
+}
+
+.heading{
+	color: #10D0A1;
+}

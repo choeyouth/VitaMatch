@@ -135,7 +135,7 @@
 							</div>
 						</div>
 						<div class="survey-btn">
-							<button type="button" class="clean-btn" onclick="resetSurvey();"><img src="img/recommend/cleanIcon.svg" class="clean-icon">설문 항목 초기화</button>
+							<button type="button" id="cleanBtn" class="clean-btn" onclick="resetSurvey();"><img src="img/recommend/cleanIcon.svg" class="clean-icon">설문 항목 초기화</button>
 							<button type="submit" class="recommend-btn"><img src="img/recommend/recommendIcon.svg" class="recommend-icon">영양제 추천 받기</button>
 						</div>
 					</div>
@@ -146,7 +146,7 @@
 	
 	<script>
 		
-		//성별이랑 연령대 선택 안할경우
+		//성별이랑 연령대 선택 안할경우 ------------------------------------------------
 		function validateForm() {
 		    var gender = document.querySelector('input[name="gender"]:checked');
 		    var age = document.querySelector('input[name="age"]:checked');
@@ -167,6 +167,7 @@
 		}
 		
 		// 초기화 버튼 누르면 초기화 되고 화면 위치 맨 위로 ----------------------------
+		/*
 		function resetSurvey() {
 		    // 라디오 버튼 초기화
 		    const radioButtons = document.querySelectorAll('input[type="radio"]');
@@ -188,7 +189,7 @@
 			});
 
 		}
-		
+		*/
 		// 체크박스 하나씩만 선택되게 -----------------------------
 		const checkupCheckboxes = document.querySelectorAll('.survey-checkup input[type="checkbox"]');
 		const organCheckboxes = document.querySelectorAll('.survey-organ input[type="checkbox"]');
@@ -227,11 +228,70 @@
 		  });
 		});
 		
-		// 초기화 버튼 활성화/비활성화
-		const cleanBtn = document.querySelector('.clean-btn');
-		var gender = document.querySelector('input[name="gender"]:checked');
-		var age = document.querySelector('input[name="age"]:checked');
-		
+		// 초기화 버튼 활성화/비활성화 -------------------------------------------
+		// 페이지 로드 시 체크박스 및 라디오 버튼 상태 확인
+		document.addEventListener('DOMContentLoaded', function () {
+		    // "설문 항목 초기화" 버튼 비활성화
+		    toggleResetButton();
+		    
+		    // 모든 체크박스와 라디오 버튼에 이벤트 리스너 추가
+		    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+		    const radioButtons = document.querySelectorAll('input[type="radio"]');
+		    
+		    // 체크박스와 라디오 버튼에 대한 이벤트 처리
+		    checkboxes.forEach(checkbox => {
+		        checkbox.addEventListener('change', toggleResetButton);
+		    });
+
+		    radioButtons.forEach(radio => {
+		        radio.addEventListener('change', toggleResetButton);
+		    });
+		});
+
+		// 체크박스와 라디오 버튼 상태에 따라 "설문 항목 초기화" 버튼 활성화/비활성화
+		function toggleResetButton() {
+		    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+		    const radioButtons = document.querySelectorAll('input[type="radio"]');
+		    const cleanBtn = document.getElementById('cleanBtn');
+
+		    // 체크박스나 라디오 버튼 중 하나라도 선택되었으면 버튼 활성화
+		    const isAnyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+		    const isAnyRadioSelected = Array.from(radioButtons).some(radio => radio.checked);
+
+		    if (isAnyChecked || isAnyRadioSelected) {
+		        cleanBtn.disabled = false; // 버튼 활성화
+				cleanBtn.style.cursor = 'pointer';
+				cleanBtn.style.backgroundColor = 'var(--bs-light)'
+		    } else {
+		        cleanBtn.disabled = true; // 버튼 비활성화
+				cleanBtn.style.cursor = 'not-allowed';
+				cleanBtn.style.backgroundColor = '#c4c4c4'
+		    }
+		}
+
+		// 설문 항목 초기화 함수
+		function resetSurvey() {
+		    const cleanBtn = document.getElementById('cleanBtn');
+		    
+		    // "설문 항목 초기화" 버튼이 비활성화 상태일 경우
+
+		        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+		        const radioButtons = document.querySelectorAll('input[type="radio"]');
+		        
+		        // 모든 체크박스 해제
+		        checkboxes.forEach(checkbox => checkbox.checked = false);
+		        // 모든 라디오 버튼 선택 해제
+		        radioButtons.forEach(radio => radio.checked = false);
+				
+				// 페이지를 맨 위로 스크롤
+				window.scrollTo({
+				    top: 550,       // 상단으로 이동
+				    behavior: 'smooth'  // 부드럽게 이동
+				});
+
+		        // 버튼 상태 업데이트
+		        toggleResetButton();
+		}
 		
 		
 	</script>
