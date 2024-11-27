@@ -31,9 +31,9 @@ input.signup, select.signup {
 }
 
 select#gender {
-    width: 50%; /* Full width for better alignment */
+    width: 60%; /* Full width for better alignment */
     position: relative;
-    left: 50%;
+    left: 40%;
     height: 60px; /* Uniform height */
     padding: 10px 12px;
     font-size: 16px;
@@ -45,7 +45,7 @@ select#gender {
 
 /* Input Fields */
 td#zipcode-group input.signup {
-    width: 25%; /* Full width for better alignment */
+    width: 55%; /* Full width for better alignment */
     height: 60px; /* Uniform height */
     padding: 10px 12px 10px 12px;
     font-size: 16px;
@@ -57,27 +57,51 @@ td#zipcode-group input.signup {
 
 td#zipcode-group button#search-zipcode {
     position: absolute;
-    width: 25%;
-    top: 0;
-    left: 30%;
+    width: 10%;
+    top: 12px;
+    right: 45%;
     padding-left: auto;
     padding-right: auto;
-    height: 60px;
-    padding: 0 20px;
+    height: 40px;
+    padding: 0 10px;
     font-size: 14px;
     font-weight: bold;
     color: #ffffff;
-    background-color: #10D0A1;
+    background-color: transparent;
+/*     background-color: #10D0A1; */
     border: none;
     border-radius: 5px;
     cursor: pointer;
     white-space: nowrap; /* Prevent button text from wrapping */
 }
 
-td#zipcode-group button#search-zipcode:hover {
-	box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
+td#zipcode-group button#search-zipcode span {
+	font-size: 36px;
+}
+
+td#zipcode-group button#search-zipcode:hover span.material-symbols-outlined {
+  animation: enlarge 2s infinite;
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 200,
+  'opsz' 24;
+
+/* 	box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
 	transition: background-color 0.3s ease;
-    background-color: #0EBA90;
+    background-color: #0EBA90; */
+}
+
+@keyframes enlarge {
+  0% {
+    font-variation-settings: 'wght' 100;
+  }
+  50% {
+    font-variation-settings: 'wght' 700;
+  }
+  100% {
+    font-variation-settings: 'wght' 100;
+  }
 }
 
 /* Floating Labels for Input and Select Fields */
@@ -102,35 +126,22 @@ select:not([value=""]) + label {
 }
 
 /* ID Input and Button Group Styling */
-.id-group {
+.username-group {
     position: relative;
     width: 100%; /* Ensure it takes up full width */
 }
 
-.id-group input#id {
+.username-group input#username {
     position: relative;
-    width: 75%; /* Ensure it takes up 75% width */
-}
-
-.id-container {
-    position: relative;
-    display: flex;
-    width: 100%; /* Ensure full width alignment */
-}
-
-/* Input Field in ID Group */
-.id-container input.signup {
-    flex: 1; /* Ensures the input takes up remaining space */
-    width: auto; /* Allow the input to stretch */
-    padding-right: 120px; /* Add space for the button */
+    width: 100%; /* Ensure it takes up 75% width */
 }
 
 /* Button in ID Group */
-.check-id-button {
+.check-username-button {
     position: absolute;
-    top: 0;
-    right: 0;
-    height: 60px;
+    top: 10px;
+    right: 10px;
+    height: 40px;
     padding: 0 20px;
     font-size: 14px;
     font-weight: bold;
@@ -142,11 +153,25 @@ select:not([value=""]) + label {
     white-space: nowrap; /* Prevent button text from wrapping */
 }
 
-.check-id-button:hover {
+.check-username-button:hover {
+	animation: color-change 2s infinite;
 	box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
 	transition: background-color 0.3s ease;
     background-color: #0EBA90;
 }
+
+@keyframes color-change {
+  0% {
+    background-color: #0EBA90;
+  }
+  50% {
+    background-color: #11DFAC;
+  }
+  100% {
+    background-color: #0EBA90;
+  }
+}
+
 
 /* Flexbox Rows for Grouped Inputs */
 .flex-row {
@@ -252,6 +277,10 @@ button.login-button:hover {
 .error-message.active {
     opacity: 1;
     visibility: visible;
+}
+
+.error-message.success {
+	color: green;
 }
 
 .align-center {

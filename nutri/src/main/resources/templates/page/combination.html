@@ -3,13 +3,12 @@
 
 <head>
 <meta charset="UTF-8">
-<!--/*	<meta name="_csrf" th:content="${_csrf.token}"/>
-	<meta name="_csrf_header" th:content="${_csrf.headerName}"/> */-->
+<meta name="_csrf" th:content="${_csrf.token}"/>
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 
 <title>[[#{menu.combination}]]</title>
 <th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
 <link rel="stylesheet" th:href="@{css/combination.css}" />
-
 </head>
 
 <body>
@@ -89,7 +88,7 @@
 									</div>
 									<!-- .accordion-item -->
 
-									<div class="accordion-item"  id="combinationBad">
+									<div class="accordion-item" id="combinationBad">
 										<h2 class="mb-0">
 											<button class="btn btn-link" type="button"
 												data-bs-toggle="collapse" data-bs-target="#collapseTwo"
@@ -103,19 +102,19 @@
 
 									</div>
 								</div>
+								<div class="combinationInfo">** 자세한 정보는 반드시 의사나 약사에게 확인하시기 바랍니다.</div>
 							</div>
 						</div>
 						<!-- .container -->
 					</div>
 					<!-- /.untree_co-section -->
 				</div>
-
-
 			</div>
-			<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
-			<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
+		</div>
+	</div>
+	
+	<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
+	<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
+	<script th:src="@{js/combination.js}"></script>
 </body>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script th:src="@{js/combination.js}"></script>
-
 </html>

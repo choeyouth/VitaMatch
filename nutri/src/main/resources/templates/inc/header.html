@@ -30,7 +30,7 @@
                             <a href="#" th:text="#{menu.menu}"></a>
                             <ul class="dropdown">
                                 <li class="has-children">
-                                    <a href="#">[[#{menu.category}]]</a>
+                                    <a href="/ingredient?category=비타민A">[[#{menu.category}]]</a>
                                     <ul class="dropdown">
                                         <li><a href="/ingredient?category=비타민A">[[#{menu.ingredient}]]</a></li>
                                         <li><a href="/health?category=피로감">[[#{menu.health}]]</a></li>
@@ -76,8 +76,8 @@
                             <h1>[[#{title}]] <span>[[#{main.header.title}]]</span></h1>
                             <p class="mb-5">[[#{main.header.desc}]]</p>
                             <p>
-                                <a href="#" class="btn btn-primary me-4">[[#{main.header.recommend}]]</a>
-                                <a href="#">[[#{main.header.category}]]</a>
+                                <a href="/survey" class="btn btn-primary me-4">[[#{main.header.recommend}]]</a>
+                                <a href="/ingredient?category=비타민A">[[#{main.header.category}]]</a>
                             </p>
                         </div>
                     </div>		
@@ -116,7 +116,7 @@
                             <a href="#">[[#{menu.menu}]]</a>
                             <ul class="dropdown">
                                 <li class="has-children">
-                                	<a href="#">[[#{menu.category}]]</a>
+                                	<a href="/ingredient?category=비타민A">[[#{menu.category}]]</a>
                                     <ul class="dropdown">
                                         <li><a href="/ingredient?category=비타민A">[[#{menu.ingredient}]]</a></li>
                                         <li><a href="/health?category=피로감">[[#{menu.health}]]</a></li>

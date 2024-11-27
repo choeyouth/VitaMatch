@@ -74,7 +74,6 @@ public class CombinationController {
 				combination.put("functionalContent", bad.get(0).getFunctionalContent());
 			}
 		}
-		
 		return ResponseEntity.ok(combination);
 		//return null;
 	}

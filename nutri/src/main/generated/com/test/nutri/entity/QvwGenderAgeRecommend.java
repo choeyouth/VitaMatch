@@ -19,7 +19,11 @@ public class QvwGenderAgeRecommend extends EntityPathBase<vwGenderAgeRecommend> 
 
     public static final QvwGenderAgeRecommend vwGenderAgeRecommend = new QvwGenderAgeRecommend("vwGenderAgeRecommend");
 
+    public final StringPath age = createString("age");
+
     public final StringPath functionalContent = createString("functionalContent");
+
+    public final StringPath gender = createString("gender");
 
     public final NumberPath<Integer> genderAgeSeq = createNumber("genderAgeSeq", Integer.class);
 

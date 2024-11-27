@@ -96,7 +96,34 @@
 		/* border-bottom: 1px solid #ADB5BD; */ /* 아래쪽만 줄을 넣음 */
 		border-bottom: 1px solid #f4f4f4; 
 	}
-
+	
+	.table-body a {
+		color: black;
+	}
+	
+	.table-body a:hover {
+		font-weight: bold;
+		color: #10D0A1;
+	}
+	
+	.custom-button a {
+	    display: inline-block;
+	    width: 40px;
+	    height: 40px;
+	    line-height: 40px;
+	    font-weight: bold;
+	    border-radius: 50%;
+	    background: rgba(16, 208, 161, 0.1);
+	    color: #10D0A1;
+	    text-align: center;
+		margin: 5px;
+	}
+	
+	.custom-button a:hover, .custom-button a.active {
+	    background: #10D0A1;
+	    color: #fff;
+	}
+	
 </style>
 <body>
 	<th:block th:insert="~{inc/header.html :: index_header_menu}"></th:block>
@@ -111,9 +138,10 @@
 			</div>	
 			
 			<div class="review-search">
-				<form class="search-box" action="" method="get">
-					<input class="search-txt" type="text" placeholder="검색어를 입력하세요.">
-					<button class="search-btn" type="submit">검색하기</button>		
+				<form class="search-box" method="GET" action="/review">
+					<input class="search-txt" type="text" placeholder="검색어를 입력하세요" required>
+					<button class="search-btn" type="submit">검색하기</button>
+					<!--<button class="search-btn" type="submit">검색하기</button>-->	
 				</form>
 			</div>
 
@@ -133,7 +161,7 @@
 	                	<td th:text="${dto.seq}"></td>
 		                <td th:text="${dto.category}"></td>
 						<td>
-		                	<a th:href="@{/nutri/review(seq=${dto.seq})}" th:text="${dto.title}"></a>
+		                	<a th:href="'/viewReview?seq=' + ${dto.seq}" th:text="${dto.title}"></a>
 						</td>
 						<td th:text="${dto.nickname}"></td>
 						<td th:text="${dto.score}"></td>
@@ -141,9 +169,22 @@
 	             	</tr>			
 	           	</tbody>
 			</table>
-		
-			
 		</div>
+		
+		<div class="row align-items-center py-5">
+			<div class="col-lg-3">
+				<!-- Pagination (1 of 10) -->
+			</div>
+			<div class="col-lg-6 text-center">
+				<div class="custom-button">
+					[(${page})]
+				</div>
+			</div>
+		</div>
+	</div>
+		
+		
+	</div>
 		
 		<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
 		<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>

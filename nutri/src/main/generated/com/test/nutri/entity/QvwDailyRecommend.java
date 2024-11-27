@@ -27,6 +27,8 @@ public class QvwDailyRecommend extends EntityPathBase<vwDailyRecommend> {
 
     public final NumberPath<Integer> ingredientSeq = createNumber("ingredientSeq", Integer.class);
 
+    public final StringPath name = createString("name");
+
     public final NumberPath<Long> seq = createNumber("seq", Long.class);
 
     public QvwDailyRecommend(String variable) {

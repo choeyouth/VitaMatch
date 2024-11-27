@@ -6,30 +6,41 @@
     <th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
     <link rel="stylesheet" th:href="@{css/main.css}">
     <link rel="stylesheet" th:href="@{css/signup.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=search" />
 </head>
 <body>
     <th:block th:insert="~{inc/header.html :: index_header_menu}"></th:block>
    	<th:block th:insert="~{inc/header.html :: index_header_content_basic(#{menu.signup},#{menu.signup.desc})}"></th:block>
     <div class="login-title">[[#{title}]]</div>
-    <div class="font-size-20 font-koho align-center">회원가입 하시고 저희 웹사이트의 다양한 혜택을 누리세요!</div>
+    <!-- <div class="font-size-20 font-koho align-center">회원가입 하시고 저희 웹사이트의 다양한 혜택을 누리세요!</div> -->
+
+
+    
+    
+    <ul>
+        <li>성별에 한글 길어서 짤리는 거 폭 조정</li>
+        <li>가입하기 버튼 반짝이 애니메이션 설정 (not sure if the css is applied correctly)</li>
+        <li>validity check--mostly length--for username, name, nickname</li>
+        <li>might as well make a span tag for error-message for every input</li>
+        <li>link it up with DB ASAP</li>
+    </ul>
     <form method="POST" action="/signupok" id="signupForm">
         <div class="login-form-box">
             <table class="stretch">
 				<!-- ID -->
 				<tr class="flex-row">
-				    <td class="id-group">
-				        <!-- <div class="id-container"> -->
-				            <input id="id" type="text" name="id" placeholder=" " class="signup" required />
-				            <label for="id">아이디</label>	
-				            <button type="button" id="checkId" class="check-id-button buton">중복 확인</button>
-				        <!-- </div> -->
+				    <td class="username-group">
+				            <input id="username" type="text" name="username" placeholder=" " class="signup" required />
+				            <label for="username">[[#{signup.username}]]</label>	
+				            <button type="button" id="checkUsername" class="check-username-button buton">[[#{signup.username.check}]]</button>
+				            <span id="usernameCheckMessage" class="availability-message error-message"></span>
 				    </td>
 				</tr>
                 <!-- Password -->
                 <tr class="flex-row">
                     <td class="form-group">
                         <input id="password" type="password" name="password" placeholder=" " class="signup" required />
-                        <label for="password">비밀번호</label>
+                        <label for="password">[[#{signup.password}]]</label>
                         <span id="passwordValidity" class="error-message"></span>
                     </td>
                 </tr>
@@ -37,7 +48,7 @@
                 <tr class="flex-row">
                     <td class="form-group">
                         <input id="passwordCheck" type="password" name="passwordCheck" placeholder=" " class="signup" required />
-                        <label for="passwordCheck">비밀번호 확인</label>
+                        <label for="passwordCheck">[[#{signup.password.check}]]</label>
                         <span id="passwordMatch" class="error-message"></span>
                     </td>
                 </tr>
@@ -45,34 +56,36 @@
                 <tr class="flex-row">
                     <td class="form-group">
                         <input id="email" type="email" name="email" placeholder=" " class="signup" required />
-                        <label for="email">이메일</label>
+                        <label for="email">[[#{signup.email}]]</label>
                     </td>
                 </tr>
                 <!-- Name -->
                 <tr class="flex-row">
                     <td class="form-group">
                         <input id="name" type="text" name="name" placeholder=" " class="signup" required />
-                        <label for="name">이름</label>
+                        <label for="name">[[#{signup.name}]]</label>
                     </td>
                 </tr>
                 <!-- Nickname -->
                 <tr class="flex-row">
                     <td class="form-group">
                         <input id="nickname" type="text" name="nickname" placeholder=" " class="signup" required />
-                        <label for="nickname">닉네임</label>
+                        <label for="nickname">[[#{signup.nickname}]]</label>
                     </td>
                 </tr>
                 <!-- Date of Birth and Gender -->
                 <tr class="flex-row">
                     <td class="form-group">
-                        <input id="birthday" type="date" name="birthday" placeholder=" " class="signup" required />
+                        <input id="dob" type="date" name="dob" placeholder=" " class="signup" required />
                         <!-- <label for="birthday">생년월일</label> -->
                     </td>
 				    <td class="form-group">
 				        <select id="gender" name="gender" class="signup" required>
-				            <option value="">성별</option>
-				            <option value="male">남성</option>
-				            <option value="female">여성</option>
+				            <option value="">[[#{signup.gender}]]</option>
+				            <option value="male">[[#{signup.gender.male}]]</option>
+				            <option value="female">[[#{signup.gender.female}]]</option>
+				            <option value="undisclosed">[[#{signup.gender.undisclosed}]]</option>
+				            <option value="other">[[#{signup.gender.other}]]</option>
 				        </select>
 				        <!-- <label for="gender">성별</label> -->
 				    </td>
@@ -105,31 +118,35 @@
             	<tr class="flex-row">
 	            	<td id="zipcode-group" class="form-group">
             			<input type="text" id="zipcode" name="zipcode" placeholder=" " class="signup" required>
-						<label for="zipcode">우편번호</label>
-						<button type="button" id="search-zipcode" class="button" onclick="execDaumPostcode()">우편번호 찾기</button>
+						<label for="zipcode">[[#{signup.zipcode}]]</label>
+						<!-- <button type="button" id="search-zipcode" class="button" onclick="execDaumPostcode()">[[#{signup.zipcode.search}]]</button> -->
+						<!-- <button type="button" id="search-zipcode" class="button" onclick="execDaumPostcode()"><img src="img/map/search.svg" class="map-icon"></button> -->
+						<button type="button" id="search-zipcode" class="button" onclick="execDaumPostcode()"><span class="material-symbols-outlined" style="color: #000;">
+search
+</span></button>
 					</td>
 				</tr>
 				
 				<tr class="flex-row">
 					<td class="form-group">
 						<input type="text" id="address" name="address" placeholder=" " class="signup" required>
-                        <label for="address">주소</label>
+                        <label for="address">[[#{signup.address}]]</label>
 					</td>
 				</tr>
 				
 				<tr class="flex-row">
 					<td class="form-group">
-						<input type="text" id="detailAddress" name="detailAddress" placeholder=" " class="signup">
-						<label for="detailAddress">상세주소</label>
+						<input type="text" id="addressDetail" name="addressDetail" placeholder=" " class="signup">
+						<label for="addressDetail">[[#{signup.addressDetail}]]</label>
 					</td>
 					<td class="form-group">
-						<input type="text" id="extraAddress" name="extraAddress" placeholder=" " class="signup">
-						<label for="extraAddress">참고항목</label>
+						<input type="text" id="addressExtra" name="addressExtra" placeholder=" " class="signup">
+						<label for="addressExtra">[[#{signup.addressExtra}]]</label>
 					</td>
             	</tr>
             </table>
             <div>
-                <button type="submit" class="login-button button">가입하기</button>
+                <button type="submit" class="login-button button">[[#{signup.signup}]]</button>
             </div>
         </div>
     </form>
@@ -139,55 +156,5 @@
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script th:src="@{js/signup.js}"></script>
 
-    
-<script>
-    function execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var addr = ''; // 주소 변수
-                var extraAddr = ''; // 참고항목 변수
-
-                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                    addr = data.roadAddress;
-                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                    addr = data.jibunAddress;
-                }
-
-                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-                if(data.userSelectedType === 'R'){
-                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                        extraAddr += data.bname;
-                    }
-                    // 건물명이 있고, 공동주택일 경우 추가한다.
-                    if(data.buildingName !== '' && data.apartment === 'Y'){
-                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                    }
-                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                    if(extraAddr !== ''){
-                        extraAddr = ' (' + extraAddr + ')';
-                    }
-                    // 조합된 참고항목을 해당 필드에 넣는다.
-                    document.getElementById("extraAddress").value = extraAddr;
-                
-                } else {
-                    document.getElementById("extraAddress").value = '';
-                }
-
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('zipcode').value = data.zonecode;
-                document.getElementById("address").value = addr;
-                // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("detailAddress").focus();
-            }
-        }).open();
-    }
-</script>
 </body>
 </html>
