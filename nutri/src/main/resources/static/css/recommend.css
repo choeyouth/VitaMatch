@@ -106,8 +106,8 @@
 .clean-btn {
 	width: 245px;
 	height: 65px;
-	background-color: #c4c4c4;
-	border: none;
+/*	background-color: #c4c4c4;*/
+	border: 2px solid #c4c4c4;
 	border-radius: 10px;
 	font-family: "KoHo", sans-serif;
 	font-weight: bold;
@@ -126,7 +126,7 @@
 	width: 245px;
 	height: 65px;
 	background-color: var(--bs-white);
-	border: 1px solid var(--bs-primary);
+	border: 2px solid var(--bs-primary);
 	border-radius: 10px;
 	font-family: "KoHo", sans-serif;
 	font-weight: bold;
@@ -232,7 +232,7 @@
 	width: 245px;
 	height: 65px;
 	background-color: var(--bs-white);
-	border: 1px solid var(--bs-primary);
+	border: 2px solid var(--bs-primary);
 	border-radius: 10px;
 	font-family: "KoHo", sans-serif;
 	font-weight: bold;

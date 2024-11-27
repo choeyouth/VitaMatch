@@ -63,7 +63,7 @@
 
 	.review-list th:nth-child(3), 
 	.review-list td:nth-child(3) {
-	    width: 35%; 
+	    width: 40%; 
 	}
 
 	.review-list th:nth-child(4), 
@@ -73,12 +73,7 @@
 
 	.review-list th:nth-child(5), 
 	.review-list td:nth-child(5) {
-	    width: 10%; 
-	}
-
-	.review-list th:nth-child(6), 
-	.review-list td:nth-child(6) {
-	    width: 15%;
+	    width: 15%; 
 	}
 	
 	.table-header {
@@ -139,7 +134,7 @@
 			
 			<div class="review-search">
 				<form class="search-box" method="GET" action="/review">
-					<input class="search-txt" type="text" placeholder="검색어를 입력하세요" required>
+					<input class="search-txt" type="text" name="keyword" placeholder="검색어를 입력하세요" required>
 					<button class="search-btn" type="submit">검색하기</button>
 					<!--<button class="search-btn" type="submit">검색하기</button>-->	
 				</form>
@@ -152,7 +147,6 @@
 		                <th>카테고리</th>
 		                <th>제목</th>
 		                <th>작성자</th>
-		                <th>평점</th>
 		                <th>작성시간</th>
 	             	</tr>
 	          	</thead>   
@@ -164,7 +158,6 @@
 		                	<a th:href="'/viewReview?seq=' + ${dto.seq}" th:text="${dto.title}"></a>
 						</td>
 						<td th:text="${dto.nickname}"></td>
-						<td th:text="${dto.score}"></td>
 		                <td th:text="${dto.createDate}"></td>
 	             	</tr>			
 	           	</tbody>
@@ -193,6 +186,7 @@
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>	
-
+	
+		
 	</script>
 </html>

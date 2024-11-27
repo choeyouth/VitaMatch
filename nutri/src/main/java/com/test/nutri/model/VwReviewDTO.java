@@ -25,7 +25,6 @@ public class VwReviewDTO {
 	private String name;
 	private String content;
 	private String image;
-	private String score;
 	
 	public static VwReview toEntity(VwReviewDTO dto) {
 		
@@ -38,7 +37,6 @@ public class VwReviewDTO {
 				.name(dto.getName())
 				.content(dto.getContent())
 				.image(dto.getImage())
-				.score(dto.getScore())
 				.build();
 	}
 }
