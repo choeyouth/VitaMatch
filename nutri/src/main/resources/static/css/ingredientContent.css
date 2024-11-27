@@ -69,3 +69,56 @@ html, body {
 	height:400px;
 
 }
+
+
+.ingredientInfoImg{
+	display: flex;
+	position: relative;
+	width: 100%;
+	margin-bottom: 50px;
+	margin-top: 50px;
+}
+
+
+
+.ingredientInfoIngredient {
+	margin-left:30px;
+	
+}
+
+.ingredientImgSize{
+	margin-left: 50px;
+	width:125px;
+	height:125px;
+
+}
+
+.ingredientImgtableContent{
+	margin-left: 100px;
+	text-align: left;
+	font-size: 50px;
+	
+}
+
+.ingredientImgtableContentheader{
+	color: #10D0A1;
+	font-size: 35px;
+}
+
+.ingredientImgtableContentName{
+	margin-top: 30px;
+	margin-bottom: 30px;
+	font-size: 30px;
+	color: gray;
+	
+}
+
+.ingredientImgtableContentCompany{
+	font-size: 30px;
+	color: gray;
+
+}
+
+.heading{
+	color: #10D0A1;
+}
