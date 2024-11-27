@@ -1,9 +1,123 @@
+//코드 재사용을 위한 유효성 검사 함수 정의
+const validations = {
+    // 최소/최대 글자 수 제한 유효성 검사
+    length: (min, max) => (value) => value.length >= min && value.length <= max,
+	
+	// 최대 글자 수 제한 유효성 검사
+	lengthMax: (max) => (value) => value.length <= max,
+
+    // 정규식을 통한 특정 문자열 존재 유무 체크
+    regex: (pattern) => (value) => pattern.test(value),
+
+    // 빈 문자열 체크
+    nonEmpty: () => (value) => value.trim().length > 0,
+
+    // 휴대폰 번호를 위한 숫자 Only 체크
+    isNumeric: () => (value) => /^[0-9]*$/.test(value),
+};
+
+
+//회원가입 입력 항목별로 유효성 검사 설정
+const ruleSet = {
+	//아이디 검사
+    username: [
+        { test: validations.length(3, 15), errorKey: 'length' },
+        { test: validations.regex(/^[a-zA-Z\d_]+$/), errorKey: 'format' },
+    ],
+	//비밀번호 검사
+    password: [
+        { test: validations.nonEmpty(), errorKey: 'empty' },
+        { test: validations.length(8, 30), errorKey: 'length' },
+        { test: validations.regex(/[A-Za-z]/), errorKey: 'letter' },
+        { test: validations.regex(/[\d]/), errorKey: 'number' },
+        { test: validations.regex(/[!@#$%^&*_]/), errorKey: 'special' },
+        { test: validations.regex(/[A-Za-z\d!@#$%^&*_]/), errorKey: 'format' },
+    ],
+	//이메일 검사
+    email: [
+        { test: validations.length(7, 30), errorKey: 'length' },
+        { test: validations.regex(/^[0-9a-zA-Z]+([0-9a-zA-Z]*[-._+])*[0-9a-zA-Z]+@[0-9a-zA-Z]+([-.][0-9a-zA-Z]+)*([0-9a-zA-Z]*[.])[a-zA-Z]{2,6}$/), errorKey: 'format' },
+    ],
+	//휴대폰 번호 검사
+    telephone: [
+        { test: validations.isNumeric(), errorKey: 'number' },
+    ],
+	//이름 검사
+    name: [
+        { test: validations.length(3, 30), errorKey: 'length' },
+        { test: validations.regex(/^[\x80-\uFFFF\w ]+$/), errorKey: 'format' },
+    ],
+	//별명 검사
+    nickname: [
+        { test: validations.length(3, 30), errorKey: 'length' },
+        { test: validations.regex(/^[\x80-\uFFFF\w !@#$%^&*]+$/), errorKey: 'format' },
+    ],
+	//상세 주소 검사
+    address: [
+        { test: validations.lengthMax(30), errorKey: 'length' }
+    ]
+};
+
+
+/**
+ * 각 입력 항목별 유효성 검사 규칙 바인딩
+ * @param {string} inputId - input 태그의 ID 속성 값
+ * @param {string} messageId - input 태그의 입력 값의 따라 메세지가 나올 span 태그의 ID 속성값
+ * @param {Array} ruleSet - 각 input 태그에 따른 유효성 검사 규칙들
+ * @param {Array} errorSet - 각 intput 태그에 따른 유효성 검사 규칙들에 대한 에러 메시지  
+ * @param {string} buttonId - 아이디 중복검사나 가입하기 등 사용자가 누를 수 있는 버튼 ID 값
+ */
+
+
+function setupInputValidation(inputId, messageId, ruleSet, errorSet, buttonId) {
+    const inputElement = document.getElementById(inputId);
+    const messageElement = document.getElementById(messageId);
+	const buttonElement = document.getElementById(buttonId);
+
+    inputElement.addEventListener('input', function () {
+        const inputValue = inputElement.value;
+		let isInputValid = true;
+
+        for (let rule of ruleSet) {
+            if (!rule.test(inputValue)) {
+                messageElement.textContent = errorSet[rule.errorKey]; //유효성 검사가 실패할 시 출력될 메시지 설정
+                messageElement.classList.add('active'); //유효성 검사를 실패하면 span 태그의 class 속성에 active를 추가 (active 태그는 span 태그 메시지 내용을 출력해줌)
+				isInputValid = false;
+                break;
+            }
+        }
+
+		if (isInputValid) {
+				// 모든 유효성 검사를 통과하면 -> span 태그의 메시지를 제거
+				messageElement.textContent = '';
+				messageElement.classList.remove('active');
+			
+				
+		       } 
+				// Disable the button if the span has the 'active' class
+				buttonElement.disabled = messageElement.classList.contains('active');
+				
+
+    });
+}
+
+// 각 입력 항목에 맞는 input 태그, span 태그, 유효성 검사 규칙, 유효성 검사 메시지 바인딩
+setupInputValidation('username', 'username-check', ruleSet.username, errorSet.username, 'checkUsername'); //아이디
+//setupInputValidation('password', 'password-check', validationRules.password); //비밀번호
+setupInputValidation('email', 'email-check', ruleSet.email, errorSet.email); //아이디
+//setupInputValidation('phone2', 'phone2-check', validationRules.phone2); //번호 입력칸 2
+//setupInputValidation('phone3', 'phone3-check', validationRules.phone3); //번호 입력칸 3
+setupInputValidation('name', 'name-check', ruleSet.name, errorSet.name); //이름
+setupInputValidation('nickname', 'nickname-check', ruleSet.nickname, errorSet.nickname); //별명
+setupInputValidation('addressDetail', 'addressDetail-check', ruleSet.address, errorSet.address); //상세주소
+
+
 //아이디 중복 검사
 document.getElementById('checkUsername').addEventListener('click', function () {
     const usernameInput = document.getElementById('username').value;
-    const usernameCheckMessage = document.getElementById('usernameCheckMessage');
+    const usernameCheckMessage = document.getElementById('username-check');
 
-    // Clear previous message
+    // 아이디 중복 검사 메시지 제거
     usernameCheckMessage.textContent = '';
     usernameCheckMessage.classList.remove('active', 'success');
 	
@@ -27,12 +141,11 @@ document.getElementById('checkUsername').addEventListener('click', function () {
         });
 });
 
-
 // Password Validity Check
 const passwordInput = document.getElementById('password');
 const passwordCheckInput = document.getElementById('passwordCheck');
-const passwordValiditySpan = document.getElementById('passwordValidity');
-const passwordMatchSpan = document.getElementById('passwordMatch');
+const passwordValiditySpan = document.getElementById('password-check');
+const passwordMatchSpan = document.getElementById('passwordCheck-check');
 
 passwordInput.addEventListener('input', function () {
     const password = passwordInput.value;

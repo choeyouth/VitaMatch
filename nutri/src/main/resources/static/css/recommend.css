@@ -106,7 +106,7 @@
 .clean-btn {
 	width: 245px;
 	height: 65px;
-/*	background-color: #c4c4c4;*/
+	background-color: #c4c4c4;
 	border: 2px solid #c4c4c4;
 	border-radius: 10px;
 	font-family: "KoHo", sans-serif;
@@ -211,6 +211,10 @@
   .feature-1 {
   	height: 100%;
   }
+  
+  .feature-1:hover {
+	cursor: pointer;  
+}
 
   .feature-1 h3, .feature-1 .h3{
   	text-align: center;

@@ -21,8 +21,6 @@ public class QVwGenderAgeRecommend extends EntityPathBase<VwGenderAgeRecommend> 
 
     public final StringPath age = createString("age");
 
-    public final StringPath age = createString("age");
-
     public final StringPath functionalContent = createString("functionalContent");
 
     public final StringPath gender = createString("gender");
