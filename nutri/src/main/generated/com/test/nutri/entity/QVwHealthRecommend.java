@@ -10,14 +10,14 @@ import com.querydsl.core.types.Path;
 
 
 /**
- * QvwHealthRecommend is a Querydsl query type for vwHealthRecommend
+ * QVwHealthRecommend is a Querydsl query type for VwHealthRecommend
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QvwHealthRecommend extends EntityPathBase<vwHealthRecommend> {
+public class QVwHealthRecommend extends EntityPathBase<VwHealthRecommend> {
 
-    private static final long serialVersionUID = -1764689267L;
+    private static final long serialVersionUID = -2120926611L;
 
-    public static final QvwHealthRecommend vwHealthRecommend = new QvwHealthRecommend("vwHealthRecommend");
+    public static final QVwHealthRecommend vwHealthRecommend = new QVwHealthRecommend("vwHealthRecommend");
 
     public final StringPath functionalContent = createString("functionalContent");
 
@@ -31,16 +31,16 @@ public class QvwHealthRecommend extends EntityPathBase<vwHealthRecommend> {
 
     public final NumberPath<Long> seq = createNumber("seq", Long.class);
 
-    public QvwHealthRecommend(String variable) {
-        super(vwHealthRecommend.class, forVariable(variable));
+    public QVwHealthRecommend(String variable) {
+        super(VwHealthRecommend.class, forVariable(variable));
     }
 
-    public QvwHealthRecommend(Path<? extends vwHealthRecommend> path) {
+    public QVwHealthRecommend(Path<? extends VwHealthRecommend> path) {
         super(path.getType(), path.getMetadata());
     }
 
-    public QvwHealthRecommend(PathMetadata metadata) {
-        super(vwHealthRecommend.class, metadata);
+    public QVwHealthRecommend(PathMetadata metadata) {
+        super(VwHealthRecommend.class, metadata);
     }
 
 }

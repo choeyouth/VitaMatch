@@ -28,42 +28,43 @@
 				</div>
 
 				<!-- 성별 나이대별 -->
-				<div th:text="'성별: ' + (${galist[0].gender == 'f' ? '여자' : '남자'}) + ' & ' + '연령: ' + ${galist[0].age} + '대'" class="category"></div>
-				<div class="row g-5">
-				    <div class="col-lg-4" data-aos="fade-up" th:each="galist, iterStat : ${galist}"
-				         th:attr="data-aos-delay=${iterStat.index == 0 ? ' ' : (iterStat.index) * 100}">
-				        <div class="feature-1 d-block">
-				            <div class="mb-3">
-				                <!-- ingredientName에 맞는 이미지 경로 -->
-				                <img th:src="'img/ingredient/' + ${galist.ingredientName} + '.png'" class="ingredient-icon">
-				            </div>
-				            <div>
-				                <!-- ingredientName과 functionalContent를 표시 -->
-				                <h3 th:text="${galist.ingredientName}"></h3>
-								<hr>
-				                <p th:utext="${galist.functionalContent}"></p>
-				            </div>
-				        </div>
-				    </div>
-				</div>
+				<div th:text="'성별: ' + (${galist[0].gender == 'f' ? '여자' : '남자'}) + ' & ' + '연령: ' + ${galist[0].age} + '대'" class="category" data-aos-delay=""></div>
+					<div class="row g-5">
+					    <div class="col-lg-4" data-aos="fade-up" th:each="galist, iterStat : ${galist}"
+					         th:attr="data-aos-delay=${iterStat.index == 0 ? ' ' : (iterStat.index) * 100}">
+					        <div class="feature-1 d-block">
+					            <div class="mb-3">
+					                <!-- ingredientName에 맞는 이미지 경로 -->
+					                <img th:src="'img/ingredient/' + ${galist.ingredientName} + '.png'" class="ingredient-icon">
+					            </div>
+					            <div>
+					                <!-- ingredientName과 functionalContent를 표시 -->
+					                <h3 th:text="${galist.ingredientName}"></h3>
+									<hr>
+					                <p th:utext="${galist.functionalContent}"></p>
+					            </div>
+					        </div>
+					    </div>
+					</div>
+
 				
 				<!-- 건강 검진 -->
 				<div th:text="${hlist.isEmpty() ? '' : hlist[0].name}" class="category"></div>
-				<div class="row g-5">
-					<div class="col-lg-4"  data-aos="fade-up" th:each="hlist, iterStat : ${hlist}" th:attr="data-aos-delay=${iterStat.index == 0 ? ' ' : (iterStat.index) * 100}">
-						<div class="feature-1 d-block">
-							<div class="mb-3">
-								<img th:src="'img/ingredient/'+${hlist.ingredientName}+'.png'" class="ingredient-icon">
-							</div>
-							<div>
-								<h3 th:text="${hlist.ingredientName}"></h3>
-								<hr>
-								<p th:utext="${hlist.functionalContent}"></p>
+					<div class="row g-5">
+						<div class="col-lg-4"  data-aos="fade-up" th:each="hlist, iterStat : ${hlist}" th:attr="data-aos-delay=${iterStat.index == 0 ? ' ' : (iterStat.index) * 100}">
+							<div class="feature-1 d-block">
+								<div class="mb-3">
+									<img th:src="'img/ingredient/'+${hlist.ingredientName}+'.png'" class="ingredient-icon">
+								</div>
+								<div>
+									<h3 th:text="${hlist.ingredientName}"></h3>
+									<hr>
+									<p th:utext="${hlist.functionalContent}"></p>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-
+					
 				<!-- 주요 장기 -->
 				<div th:text="${olist.isEmpty() ? '' : olist[0].name}" class="category"></div>
 				<div class="row g-5">

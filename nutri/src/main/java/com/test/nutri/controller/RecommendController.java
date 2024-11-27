@@ -8,16 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.test.nutri.entity.News;
-import com.test.nutri.entity.vwDailyRecommend;
-import com.test.nutri.entity.vwGenderAgeRecommend;
-import com.test.nutri.entity.vwHealthRecommend;
-import com.test.nutri.entity.vwOrganRecommend;
+import com.test.nutri.entity.VwDailyRecommend;
+import com.test.nutri.entity.VwGenderAgeRecommend;
+import com.test.nutri.entity.VwHealthRecommend;
+import com.test.nutri.entity.VwOrganRecommend;
 import com.test.nutri.repository.DailyRecommendRepository;
 import com.test.nutri.repository.GenderAgeRecommendRepository;
 import com.test.nutri.repository.HealthRecommendRepository;
 import com.test.nutri.repository.OrganRecommendRepository;
-import com.test.nutri.service.NewsService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -44,13 +42,13 @@ public class RecommendController {
 							, @RequestParam(value = "organSeq", required = false)String organSeq
 							, @RequestParam(value = "dailySeq", required = false)String dailySeq, Model model) {
 		
-		List<vwGenderAgeRecommend> galist = new ArrayList<>();
-		List<vwHealthRecommend> hlist = new ArrayList<>();
-		List<vwOrganRecommend> olist = new ArrayList<>();
-		List<vwDailyRecommend> dlist = new ArrayList<>();
+		List<VwGenderAgeRecommend> galist = new ArrayList<>();
+		List<VwHealthRecommend> hlist = new ArrayList<>();
+		List<VwOrganRecommend> olist = new ArrayList<>();
+		List<VwDailyRecommend> dlist = new ArrayList<>();
 		
 		if (gender != null & age != null ) {
-			galist = genderAgeRecommendRepository.findAll(gender, age+"0");
+			galist = genderAgeRecommendRepository.findAll(gender, age + "0");
 			System.out.println("gender: " + gender + "age: " + age);
 			System.out.println(galist);
 		} else {
@@ -77,14 +75,6 @@ public class RecommendController {
 		} else if (dailySeq == null) {
 			System.out.println("일상 생활 선택해주세요.");
 		}
-		
-//		if (organSeq != null) {
-//			olist = organRecommendRepository.findAll(organSeq);
-//			System.out.println("organ: " + organSeq);
-//			System.out.println(olist);
-//		} else {
-//			System.out.println("주요 장기를 선택해주세요.");
-//		}
 		
 		
 		model.addAttribute("galist", galist);

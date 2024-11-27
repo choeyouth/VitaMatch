@@ -10,16 +10,14 @@ import com.querydsl.core.types.Path;
 
 
 /**
- * QvwDailyRecommend is a Querydsl query type for vwDailyRecommend
+ * QVwOrganRecommend is a Querydsl query type for VwOrganRecommend
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QvwDailyRecommend extends EntityPathBase<vwDailyRecommend> {
+public class QVwOrganRecommend extends EntityPathBase<VwOrganRecommend> {
 
-    private static final long serialVersionUID = -43914186L;
+    private static final long serialVersionUID = 1644327774L;
 
-    public static final QvwDailyRecommend vwDailyRecommend = new QvwDailyRecommend("vwDailyRecommend");
-
-    public final NumberPath<Integer> dailySeq = createNumber("dailySeq", Integer.class);
+    public static final QVwOrganRecommend vwOrganRecommend = new QVwOrganRecommend("vwOrganRecommend");
 
     public final StringPath functionalContent = createString("functionalContent");
 
@@ -29,18 +27,20 @@ public class QvwDailyRecommend extends EntityPathBase<vwDailyRecommend> {
 
     public final StringPath name = createString("name");
 
+    public final NumberPath<Integer> organSeq = createNumber("organSeq", Integer.class);
+
     public final NumberPath<Long> seq = createNumber("seq", Long.class);
 
-    public QvwDailyRecommend(String variable) {
-        super(vwDailyRecommend.class, forVariable(variable));
+    public QVwOrganRecommend(String variable) {
+        super(VwOrganRecommend.class, forVariable(variable));
     }
 
-    public QvwDailyRecommend(Path<? extends vwDailyRecommend> path) {
+    public QVwOrganRecommend(Path<? extends VwOrganRecommend> path) {
         super(path.getType(), path.getMetadata());
     }
 
-    public QvwDailyRecommend(PathMetadata metadata) {
-        super(vwDailyRecommend.class, metadata);
+    public QVwOrganRecommend(PathMetadata metadata) {
+        super(VwOrganRecommend.class, metadata);
     }
 
 }

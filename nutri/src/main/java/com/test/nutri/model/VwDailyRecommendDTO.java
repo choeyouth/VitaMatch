@@ -13,11 +13,11 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class vwHealthRecommendDTO {
+public class VwDailyRecommendDTO {
 
 	private Long seq;
-	private Integer healthSeq;
-	private Integer ingrediendSeq;
+	private Integer dailySeq;
+	private Integer ingredientSeq;
 	private String ingredientName;
 	private String functionalContent;
 	

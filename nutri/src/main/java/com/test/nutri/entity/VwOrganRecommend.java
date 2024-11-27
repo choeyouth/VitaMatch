@@ -12,19 +12,18 @@ import lombok.ToString;
 @Entity
 @Getter
 @ToString
-@Table(name="vwGenderAgeRecommend") //테이블명 동일
+@Table(name="vwOrganRecommend") //테이블명 동일
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class vwGenderAgeRecommend {
+public class VwOrganRecommend {
 
 	@Id
 	private Long seq;
 	
-	private String gender;
-	private String age;
+	private String name;
 	
-	private Integer genderAgeSeq;
+	private Integer organSeq;
 	private Integer ingredientSeq;
 	private String ingredientName;
 	private String functionalContent;

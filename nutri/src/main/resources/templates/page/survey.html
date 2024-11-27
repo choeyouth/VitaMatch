@@ -190,13 +190,8 @@
 		}
 		
 		// 체크박스 하나씩만 선택되게 -----------------------------
-		// 건강검진 관련 체크박스
 		const checkupCheckboxes = document.querySelectorAll('.survey-checkup input[type="checkbox"]');
-		
-		// 주요 장기 관련 체크박스
 		const organCheckboxes = document.querySelectorAll('.survey-organ input[type="checkbox"]');
-
-		// 일상 생활 관련 체크박스
 		const dailyCheckboxes = document.querySelectorAll('.survey-daily input[type="checkbox"]');
 		
 		// 건강검진 관련 체크박스 그룹에서 하나만 선택 가능하게 하기
@@ -231,6 +226,12 @@
 		    });
 		  });
 		});
+		
+		// 초기화 버튼 활성화/비활성화
+		const cleanBtn = document.querySelector('.clean-btn');
+		var gender = document.querySelector('input[name="gender"]:checked');
+		var age = document.querySelector('input[name="age"]:checked');
+		
 		
 		
 	</script>
