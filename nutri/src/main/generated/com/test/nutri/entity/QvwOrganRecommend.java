@@ -25,6 +25,8 @@ public class QvwOrganRecommend extends EntityPathBase<vwOrganRecommend> {
 
     public final NumberPath<Integer> ingredientSeq = createNumber("ingredientSeq", Integer.class);
 
+    public final StringPath name = createString("name");
+
     public final NumberPath<Integer> organSeq = createNumber("organSeq", Integer.class);
 
     public final NumberPath<Long> seq = createNumber("seq", Long.class);
