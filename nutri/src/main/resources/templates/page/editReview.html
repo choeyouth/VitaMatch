@@ -11,13 +11,25 @@
 	    overflow-x: hidden; /* 좌우 스크롤 방지 */
 	}
 	
+	.review-edit {
+		display: flex;
+	    justify-content: center;
+	    align-items: center; 
+	    width: 100%;
+	}
+
+	.review-form {
+		width: 85%;
+	}
 	
+	/*
 	.review-form {
 		display: flex;		
 		position: relative;
 		width: 100%;
 		border-radius: 2px;
 	}
+	*/
 	
 	.review-form th, .review-form td { 
 	    padding: 15px;
@@ -37,12 +49,12 @@
 	}
 	
 
-	.button {
-		margin-top: 100px;
+	.buttons {
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		gap: 40px;
+		margin-top: 40px;
+		gap: 850px;
 	}
 	
 	.back-btn, .edit-btn {
@@ -67,11 +79,19 @@
 	.edit-btn {
 		border:  none;
 		background-color: #10D0A1;
-		font-size: 16px;
 		color: white;
 	}
 	
-
+	.icon-reply,
+	.icon-edit {
+		font-weight: bold;
+	}
+	
+	.back-btn:hover, 
+	.edit-btn:hover {
+		color:rgb(100, 116, 128) ; 
+	}
+	
 </style>
 <body>
 	<th:block th:insert="~{inc/header.html :: index_header_menu}"></th:block>
@@ -85,7 +105,7 @@
 				</div>		
 			</div>	
 		
-			<div class="review-add">
+			<div class="review-edit">
 				<table class="review-form">
 		            <tr>
 	                	<th>게시글 제목</th>
@@ -123,23 +143,27 @@
 	람들에겐 추천할 만한 제품입니다!</td>
 		            </tr>
 		            <tr>
-		                <th>사진</th>
+		                <th>첨부사진</th>
 		                <td><img src="/img/review/omega_3.jpg" alt="Review Image" /></td>
 		            </tr>
-	                <tr>
+	                <!--<tr>
 		                <th>평점</th>
 		                 <td>5</td>
-		            </tr>
+		            </tr>-->
 				</table>
 			</div>	
 	
-			<div class="button">
-				<button type="button" class="back-btn" onclick="location.href='/page/reivew';">뒤로가기</button>
-				<button type="submit" class="edit-btn">수정하기</button>
-				<!--
-				<a href="#"	class="edit-btn" onclick="">수정하기</a>
-				<a href="#"	class="del-btn" onclick="">삭제하기</a> 
-				-->
+			<div class="buttons">
+				<div class="back-button">
+					<a href="/review" class="back-btn">
+						<span class="icon-reply"> 뒤로가기</span>
+					</a>
+				</div>
+				<div class="edit-button">
+					<button type="submit" class="edit-btn">
+						<span class="icon-edit"> 수정하기</span>
+					</button>
+				</div>
 			</div>	
 		</div>	
 	</div>

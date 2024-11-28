@@ -59,56 +59,64 @@
 	}
 	
 	#image {
-		width: 500px;
+		width: 584px;
 		height: 35px;
 	}
 	
-	.img-btn {
-		border:  none;
+	.upload-btn {
+		/* border: none;
 		background-color: #10D0A1;
-		color: white;
-		font-weight: bold;	
-		width: 110px;
-		height: 35px;
-		text-align: center;
-		border-radius: 5px;
-		padding: 5px;
-	}
-
-	.button {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		margin-top: 100px;
-		gap: 40px;
-	}
-		
-	.cancle-btn, .add-btn {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		text-align: center;
-		width: 110px;
-		height: 40px;
-		font-size: 16px;
-		font-weight: bold;	
-		border-radius: 5px;
-		padding: 5px;
-	}
-		
-	.cancle-btn {
+		color: white; */
 		border: 2px solid #10D0A1; 
 		background-color: white;
 		color:  #10D0A1;
+		width: 110px;
+		height: 35px;
+		text-align: center;
+		border-radius: 5px;
+		padding: 3px;
+		font-weight: bold;	
+		font-size: 14px;
+	}
+	
+	.buttons {
+	   display: flex;
+	   justify-content: center;
+	   align-items: center;
+	   margin-top: 30px;
+	   gap: 440px;
+	}
+
+	.back-btn, .save-btn {
+	   display: flex;
+	   justify-content: center;
+	   align-items: center;
+	   text-align: center;
+	   width: 120px;
+	   height: 40px;
+	   font-size: 16px;
+	   border-radius: 5px;
+	   padding: 5px;
 	}
 		
-	.add-btn {
+	.back-btn, .save-btn {
 		border:  none;
 		background-color: #10D0A1;
 		color: white;
-		font-size: 16px;
 	}
 	
+	.icon-upload,
+	.icon-reply,
+	.icon-save {
+		font-weight: bold;
+	}
+	
+	.upload-btn :hover,
+	.back-btn:hover, 
+	.save-btn:hover {
+		color:rgb(100, 116, 128) ; 
+	}
+		
 
 </style>
 <body>
@@ -123,6 +131,7 @@
 				</div>		
 			</div>	
 			<div class="review-add">
+				<!--<form action="/addReview" method="POST" enctype="multipart/form-data">-->
 				<table class="review-form">
 		            <tr>
 	                	<th>게시글 제목</th>
@@ -132,9 +141,32 @@
 		                <th>카테고리</th>
 		                <td>
 		                	<select name="category" id="category" required>
-					            <option value="omega3">오메가3</option>
-					            <option value="vitaminC">비타민C</option>
-					            <option value="protein">단백질</option>
+								<option value="VitaminA">비타민A</option>
+								<option value="VitaminB">비타민B</option>
+								<option value="VitaminC">비타민C</option>
+								<option value="VitaminD">비타민D</option>
+								<option value="VitaminB6">비타민B6</option>
+								<option value="VitaminK">비타민K</option>
+								<option value="VitaminE">비타민E</option>
+								<option value="VitaminB3">비타민B3</option>
+								<option value="VitaminB2">비타민B2</option>
+								<option value="VitaminB12">비타민B12</option>
+								<option value="Omega3">오메가3</option>
+								<option value="Zinc">아연</option>
+								<option value="Magnesium">마그네슘</option>
+								<option value="FolicAcid">엽산</option>
+								<option value="Arginine">아르기닌</option>
+								<option value="Iron">철분</option>
+								<option value="Lutein">루테인</option>
+								<option value="Calcium">칼슘</option>
+								<option value="Probiotics">유산균</option>
+								<option value="Ginseng">홍삼</option>
+								<option value="MilkThistle">밀크씨슬</option>
+								<option value="Potassium">칼륨</option>
+								<option value="Collagen">콜라겐</option>
+								<option value="Protein">단백질</option>
+								<option value="Enzyme">효소</option>
+								<option value="Other">기타</option>
 					        </select>
 		                </td>
 						<!--
@@ -152,19 +184,21 @@
 		                <th>제품명</th>
 		                <td><input type="text" name="name" id="name" required></td>
 		            </tr>
-		            <tr>
-		                <th>사진</th>
-		                <td>
-							<input type="text" name="image" id="image">
-		                	<button type="button" class="img-btn">첨부하기</button>
-		                </td>
-		            </tr>    
-		            <tr>
+					<tr>
 	                	<th>후기</th>
 	                	<td><textarea name="content" id="content" rows="10" required></textarea></td>
 	                </tr>
 		            <tr>
-						<!-- 여기 수정하기 -->
+		                <th>첨부사진</th>
+		                <td>
+							<input type="text" name="image" id="image">
+		                	<button type="button" class="upload-btn">
+								<span class="icon-upload"> 첨부하기</span>
+							</button>
+		                </td>
+		            </tr>    
+					<!-- 여기 수정하기 -->
+		            <!--<tr>
 	                	<th>별점</th>
 						<td>
 							<select class="star-rating" name="star" id="star">
@@ -175,17 +209,24 @@
 							    <option value="1">Terrible</option>
 							</select>
 						</td>
-	                </tr>
+	                </tr>-->
 					
 				</table>
+			</div>
+			
+			<div class="buttons">
+				<div class="back-button">
+					<a href="/review" class="back-btn">
+						<span class="icon-reply"> 뒤로가기</span>
+					</a>
+				</div>
+				<div class="save-button">
+					<button type="submit" class="save-btn">
+						<span class="icon-save"> 저장하기</span>
+					</button>
+				</div>
 			</div>	
-					
-					
-	
-			<div class="button">
-				<button type="button" class="cancle-btn" onclick="location.href='';">취소하기</button>
-				<button type="submit" class="add-btn">작성하기</button>
-			</div>	
+			
 		</div>	
 	</div>
 	
