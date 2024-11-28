@@ -16,12 +16,21 @@ import lombok.RequiredArgsConstructor;
 public class MemberService {
 
 	private final MemberRepository memberRepository;
-	private final BCryptPasswordEncoder
-	bCryptPasswordEncoder;
+	private final BCryptPasswordEncoder	bCryptPasswordEncoder;
 	
 	public void signup(MemberDTO dto) {
 		
 		boolean result = memberRepository.existsByUsername(dto.getUsername());
+		
+		if (dto.getTelephone1().isEmpty() ||
+			    dto.getTelephone2().isEmpty() ||
+			    dto.getTelephone3().isEmpty()) {
+			    throw new IllegalArgumentException("전화번호를 다시 입력하세요.");
+			} else {
+				String telephone = dto.getTelephone1() + "-" + dto.getTelephone2() + "-" + dto.getTelephone3();
+				dto.setTelephone(telephone);
+			}
+
 		
 		if (result) {
 			System.out.println("이미 사용중인 아이디입니다.");
@@ -37,8 +46,12 @@ public class MemberService {
 							.dob(dto.getDob())
 							.gender(dto.getGender())
 							.telephone(dto.getTelephone())
+							.zipcode(dto.getZipcode())
 							.address(dto.getAddress())
+							.addressDetail(dto.getAddressDetail())
+							.addressExtra(dto.getAddressExtra())
 							.build();
+		
 		memberRepository.save(member);
 	}
 

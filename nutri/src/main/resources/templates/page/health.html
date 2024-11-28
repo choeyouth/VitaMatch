@@ -8,7 +8,7 @@
 <link rel="stylesheet" th:href="@{css/category.css}" />
 <body>
 	<th:block th:insert="~{inc/header.html :: index_header_menu}"></th:block>
-	<th:block th:insert="~{inc/header.html :: index_header_content_basic(#{menu.category},#{menu.health})}"></th:block>
+	<th:block th:insert="~{inc/header.html :: index_header_content_basic(#{menu.category},#{menu.health.desc})}"></th:block>
 	
 	<div class="max_container">
 		<div class="categories-sidebar">

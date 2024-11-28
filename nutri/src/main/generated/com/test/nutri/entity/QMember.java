@@ -21,7 +21,11 @@ public class QMember extends EntityPathBase<Member> {
 
     public final StringPath address = createString("address");
 
-    public final StringPath createTime = createString("createTime");
+    public final StringPath addressDetail = createString("addressDetail");
+
+    public final StringPath addressExtra = createString("addressExtra");
+
+    public final DateTimePath<java.time.LocalDateTime> createTime = createDateTime("createTime", java.time.LocalDateTime.class);
 
     public final StringPath dob = createString("dob");
 
@@ -41,9 +45,11 @@ public class QMember extends EntityPathBase<Member> {
 
     public final StringPath telephone = createString("telephone");
 
-    public final StringPath updateTime = createString("updateTime");
+    public final DateTimePath<java.time.LocalDateTime> updateTime = createDateTime("updateTime", java.time.LocalDateTime.class);
 
     public final StringPath username = createString("username");
+
+    public final StringPath zipcode = createString("zipcode");
 
     public QMember(String variable) {
         super(Member.class, forVariable(variable));

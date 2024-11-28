@@ -13,7 +13,6 @@
 	<th:block th:insert="~{inc/header.html :: index_header_menu}"></th:block>
 	<!-- <th:block th:fragment="index_header_content_full(header_title, header_desc, header_a_link_first, header_a_content_first, header_a_link_second, header_a_content_second)"> -->
 	<th:block th:insert="~{inc/header.html :: index_header_content_basic(#{menu.login},#{menu.login.desc})}"></th:block>
-    <h2>로그인 페이지</h2>
 	<form method="POST" action="/loginok">
         <div class="login-form-box">
         	<div class="empty-div"></div>
@@ -24,13 +23,13 @@
 	                        <!-- <th>email</th> -->
 	                        <td class="form-group">
                                 <input id="username" type="text" name="username" placeholder=" " aria-label="username" class="login border-round border-thin border-gray" required/>
-                                <label for="username">email</label>
+                                <label for="username">id</label>
                             </td>
 	                    </tr>
 	                    <tr>
 	                        <!-- <th>password</th> -->
 	                        <td class="form-group">
-                                <input id="password" type="password" name="passowrd" placeholder=" " aria-label="password" class="login border-round border-thin border-gray" required/>
+                                <input id="password" type="password" name="password" placeholder=" " aria-label="password" class="login border-round border-thin border-gray" required/>
                                 <label for="password">password</label>
                             </td>
 	                    </tr>

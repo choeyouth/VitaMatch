@@ -26,13 +26,14 @@ public class MemberController {
 	@PostMapping("/signupok")
 	public String signupok(MemberDTO dto) {
 		
-		dto.combineTelephone();
+		
+		//dto.combineTelephone();
 		
 		System.out.println("dto: " + dto);
 		
 		memberService.signup(dto);
 		
-		return "redirect:page/login";
+		return "redirect:/login";
 	}
 	
 	@GetMapping("/checkusername")
