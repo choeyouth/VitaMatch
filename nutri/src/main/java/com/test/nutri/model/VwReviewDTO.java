@@ -1,5 +1,7 @@
 package com.test.nutri.model;
 
+import java.time.LocalDateTime;
+
 import com.test.nutri.entity.VwReview;
 
 import lombok.AllArgsConstructor;
@@ -19,7 +21,7 @@ public class VwReviewDTO {
 	
 	private long seq;
 	private String nickname;
-	private String createDate;
+	private LocalDateTime createDate;
 	private String title;
 	private String category;
 	private String name;
