@@ -12,7 +12,12 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 
-
+/**
+ * Entity 클래스: ProductInfo
+ * 
+ * 이 클래스는 데이터베이스의 "productInfo" 테이블과 매핑됩니다.
+ * 제품 정보를 관리하며, DTO(Data Transfer Object)로 변환하기 위한 메서드를 제공합니다.
+ */
 @Entity
 @Getter
 @Builder
@@ -40,6 +45,13 @@ public class ProductInfo {
     private String functionalContent;
     private String standardsAndSpecifications;
     
+    
+    
+    /**
+     * Entity를 DTO로 변환하는 메서드
+     * 
+     * @return ProductInfoDTO 객체로 변환된 데이터
+     */
     public ProductInfoDTO toDTO() {
         return ProductInfoDTO.builder()
                 .seq(this.seq)
