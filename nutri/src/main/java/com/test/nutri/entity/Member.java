@@ -1,11 +1,13 @@
 package com.test.nutri.entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,7 +28,7 @@ public class Member {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer seq;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String username;
 	
 	@Column(nullable = false)
@@ -50,16 +52,32 @@ public class Member {
 	@Column(nullable = false)
 	private String telephone;
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
+	private String zipcode;
+	
+	@Column(nullable = true)
 	private String address;
+	
+	@Column(nullable = true)
+	private String addressDetail;
+	
+	@Column(nullable = true)
+	private String addressExtra;
 	
 	@Column(nullable = false)
 	private String status;
 	
-	@Column(nullable = false)
-	private String createTime;
+	@Column(nullable = false, updatable = false)
+	private LocalDateTime createTime;
 	
-	@Column(nullable = false)
-	private String updateTime;
+	@PrePersist
+	protected void onCreate() {
+		this.createTime = LocalDateTime.now();
+		this.status = "1";
+	}
+	
+	@Column(nullable = true)
+	private LocalDateTime updateTime;
+
 	
 }
