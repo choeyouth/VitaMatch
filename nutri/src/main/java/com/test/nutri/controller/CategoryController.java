@@ -4,11 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.test.nutri.model.CustomUserDetails;
 import com.test.nutri.repository.CategoryRepository;
 
 /**
@@ -30,11 +33,20 @@ public class CategoryController {
      * @return 성분 기반 제품 페이지를 렌더링하기 위한 Thymeleaf 템플릿 이름.
      */
     @GetMapping("/ingredient")
-    public String ingredient(
-            Model model, 
-            @RequestParam(name = "category", required = false) String category, 
-            @RequestParam(name = "page", required = false, defaultValue = "0") Integer page) {
-        
+    public String ingredient( Model model, @RequestParam(name = "category", required = false) String category,
+    		@RequestParam(name = "page", required = false, defaultValue = "0") Integer page) {
+    	
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	Object principal = authentication.getPrincipal();
+    	
+    	if (principal instanceof CustomUserDetails) {
+            CustomUserDetails userDetails = (CustomUserDetails) principal;
+            Integer memberSeq = userDetails.getMember().getSeq();
+            System.out.println("현재 회원 seq: " + memberSeq);
+        } else {
+            System.out.println("인증되지 않은 사용자입니다.");
+        }
+    	
         Pageable pageable = PageRequest.of(page, 9);
         Page<?> categoryPage = categoryRepository.findByCategory(category, pageable);
         
@@ -55,10 +67,7 @@ public class CategoryController {
      * @return 건강 기능 기반 제품 페이지를 렌더링하기 위한 Thymeleaf 템플릿 이름.
      */
     @GetMapping("/health")
-    public String map(
-            Model model, 
-            @RequestParam(name = "category", required = false) String category, 
-            @RequestParam(name = "page", required = false, defaultValue = "0") Integer page) {
+    public String map( Model model, @RequestParam(name = "category", required = false) String category, @RequestParam(name = "page", required = false, defaultValue = "0") Integer page) {
         
         Pageable pageable = PageRequest.of(page, 9);
         Page<?> categoryHealth = categoryRepository.findByHealth(category, pageable);
