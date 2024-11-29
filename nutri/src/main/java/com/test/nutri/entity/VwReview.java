@@ -1,5 +1,7 @@
 package com.test.nutri.entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,7 +27,7 @@ public class VwReview {
 	private long seq;
 	
 	private String nickname;
-	private String createDate;
+	private LocalDateTime createDate;
 	private String title;
 	private String category;
 	private String name;

@@ -8,7 +8,7 @@
 </head>
 <style>
 
-	
+
 </style>
 <body>
 	<th:block th:insert="~{inc/header.html :: index_header_menu}"></th:block>
@@ -18,22 +18,38 @@
 			<div class="row mb-5">
 				<div class="col-lg-5"  data-aos="fade-up" data-aos-delay="">
 					<h2 class="heading">원료 정보</h2>
-				</div>		
-			</div>	
+				</div>
+					
 				<hr>
-				<br>
-				<br>
-				<br>
-			
+	
+<div class="ingredientInfoImg">
+	<table>
+		<tr>
+				<tr>
+				<img class="ingredientImgSize" th:src="@{|img/ingredient/${ingredientView.ingredientName}.png|}"/>
+				</tr>
+			<table class="ingredientImgtableContent">
 				
-			<div>
-				<h1 class="heading" th:utext="${ingredientView.ingredientName}">비타민 A</h1>
-				
-			</div>
-				<br>
-				<br>
-				<br>
+					<td class="ingredientImgtableContentheader" th:utext="${ingredientView.ingredientName}">제품명</td>
+		
+			<td class="ingredientImgtable">
+			 
+			</td>
 
+			
+			</table>
+		</tr>
+	</table>
+		
+	<br>
+	<br>
+	<br>
+
+</div>	
+				
+				
+				
+				
 			<!--
 			th:each=" : ${}"
 			th:text="${}"

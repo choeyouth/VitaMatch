@@ -55,6 +55,9 @@ html, body {
 	position: relative;
 	width: 100%;
 	margin-bottom: 30px;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
 }
 
 
@@ -80,14 +83,15 @@ html, body {
 .productImgtableContentheader{
 	color: #10D0A1;
 	font-size: 35px;
+
 }
 
 .productImgtableContentName{
-	margin-top: 30px;
-	margin-bottom: 30px;
+	
 	font-size: 30px;
 	color: gray;
 	
+	margin-bottom: 50px;
 }
 
 .productImgtableContentCompany{
@@ -97,5 +101,5 @@ html, body {
 }
 
 .heading{
-	color: #10D0A1;
+	color: black;
 }
