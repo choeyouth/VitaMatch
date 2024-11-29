@@ -3,12 +3,19 @@
 
 <head>
 <meta charset="UTF-8">
-<meta name="_csrf" th:content="${_csrf.token}"/>
-<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
 
 <title>[[#{menu.combination}]]</title>
 <th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
 <link rel="stylesheet" th:href="@{css/combination.css}" />
+
+<style>
+.container {
+	width: 100%;
+	height: 100%;
+}
+</style>
 </head>
 
 <body>
@@ -20,6 +27,7 @@
 	<div id="combination-container">
 		<div class="section">
 			<div class="container">
+
 				<div class="row mb-5">
 					<div class="col-lg-5" data-aos="fade-up" data-aos-delay="">
 						<h3 class="subheading">영양제 조합</h3>
@@ -78,8 +86,8 @@
 										<h2 class="mb-0">
 											<button class="btn btn-link" type="button"
 												data-bs-toggle="collapse" data-bs-target="#collapseOne"
-												aria-expanded="true" aria-controls="collapseOne" id="buttonOne">같이
-												먹으면 좋은 조합</button>
+												aria-expanded="true" aria-controls="collapseOne"
+												id="buttonOne">같이 먹으면 좋은 조합</button>
 										</h2>
 
 										<div id="collapseOne" class="collapse show"
@@ -92,8 +100,8 @@
 										<h2 class="mb-0">
 											<button class="btn btn-link" type="button"
 												data-bs-toggle="collapse" data-bs-target="#collapseTwo"
-												aria-expanded="false" aria-controls="collapseTwo" id="buttonTwo">같이
-												먹으면 안 좋은 조합</button>
+												aria-expanded="false" aria-controls="collapseTwo"
+												id="buttonTwo">같이 먹으면 안 좋은 조합</button>
 										</h2>
 										<div id="collapseTwo" class="collapse"
 											aria-labelledby="headingTwo" data-bs-parent="#accordion_1">
@@ -102,7 +110,8 @@
 
 									</div>
 								</div>
-								<div class="combinationInfo">** 자세한 정보는 반드시 의사나 약사에게 확인하시기 바랍니다.</div>
+								<div class="combinationInfo">** 자세한 정보는 반드시 의사나 약사에게 확인하시기
+									바랍니다.</div>
 							</div>
 						</div>
 						<!-- .container -->
@@ -111,8 +120,9 @@
 				</div>
 			</div>
 		</div>
+
 	</div>
-	
+
 	<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
 	<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
 	<script th:src="@{js/combination.js}"></script>

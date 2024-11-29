@@ -1,8 +1,9 @@
 /* 영양성분 선택 -------------------------------- */
 .ingredient_category {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+	grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
 	margin-top: 55px;
+	gap: 20px;
 }
 
 .ingredient_category_radio_btn {
@@ -46,7 +47,7 @@
 	background-color: #F8F9FA;
 	padding-top : 50px;
 	padding-bottom : 10px;
-	height : 650px;
+	min-height: 650px; 
 }
 
 .row {
@@ -80,10 +81,20 @@
 /* 선택된 영양제와 조합인 이유 -------------------------------- */
 .accordion-body {
 	display: grid;
-	grid-template-columns: 100px 410px 45px;
+	grid-template-columns: 1fr 3fr 1fr;
 	background-color: white;
 	border: 1px solid var(--bs-light);
+	word-wrap: break-word;
+	width: 100%;
 }
+
+.accordion-body div, 
+.accordion-body a {
+    word-wrap: break-word;  /* 긴 단어나 텍스트 줄바꿈 */
+    overflow-wrap: break-word;  /* 긴 텍스트가 넘칠 때 줄바꿈 */
+    height: auto;  /* 높이가 자동으로 조정되도록 함 */
+}
+
 
 .accordion-body a {
 	margin-left: 10px;
@@ -113,4 +124,4 @@
 	margin-top : 10px;
 }
 
-
+/* 아코디언_조합 설명 */
