@@ -8,7 +8,35 @@
 </head>
 <style>
 
+	.shopping-txt,
+	.shopping-btn {
+		border-radius: 5px;
+		height: 42px;
+		padding: 3px;
+		font-size: 16px;
+		text-align: center;
+		
+	}
 
+	.shopping-txt {
+		border: 2px solid #CCCCCC;
+		width: 550px;
+	}
+
+	.shopping-btn {
+		border: none;
+		width: 120px;
+		font-weight: bold;
+		background-color: #10D0A1;
+		color: white;
+		float: right;
+		margin-bottom: 30px;
+	}
+	
+	.shopping-btn:hover,
+	.write-btn:hover {
+		color:rgb(100, 116, 128) ; 
+	}
 	
 </style>
 <body>
@@ -44,6 +72,7 @@
 							<tr>
 								<td class="productImgtableContentCompany" th:utext="${productInfo.companyName}">콜마비앤에이치(주)음성공장</td>
 							</tr>					  		
+							
 						</table>
 					</tr>
 				</table>
@@ -53,7 +82,16 @@
 				<br>
 			
 			</div>
+			
+			
+			<a th:href="@{/shoppingcart(seq=${productInfo.seq})}">
+			    <button class="shopping-btn" type="submit">
+			        <span> 장바구니</span>
+			    </button>
+			</a>
+										
 			<!--
+				
 			th:each=" : ${}"
 			th:text="${}"
 			-->
