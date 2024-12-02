@@ -24,9 +24,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.test.nutri.api.MapAPI;
 import com.test.nutri.model.MapDTO;
 
+/**
+ * MapService
+ * MapService 클래스는 약국 API에서 데이터를 가져와 파싱하고, 
+ * 이를 MapDTO 객체로 변환하여 반환하는 서비스 클래스입니다. 
+ * 이 클래스는 약국 목록 및 세부 정보를 조회하고, 
+ * 운영 시간과 영업 여부를 계산하여 클라이언트에 제공하는 역할을 합니다.
+ * @Service Spring 서비스 클래스 정의
+ * @author YuJeong Choi
+ */
 @Service
 public class MapService {
 
+	/**
+	 * API URL 생성 및 관련 메서드 제공
+	 */
     private final MapAPI mapAPI;
     private final ObjectMapper objectMapper = new ObjectMapper(); 
 
@@ -34,6 +46,17 @@ public class MapService {
         this.mapAPI = mapAPI;
     }
     
+    /**
+     * 약국 API에서 데이터를 가져와 MapDTO 객체 리스트로 변환합니다.
+     * @param url - 약국 API 호출을 위한 URL
+     * @return - 약국 정보 객체 리스트
+     * 로직:
+     * API 호출 후 XML 데이터를 읽습니다.
+     * XML 데이터를 파싱하여 약국 정보를 추출합니다.
+     * 각 약국의 영업 시간, 좌표, 기타 정보를 MapDTO에 매핑합니다.
+     * 현재 시간에 기반하여 영업 여부를 계산합니다.
+     * 리스트로 반환합니다.
+     */
     // 메서드 분리하고 싶음....
     public List<MapDTO> getPharmacyList(String url) {
     	
@@ -88,7 +111,7 @@ public class MapService {
                         LocalDate date = LocalDate.now();
                         DayOfWeek week = date.getDayOfWeek();
                         int weekNum = week.getValue();
-                        
+                         
                         // 영업 시간
                         String openTime = formatTime(getTagValue("dutyTime" + weekNum + "s", itemElement, "0000"), "00:00");
                         String closeTime = formatTime(getTagValue("dutyTime" + weekNum + "c", itemElement, "0000"), "00:00");
@@ -173,6 +196,16 @@ public class MapService {
     }
 
 
+    /**
+     * XML 태그 값을 읽어 반환합니다.
+     * @param tag - XML 태그 이름
+     * @param element - XML 엘리먼트 객체
+     * @param defaultValue - 값이 없을 때 반환할 기본값
+     * @return String - 태그 값 또는 기본값
+     * 로직:
+     * 지정된 태그의 값을 가져옵니다.
+     * 태그가 없거나 값이 비어 있으면 기본값을 반환합니다.
+     */
     private String getTagValue(String tag, Element element, String defaultValue) {
         NodeList nodeList = element.getElementsByTagName(tag);
         if (nodeList.getLength() > 0 && nodeList.item(0).getChildNodes().getLength() > 0) {
@@ -184,6 +217,16 @@ public class MapService {
         return defaultValue;
     }
 
+    /**
+     * 시간 문자열을 HH:mm 형식으로 변환합니다.
+     * @param time - 원본 시간 문자열 (예: 0900)
+     * @param defaultValue - 포맷팅 실패 시 반환할 기본값
+     * @return String - 포맷된 시간 또는 기본값
+     * 로직:
+     * 입력 시간이 정기 휴무인 경우 그대로 반환합니다.
+     * 입력 시간 문자열의 길이를 검증하고 HH:mm 형식으로 변환합니다.
+     * 변환 실패 시 기본값을 반환합니다.
+     */
     private String formatTime(String time, String defaultValue) {
         // "정기 휴무"는 그대로 반환
         if ("정기 휴무".equals(time)) {
@@ -206,13 +249,6 @@ public class MapService {
             return defaultValue; // 오류 발생 시 기본값 반환
         }
     }
-
-
-
-	public MapDTO getPharmacyInfo(String url) {
-		
-		return null;
-	}
-
+ 
 
 }
