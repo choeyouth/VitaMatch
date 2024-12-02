@@ -84,7 +84,4 @@ public class CustomUserDetails implements UserDetails {
 		//return UserDetails.super.isEnabled();
 		return true;
 	}
-	
-	
-	
 }

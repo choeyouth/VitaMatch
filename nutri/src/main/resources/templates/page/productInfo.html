@@ -8,7 +8,6 @@
 </head>
 <style>
 
-
 	
 </style>
 <body>
@@ -34,9 +33,9 @@
 							<tr>
 								<td  class="productImgtableContentName"th:utext="${productInfo.productName}">센트룸 실버 프로</td>
 							</tr>
-							<br>
-							<br>
-							<br>
+							<tr>
+							    <td colspan="2" style="height: 50px;"></td> <!-- 빈 줄 -->
+							</tr>
 							<tr>
 								<td class="productImgtableContentheader">업체명</td>
 							</tr>
@@ -44,6 +43,7 @@
 							<tr>
 								<td class="productImgtableContentCompany" th:utext="${productInfo.companyName}">콜마비앤에이치(주)음성공장</td>
 							</tr>					  		
+							
 						</table>
 					</tr>
 				</table>
@@ -53,7 +53,16 @@
 				<br>
 			
 			</div>
+			
+			
+			<a th:href="@{/shoppingcart(seq=${productInfo.seq})}">
+			    <button class="shopping-btn" type="submit">
+			        <span> 장바구니</span>
+			    </button>
+			</a>
+										
 			<!--
+				
 			th:each=" : ${}"
 			th:text="${}"
 			-->

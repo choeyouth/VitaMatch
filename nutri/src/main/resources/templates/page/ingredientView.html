@@ -18,35 +18,19 @@
 			<div class="row mb-5">
 				<div class="col-lg-5"  data-aos="fade-up" data-aos-delay="">
 					<h2 class="heading">원료 정보</h2>
-				</div>		
-<!--			</div>	
+				</div>
+					
 				<hr>
-				<br>
-				<br>
-				<br>
-			
-				
-			<div>
-				<h1 class="heading" th:utext="${ingredientView.ingredientName}">비타민 A</h1>
-				
-				
-				<td class="Imgtable"><img class="productImgSize" th:src="${productInfo.productImage}" /></td>
-			</div>
-				<br>
-				<br>
-				<br>
--->
-				
 	
 <div class="ingredientInfoImg">
 	<table>
 		<tr>
 				<tr>
-					<td class="ingredientImgtableContentheader" th:utext="${ingredientView.ingredientName}">제품명</td>
+				<img class="ingredientImgSize" th:src="@{|img/ingredient/${ingredientView.ingredientName}.png|}"/>
 				</tr>
 			<table class="ingredientImgtableContent">
 				
-				<img class="ingredientImgSize" th:src="@{|img/ingredient/${ingredientView.ingredientName}.png|}"/>
+					<td class="ingredientImgtableContentheader" th:utext="${ingredientView.ingredientName}">제품명</td>
 		
 			<td class="ingredientImgtable">
 			 

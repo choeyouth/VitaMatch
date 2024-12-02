@@ -11,17 +11,13 @@ html, body {
 }
 
 .ingredientContenttable {
-/*	display: flex;
-	justify-content: center;
-	align-items: center;	*/	
 	position: relative;
 	width: 100%;
 }
 
-.ingredientContenttable th, .ingredientContenttable td { 
-    padding: 15px;
-    border: 1px solid #10D0A1;
-}
+
+
+
 
 .ingredientContenttable th {
     width: 200px;  
@@ -31,12 +27,14 @@ html, body {
 	color: white;
 	border-top: 1px solid white;
 	border-bottom: 1px solid white;
+	padding: 15px;
 }
 
 .ingredientContenttable td {
     width: 1000px; 
     font-size: 14px; 
 	padding-left: 20px; 
+	padding: 15px;
 	border-top: 1px solid #10D0A1;
 	border-bottom: 1px solid #10D0A1;
 }
@@ -94,15 +92,17 @@ html, body {
 }
 
 .ingredientImgtableContent{
-	margin-left: 100px;
+	margin-left: 50px;
 	text-align: left;
 	font-size: 50px;
 	
 }
 
 .ingredientImgtableContentheader{
-	color: #10D0A1;
+	color: black;
 	font-size: 35px;
+	font-weight: bold;
+	font-family: "KoHo",sans-serlf;
 }
 
 .ingredientImgtableContentName{
@@ -120,5 +120,6 @@ html, body {
 }
 
 .heading{
-	color: #10D0A1;
+	color: black;
+	margin-bottom: 30px;
 }

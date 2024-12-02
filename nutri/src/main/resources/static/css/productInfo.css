@@ -55,6 +55,9 @@ html, body {
 	position: relative;
 	width: 100%;
 	margin-bottom: 30px;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
 }
 
 
@@ -80,14 +83,15 @@ html, body {
 .productImgtableContentheader{
 	color: #10D0A1;
 	font-size: 35px;
+
 }
 
 .productImgtableContentName{
-	margin-top: 30px;
-	margin-bottom: 30px;
+	
 	font-size: 30px;
 	color: gray;
 	
+	margin-bottom: 50px;
 }
 
 .productImgtableContentCompany{
@@ -97,5 +101,38 @@ html, body {
 }
 
 .heading{
-	color: #10D0A1;
+	color: black;
+	
+}
+
+
+
+.shopping-txt,
+.shopping-btn {
+	border-radius: 5px;
+	height: 42px;
+	padding: 3px;
+	font-size: 16px;
+	text-align: center;
+	
+}
+
+.shopping-txt {
+	border: 2px solid #CCCCCC;
+	width: 550px;
+}
+
+.shopping-btn {
+	border: none;
+	width: 120px;
+	font-weight: bold;
+	background-color: #10D0A1;
+	color: white;
+	float: right;
+	margin-bottom: 30px;
+}
+
+.shopping-btn:hover,
+.write-btn:hover {
+	color:rgb(100, 116, 128) ; 
 }

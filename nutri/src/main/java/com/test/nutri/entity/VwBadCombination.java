@@ -10,6 +10,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+/**
+ * VwBadCombination
+ * 나쁜 영양제 성분 조합 정보를 저장하는 엔티티
+ * 성분명, 이유, 링크, 선택된 성분명 등 다양한 정보를 포함
+ * Lombok과 anotation으로 코드 간결성을 높임
+ * @author bohwa Jang
+ * 
+ */
 @Entity
 @Getter
 @ToString

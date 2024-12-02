@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+	<title>[[#{menu.category}]]</title>
+	<th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
+</head>
+<style>
+	table.item {
+	    width: 65%;
+	    margin: 30px auto;
+	    border-collapse: collapse;
+	    text-align: center;
+	}
+	
+	table.item th, table.item td {
+	    border: 1px solid #ddd;
+	    padding: 10px;
+	}
+	
+	table.item th {
+	    background-color: #f4f4f4;
+	    color: #333;
+	    font-weight: bold;
+	    font-size: 16px;
+	}
+	
+	table.item td {
+	    background-color: #fff;
+	    color: #666;
+	    font-size: 14px;
+	}
+	
+	table.item tr:hover td {
+	    background-color: #f9f9f9;
+	}
+	
+	table.item input[type="number"] {
+	    width: 60px;
+	    padding: 5px;
+	    text-align: center;
+	    border: 1px solid #ddd;
+	    border-radius: 4px;
+	}
+</style>
+<!-- <link rel="stylesheet" th:href="@{css/.css}" /> -->
+<body>
+	<th:block th:insert="~{inc/header.html :: index_header_menu}"></th:block>
+	<th:block th:insert="~{inc/header.html :: index_header_content_basic(#{shop.shoppingCart},#{shop.shoppingCart.desc})}"></th:block>
+	
+	<table class="item" border="1" cellspacing="0" cellpadding="5">
+	    <thead>
+	        <tr>
+	            <th>제품 사진</th>
+	            <th>제품명</th>
+	            <th>회사명</th>
+	            <th>가격</th>
+	            <th>수량</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        <tr th:each="dto : ${shoppingCartItem}">
+	            <td><img th:src="${dto.productImage}" alt="Product Image" width="250"></td>
+	            <td th:text="${dto.productName}"></td>
+	            <td th:text="${dto.CompanyName}"></td>
+	            <td th:text="${dto.price}"></td>
+	            <td>
+	                <input type="number" min="1" max="100" th:value="1" />
+	            </td>
+	        </tr>
+	    </tbody>
+	</table>
+
+	
+	
+	<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
+	<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
+	
+	<script th:src="@{js/category.js}"></script>
+</body>
+</html>
