@@ -26,38 +26,47 @@ public class ReviewController {
 							, @RequestParam(name = "keyword", required = false) String keyword
 		   					, @RequestParam(defaultValue = "1", name = "page") Integer page) {
 		
+		// 사용자가 입력한 keyword 확인
 		System.out.println(">>>>>>>>>" + keyword);
 		
+		// 총 리뷰 개수 조회
 		int count = reviewQureyDSLRepository.count(keyword);
-		double maxListSize = 15;
-		double maxPageSize = 15;
-		int pageCount = (int) Math.ceil(count / maxListSize);
-		int offset = (int) ((page - 1) * maxListSize);
+		
+		// 페이지 당 리뷰 개수 및 최대 페이지 개수 
+		double maxListSize = 15;								//페이지 당 보여줄 최대 리뷰 수
+		double maxPageSize = 15;								//페이지 블록 당 최대 페이지 수
+		int pageCount = (int) Math.ceil(count / maxListSize); 	//전체 페이지 수
+		int offset = (int) ((page - 1) * maxListSize);			// 데이터 조회 시작 위치 계산
 
+		// DB에서 리뷰 검색
 		List<VwReview> list = reviewQureyDSLRepository.search(offset, (int) maxPageSize, keyword);
 		
-        //페이징
+        // 페이징 처리
 		StringBuilder sb = new StringBuilder();
-		int firstPage = (int) (Math.floor((page - 1) / maxPageSize) * maxPageSize + 1);
-		int beforePage = (int) (firstPage - maxPageSize);
-		int nextPage = (int) (firstPage + maxPageSize);
+		int firstPage = (int) (Math.floor((page - 1) / maxPageSize) * maxPageSize + 1); //현재 페이징 블록의 첫번째 페이지
+		int beforePage = (int) (firstPage - maxPageSize);								//이전 페이징 블록
+		int nextPage = (int) (firstPage + maxPageSize);									//다음 페이징 블록
 	
+		// 이전 블록이 0 이하인 경우 1로 설정
 		if (beforePage < 0) {
-	   	 	beforePage = 1;
-		}
+	   	 	beforePage = 1;			
+	   	}
 	
-		if (nextPage > pageCount) {
-			nextPage = pageCount;
+		// 다음 블록이 전체 페이지 수를 초과하면 마지막 페이지로 설정
+		if (nextPage > pageCount) {	
+			nextPage = pageCount;	
 		}
 		
+		// 이전 페이지 링크 추가
 		if (page > 1) {
-			if (keyword != null && !keyword.trim().isEmpty()) {
+			if (keyword != null && !keyword.trim().isEmpty()) { // 검색 키워드가 있는 경우
 			     sb.append(String.format("<a href=\"/review?page=%d&keyword=%s\">&lt;</a>", beforePage, keyword));
-			} else {
+			} else { // 검색 키워드가 없는 경우
 				 sb.append(String.format("<a href=\"/review?page=%d\">&lt;</a>", beforePage));
 			}
 		}
 		
+		// 현재 블록 페이지 링크 추가
 		for (int i = firstPage; i <= pageCount && i < firstPage + maxPageSize; i++) {
 			if (page == i) {
 				sb.append(String.format("<a href=\"/review?page=%d\" class=\"active\">%d</a>", i, i));
@@ -66,6 +75,7 @@ public class ReviewController {
 			}
 		}
 		
+		// 다음 페이지 링크 추가
 		if (page < pageCount) { 
 			if (keyword != null && !keyword.trim().isEmpty()) {
 				sb.append(String.format("<a href=\"/review?page=%d&keyword=%s\">&gt;</a>", nextPage, keyword));
@@ -79,7 +89,7 @@ public class ReviewController {
 	    
 	    return "page/review";
 	}
-   
+	
 	@GetMapping("/viewReview")
 	public String viewReview(Model model, @RequestParam(value = "seq", required = false) Long seq) {
        
@@ -94,27 +104,20 @@ public class ReviewController {
 		return "page/viewreview";
 	}
    
-	/*
-	@GetMapping("/addReview")
-	public String addReview(Model model) {
-      
-		return "page/addReview";
-	}
-	*/
 	
 	@GetMapping("/addReview")
-	public String addReview(Model model) {
+	public String getAddReview(Model model) {
 		return "page/addReview";
 	}
 	
 	
 	@PostMapping("/addReview")
-    public String addReview(Model model 
-    							, @RequestParam(value = "title", required = false) String title
-    							, @RequestParam(value = "category", required = false) String category
-    							,@RequestParam(value = "name", required = false) String name
-    							, @RequestParam(value = "content", required = false) String content
-    							, @RequestParam(value = "image") MultipartFile image) {
+    public String postAddReview(Model model 
+    							, @RequestParam("title") String title
+    							, @RequestParam("category") String category
+    							, @RequestParam("name") String name
+    							, @RequestParam("content") String content
+    							, @RequestParam(value = "image", required = false) MultipartFile image) {
         /* 여기 다 수정해야 됨 */
 		try {
             // 파일 저장 경로
@@ -137,23 +140,56 @@ public class ReviewController {
 
         } catch (Exception e) {
             e.printStackTrace();
-            model.addAttribute("error", "파일 업로드 실패");
+            System.out.println("파일 업로드 실패");
+            return "page/addReview";
         }
 
         return "redirect:/review"; 
     }
 	
-   
+	
 	@GetMapping("/editReview")
-	public String editReview(Model model) {
-      
-		return "page/editReview";
+	public String getEditReview(Model model, @RequestParam(value = "seq") Long seq) {
+       
+	   // seq를 기준으로 해당 리뷰 조회 
+	   VwReview vwreview = reviewQureyDSLRepository.findReviewBySeq(seq);
+	    
+	   if (vwreview == null) {
+	   
+		    System.out.println(">>>>>>>>> " + seq + "번째 리뷰를 찾을 수 없습니다.");
+	        return "redirect:/review";
+	    }
+	   
+	   model.addAttribute("review", vwreview);
+	   return "page/editReview";
 	}
    
+	@PostMapping("/editReview")
+	public String postEditReview(Model model
+									, @RequestParam("seq") Long seq
+									, @RequestParam("category") String category
+	    							, @RequestParam("name") String name
+									, @RequestParam("title") String title
+									, @RequestParam("content") String content) {
+		
+		try {
+			//리뷰 수정 처리
+			reviewQureyDSLRepository.updateReview(seq, category, name, title, content);
+			System.out.println(">>>>>>>>> " + seq + "번째 리뷰가 성공적으로 수정되었습니다.");
+		
+		} catch (Exception e) {
+			
+	        System.out.println(">>>>>>>>> " + seq + "번째 리뷰 수정 중 오류가 발생했습니다.");
+	        e.printStackTrace();
+	    }
+		
+		return "page/editReview?seq=" + seq;
+	}
+	
 	@GetMapping("/delReview") 
 	public String deleteReview(Model model) {
 		
-		return "page/delReview";
+		return "redirect:/delReview";
 	}
 	
 	@PostMapping("/delView")
@@ -162,10 +198,12 @@ public class ReviewController {
 		try {
 	        // DB에서 해당 리뷰 삭제
 	        reviewQureyDSLRepository.deleteReviewBySeq(seq);
+	        System.out.println(">>>>>>>>> " + seq + "번째 리뷰가 성공적으로 삭제되었습니다.");
 	        model.addAttribute("message", "리뷰가 성공적으로 삭제되었습니다.");
 	        
 	    } catch (Exception e) {
 	        e.printStackTrace();
+	        System.out.println(">>>>>>>>> " + seq + "번째 리뷰 삭제 중 오류가 발생했습니다.");
 	        model.addAttribute("error", "리뷰 삭제 중 오류가 발생했습니다.");
 	    }
 		

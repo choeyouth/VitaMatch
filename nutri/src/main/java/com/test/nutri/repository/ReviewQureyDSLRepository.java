@@ -92,6 +92,20 @@ public class ReviewQureyDSLRepository {
 	            .intValue();	// 결과를 int로 변환하여 반환
 	}
 
+	
+	// seq가 일치하는 리뷰 수정
+	public void updateReview(Long seq, String category, String name, String title, String content) {
+		
+		jpaQueryFactory.update(vwReview)
+		   			   .where(vwReview.seq.eq(seq))
+		   			   .set(vwReview.category, category) 
+	                   .set(vwReview.name, name) 
+	                   .set(vwReview.title, title) 
+	                   .set(vwReview.content, content)
+		               .execute();
+		
+	}
+
 	// seq가 일치하는 리뷰 삭제
 	public void deleteReviewBySeq(Long seq) {
 
@@ -100,6 +114,8 @@ public class ReviewQureyDSLRepository {
 					   .execute();
 		
 	}
+
+	
 
 }	
 	

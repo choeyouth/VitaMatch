@@ -22,24 +22,27 @@
 		width: 85%;
 	}
 	
-	.review-table th, 
-	.review-table td { 
-	    border: 1px solid #CCCCCC;
-	    padding: 15px;
+	.review-table th, .review-table td {
+		padding: 15px;
+		border-top: 1px solid #CCCCCC;
+		border-bottom: 1px solid #CCCCCC;	
 	}
 	
+	
 	.review-table th {
-	    text-align: center;
-	    width: 200px;  
+		background-color: #f4f4f4;
+	    width: 15%;  
 	    font-size: 16px;
+		text-align: center;
 	}
-
-	.review-table td {
-	    width: 1000px; 
+	 
+	.review-table td { 
+		border-left: 1px solid #CCCCCC;
+		width: 75%; 
 	    font-size: 14px; 
 		padding-left: 20px; 
 	}
-	
+
 	.buttons {
 		display: flex;
 		justify-content: space-between; /* 양 끝으로 정렬 */
@@ -68,7 +71,6 @@
 		font-size: 16px;
 		font-weight: bold;
 		border-radius: 5px;
-	
 	}
 	
 	.del-btn {
@@ -95,7 +97,6 @@
 	.del-btn:hover {
 		color:rgb(100, 116, 128) ; 
 	}
-	
 
 </style>
 <body>
@@ -144,7 +145,7 @@
 			            <tr>
 			                <th>첨부사진</th>
 							<td>
-								 <img th:if="${review.image != null}" th:src="@{img/review/{image}(image=${review.image})}"/>
+								<img th:if="${review.image != null}" th:src="@{img/review/{image}(image=${review.image})}"/>
 							</td>
 						</tr>
 					</table>
@@ -158,7 +159,7 @@
 					</div>
 		
 					<div class="edit-del-button">
-						<a href="/editReview" class="edit-btn"> 
+						<a th:href="@{/editReview?seq={seq}(seq=${review.seq})}" class="edit-btn"> 
 							<span class="icon-edit"> 수정하기</span>
 						</a>
 						<a href="/delReview" class="del-btn">
@@ -172,7 +173,6 @@
 						</a>-->
 					</div>	
 				</div>
-				
 			</div>
 		</div>	
 	</div>
