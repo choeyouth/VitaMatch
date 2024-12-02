@@ -36,17 +36,6 @@ public class CategoryController {
     public String ingredient( Model model, @RequestParam(name = "category", required = false) String category,
     		@RequestParam(name = "page", required = false, defaultValue = "0") Integer page) {
     	
-    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    	Object principal = authentication.getPrincipal();
-    	
-    	if (principal instanceof CustomUserDetails) {
-            CustomUserDetails userDetails = (CustomUserDetails) principal;
-            Integer memberSeq = userDetails.getMember().getSeq();
-            System.out.println("현재 회원 seq: " + memberSeq);
-        } else {
-            System.out.println("인증되지 않은 사용자입니다.");
-        }
-    	
         Pageable pageable = PageRequest.of(page, 9);
         Page<?> categoryPage = categoryRepository.findByCategory(category, pageable);
         
