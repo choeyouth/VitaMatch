@@ -17,14 +17,34 @@ import com.test.nutri.repository.BadCombinationRepository;
 import com.test.nutri.repository.GoodCombinationRepository;
 
 import lombok.RequiredArgsConstructor;
+/**
+ * CombinationController
+ * 영양제 성분의 좋은 조합과 나쁜 조합을 안내하는 페이지 기능을 구현합니다.
+ * 영양제 성분 데이터를 불러오고, 클라이언트 요청에 맞춰 조합 정보를 JSON 형식으로 응답합니다.
+ * 
+ * @author bohwa Jang
+ */
 
 @Controller
 @RequiredArgsConstructor
 public class CombinationController {
 
+	/**
+	 * 영양제 성분 조합에 관한 데이터를 처리하는 리포지토리
+	 * 데이터베이스에서 좋은 또는 안 좋은 조합에 관련된 정보를 조회하거나 수정하는 작업을 담당
+	 * 
+	 */
 	private final GoodCombinationRepository goodCombinationRepository;
 	private final BadCombinationRepository badCombinationRepository;
 
+	
+	/**
+	 * GET 요청을 보낼 때 호출되는 컨트롤러 메서드
+	 * 영양제 성분의 좋은 조합과 나쁜 조합 정보를 불러와서 페이지에 전달하는 역할
+	 * 
+	 * @param model 영양제 조합 페이지에 영양제 성분 조합과 관련된 정보를 넘기기 위한 Model 객체
+	 * @return 영양제 조합 페이지
+	 */
 	@GetMapping("/combination")
 	public String combination(Model model) {
 
@@ -50,6 +70,12 @@ public class CombinationController {
 		return "page/combination";
 	}
 
+	/**
+	 * 클라이언트에서 AJAX로 보낸 요청을 처리
+	 * 영양제 성분의 좋은 조합과 나쁜 조합에 대한 데이터를 JSON 형식으로 응답하는 기능
+	 * @param requestData 1개의 영양제를 선택했을 때, 관련있는 영양제 성분 정보
+	 * @return 영양제 조합 페이지
+	 */
 	@PostMapping("/combination/ajax")
 	// json으로 변경해줄려고 넣음 > ResponseEntity
 	public ResponseEntity<Map<String, Object>> combinationGoodBad(@RequestBody Map<String, Object> requestData) {
@@ -75,7 +101,7 @@ public class CombinationController {
 			}
 		}
 		return ResponseEntity.ok(combination);
-		//return null;
+		
 	}
 
 }

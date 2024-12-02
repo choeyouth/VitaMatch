@@ -1,5 +1,11 @@
 @charset "UTF-8";
 
+.site-mobile-menu .site-nav-wrap .arrow-collapse {
+	width: 30px;
+	height: 30px;	
+}
+
+
 .site-footer .row {
 	justify-content: space-between;	
 }
