@@ -12,12 +12,29 @@ import com.test.nutri.service.NewsService;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * 뉴스 관련 정보를 처리하는 컨트롤러 클래스입니다.
+ * 뉴스 목록을 페이징하여 반환하고, 각 페이지의 뉴스 목록과 페이지 네비게이션을 생성합니다.
+ * 
+ * @author chimy2
+ */
 @Controller
 @RequiredArgsConstructor
 public class NewsController {
 
+    /**
+     * News Service 객체.
+     * 뉴스와 관련된 비즈니스 로직을 처리하는 서비스 클래스입니다.
+     */
 	private final NewsService newsService;
 
+    /**
+     * 뉴스 목록을 반환하고, 페이징 처리를 위한 HTML을 생성하는 메소드입니다.
+     *
+     * @param model Spring MVC Model 객체로, 뷰에 데이터를 전달합니다.
+     * @param page 클라이언트에서 요청한 페이지 번호. 기본값은 1입니다.
+     * @return "page/news" 뷰 이름, 뉴스 목록과 페이지 네비게이션을 포함하는 HTML 페이지를 반환합니다.
+     */
 	@GetMapping("/news")
 	public String news(Model model, @RequestParam(defaultValue = "1", name = "page") Integer page) {
 		int count = newsService.getCount();
