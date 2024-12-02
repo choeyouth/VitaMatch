@@ -25,6 +25,10 @@ public class SecurityConfig {
                 .requestMatchers("/**").permitAll()
                 .anyRequest().authenticated());
 		
+		http.csrf(csrf -> csrf
+            .ignoringRequestMatchers("/shoppingcart/add")
+        );
+		
 
 		//CSRF 토큰 해제
 		//http.csrf(auth -> auth.disable());

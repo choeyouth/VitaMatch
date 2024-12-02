@@ -13,6 +13,8 @@
 <body>
 	<th:block th:insert="~{inc/header.html :: index_header_menu}"></th:block>
 	<th:block th:insert="~{inc/header.html :: index_header_content_basic(#{menu.productInfo},#{menu.productInfo.desc})}"></th:block>
+	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
 	<div class="section services-section">
 		<div class="container"  th:each="productInfo : ${productInfo}">
 			<div class="row mb-5">
@@ -55,12 +57,16 @@
 			</div>
 			
 			
-			<a th:href="@{/shoppingcart(seq=${productInfo.seq})}">
+			<!-- <a th:href="@{/shoppingcart}">
 			    <button class="shopping-btn" type="submit">
 			        <span> 장바구니</span>
 			    </button>
+			</a> -->
+			
+			<a href="#" class="shopping-btn" th:data-product-id="${productInfo.seq}">
+			    <button type="button">장바구니</button>
 			</a>
-										
+					
 			<!--
 				
 			th:each=" : ${}"
@@ -128,7 +134,27 @@
 </body>
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script>	
-
+	<script>
+	    $(document).on('click', '.shopping-btn', function (e) {
+		    e.preventDefault();
+		
+		    const productInfoSeq = Number($(this).data('product-id'));
+		    console.log("Product Info Seq:", productInfoSeq);
+		
+		    $.ajax({
+		        url: '/shoppingcart/add',
+		        method: 'POST',
+		        contentType: 'application/json',
+		        data: JSON.stringify({ productInfoSeq: productInfoSeq }),
+		        success: function (response) {
+		            alert(response);
+		            window.location.href = '/shoppingcart';
+		        },
+		        error: function (abc) {
+		            console.error("Error:", xhr.responseText);
+		            alert("Error: " + xhr.responseText);
+		        }
+		    });
+		});
 	</script>
 </html>

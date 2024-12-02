@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@Table(name = "shoppingCartInfo")
+@Table(name = "shoppingCart")
 @Getter
 @Builder
 @NoArgsConstructor
@@ -22,18 +22,27 @@ import lombok.ToString;
 public class ShoppingCartInfo {
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)	
-	private Long seq;
-	
-	@Column(name = "productImage")
-	private String productImage;
-	
-	@Column(name = "CompanyName")
-	private String CompanyName;
-	
-	@Column(name = "productName")
-	private String productName;
-	
-	@Column(name = "price")
-	private String price;
+    @Column(name = "ID")
+    private Long ID;
+    
+	@Column(name = "productInfo_seq")
+	private Long productInfo_seq;
+    
+    @Column(name = "amount")
+    private Long amount;
+    
+    @Column(name = "status")
+    private Long status;
+    
+    @Column(name = "productImage")
+    private String productImage;
+    
+    @Column(name = "CompanyName")
+    private String companyName;
+    
+    @Column(name = "productName")
+    private String productName;
+    
+    @Column(name = "price")
+    private Long price;
 }
