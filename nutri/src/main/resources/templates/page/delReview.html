@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 	<title>[[#{menu.review}]]</title>
 	<th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
+	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
 </head>
 <style>
 	/*
@@ -80,23 +82,24 @@
 		
 			<div class="review-del">
 				<form method="POST" action="/delReview">
+					<input type="hidden" name="seq" th:value="${seq}" />
+					<input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+					<input type="hidden" name="_csrf_header" th:value="${_csrf.headerName}" />
 					<p class="del-comment">해당 게시글을 삭제하시겠습니까?</p>
 					<div class="buttons">
 						<div class="back-button">
-							<a href="/viewReview" class="back-btn">
+							<a href="/viewReview?seq=${seq}" class="back-btn">
 								<span class="icon-reply"> 뒤로가기</span>
 							</a>
 						</div>
 						<div class="del-button"></div>
-							<button type="submit" class="del-btn" onclick="confirmDelete(event)">
+							<button type="submit" class="del-btn">
 								<span class="icon-trash"> 삭제하기</span>
 							</button>
 						</div>
-						<input type="hidden" name="seq" value="${seq}">
 					</div>
 				</form>	
-			</div>	
-	
+			</div>
 				
 		</div>	
 	</div>
@@ -108,15 +111,6 @@
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>	
-		
-		function confirmDelete(event) {
-	      
-			const Confirmed = confirm("정말로 삭제하시겠습니까?");
-		  
-	    	if (!Confirmed) {
-	        	event.preventDefault(); 
-	      	}
-	  	}
 	  
 	</script>
 </html>

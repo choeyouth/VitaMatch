@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 	<title>[[#{menu.review}]]</title>
 	<th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
+	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
 </head>
 <style>
 		
@@ -38,24 +40,29 @@
 		margin-bottom: 20px;
 	}
 	
-	#title, #category, #name, #content, #image {
+	#nickname, #title, #category, #name, #content, #image {
 		border: 1px solid #CCCCCC;
 		border-radius: 5px;	
 	}
 	
-	#title, #name {
+	#nickname, #title, #name, #category, #image, #content {
 		width: 700px;
 		height: 35px;
+		padding-left: 20px; 
 	}
 	
+	/*
 	#category {
 		width: 250px;
 		height: 35px;
 		text-align: center;
 	}
+	*/
 	
 	#content {
 		width:700px;
+		padding-left: 20px; 
+		overflow-y: scroll;
 	}
 	
 	#image {
@@ -132,8 +139,17 @@
 			</div>	
 			<div class="review-add">
 				<form action="/addReview" method="POST" enctype="multipart/form-data">
+					<input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+					<input type="hidden" name="_csrf_header" th:value="${_csrf.headerName}" />
 				<table class="review-form">
-		            <tr>
+					<tr>
+	                	<th>작성자</th>
+						<td>
+							<input type="text" name="nickname" id="nickname" disabled> 
+							<span th:text="${nickname}"></span>
+						</td>
+	                </tr>
+		           	<tr>
 	                	<th>게시글 제목</th>
 	                	<td><input type="text" name="title" id="title" required></td>
 	                </tr>
@@ -141,7 +157,7 @@
 		                <th>카테고리</th>
 		                <td>
 		                	<select name="category" id="category" required>
-								<option value="VitaminA">비타민A</option>
+								<option value="VitaminA" selected>비타민A</option>
 								<option value="VitaminB">비타민B</option>
 								<option value="VitaminC">비타민C</option>
 								<option value="VitaminD">비타민D</option>
@@ -191,26 +207,12 @@
 		            <tr>
 		                <th>첨부사진</th>
 		                <td>
-							<input type="text" name="image" id="image">
-		                	<button type="button" class="upload-btn">
+							<input type="file" name="image" id="image" multiple="multiple"/>
+		                	<button type="submit" class="upload-btn">
 								<span class="icon-upload"> 첨부하기</span>
 							</button>
 		                </td>
-		            </tr>    
-					<!-- 여기 수정하기 -->
-		            <!--<tr>
-	                	<th>별점</th>
-						<td>
-							<select class="star-rating" name="star" id="star">
-							    <option value="5">Excellent</option>
-							    <option value="4">Very Good</option>
-							    <option value="3" selected>Average</option>
-							    <option value="2">Poor</option>
-							    <option value="1">Terrible</option>
-							</select>
-						</td>
-	                </tr>-->
-					
+		            </tr>    					
 				</table>
 			</div>
 			

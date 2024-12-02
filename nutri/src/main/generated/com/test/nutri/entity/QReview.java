@@ -10,14 +10,14 @@ import com.querydsl.core.types.Path;
 
 
 /**
- * QVwReview is a Querydsl query type for VwReview
+ * QReview is a Querydsl query type for Review
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QVwReview extends EntityPathBase<VwReview> {
+public class QReview extends EntityPathBase<Review> {
 
-    private static final long serialVersionUID = -91198453L;
+    private static final long serialVersionUID = -773733782L;
 
-    public static final QVwReview vwReview = new QVwReview("vwReview");
+    public static final QReview review = new QReview("review");
 
     public final StringPath category = createString("category");
 
@@ -25,26 +25,24 @@ public class QVwReview extends EntityPathBase<VwReview> {
 
     public final DateTimePath<java.time.LocalDateTime> createDate = createDateTime("createDate", java.time.LocalDateTime.class);
 
-    public final StringPath image = createString("image");
+    public final NumberPath<Long> member_seq = createNumber("member_seq", Long.class);
 
     public final StringPath name = createString("name");
-
-    public final StringPath nickname = createString("nickname");
 
     public final NumberPath<Long> seq = createNumber("seq", Long.class);
 
     public final StringPath title = createString("title");
 
-    public QVwReview(String variable) {
-        super(VwReview.class, forVariable(variable));
+    public QReview(String variable) {
+        super(Review.class, forVariable(variable));
     }
 
-    public QVwReview(Path<? extends VwReview> path) {
+    public QReview(Path<? extends Review> path) {
         super(path.getType(), path.getMetadata());
     }
 
-    public QVwReview(PathMetadata metadata) {
-        super(VwReview.class, metadata);
+    public QReview(PathMetadata metadata) {
+        super(Review.class, metadata);
     }
 
 }

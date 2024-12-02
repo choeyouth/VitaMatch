@@ -162,7 +162,7 @@
 						<a th:href="@{/editReview?seq={seq}(seq=${review.seq})}" class="edit-btn"> 
 							<span class="icon-edit"> 수정하기</span>
 						</a>
-						<a href="/delReview" class="del-btn">
+						<a th:href="@{/delReview?seq={seq}(seq=${review.seq})}" class="edit-btn">
 							<span class="icon-trash"> 삭제하기</span>
 						</a>
 						<!--<a href="/delReview" class="del-btn">

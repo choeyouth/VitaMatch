@@ -1,6 +1,7 @@
 package com.test.nutri.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.test.nutri.entity.Review;
+import com.test.nutri.entity.ReviewImage;
 import com.test.nutri.entity.VwReview;
 import com.test.nutri.repository.ReviewQureyDSLRepository;
 
@@ -27,7 +30,7 @@ public class ReviewController {
 		   					, @RequestParam(defaultValue = "1", name = "page") Integer page) {
 		
 		// 사용자가 입력한 keyword 확인
-		System.out.println(">>>>>>>>>" + keyword);
+		System.out.println(">>>>>>>>> keyword: " + keyword);
 		
 		// 총 리뷰 개수 조회
 		int count = reviewQureyDSLRepository.count(keyword);
@@ -101,15 +104,16 @@ public class ReviewController {
       
 		model.addAttribute("review", vwreview);
       
-		return "page/viewreview";
+		return "page/viewReview";
 	}
    
 	
 	@GetMapping("/addReview")
 	public String getAddReview(Model model) {
+		
+		
 		return "page/addReview";
 	}
-	
 	
 	@PostMapping("/addReview")
     public String postAddReview(Model model 
@@ -118,31 +122,42 @@ public class ReviewController {
     							, @RequestParam("name") String name
     							, @RequestParam("content") String content
     							, @RequestParam(value = "image", required = false) MultipartFile image) {
-        /* 여기 다 수정해야 됨 */
-		try {
-            // 파일 저장 경로
-            String uploadDir = "C:/upload"; // 원하는 경로로 변경
-            File dir = new File(uploadDir);
-            if (!dir.exists()) dir.mkdirs();
-
-            // 파일 저장
-            if (!image.isEmpty()) {
-                String fileName = image.getOriginalFilename();
-                File file = new File(dir, fileName);
-                image.transferTo(file);
-                model.addAttribute("imagePath", "/upload/" + fileName);
-            }
-
-            System.out.println("제목: " + title);
-            System.out.println("카테고리: " + category);
-            System.out.println("제품명: " + name);
-            System.out.println("내용: " + content);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("파일 업로드 실패");
-            return "page/addReview";
-        }
+		
+//		String uploadDir = "src/main/resources/static/asset/place";
+//		    
+//	    File uploadDirPath = new File(uploadDir);
+//	    if (!uploadDirPath.exists()) {
+//	        uploadDirPath.mkdirs(); // 디렉토리가 없으면 생성
+//	    }
+//
+//	    // 리뷰 저장
+//	    Review review = new Review(title, category, name, content, null); // 이미지 경로는 null
+//	    reviewQureyDSLRepository.save(review); // 저장 후 ID 생성
+//
+//	    // 이미지 저장
+//	    if (images != null && !images.isEmpty()) {
+//	        for (MultipartFile image : images) {
+//	            try {
+//	                String originalFileName = image.getOriginalFilename();
+//	                String storedFileName = System.currentTimeMillis() + "_" + originalFileName;
+//
+//	                // 파일 저장
+//	                File destinationFile = new File(uploadDirPath, storedFileName);
+//	                image.transferTo(destinationFile);
+//
+//	                // 이미지 정보를 DB에 저장
+//	                ReviewImage reviewImage = ReviewImage.builder()
+//	                        .review_seq(review.getId()) // Review의 ID 연결
+//	                        .image("/asset/place/" + storedFileName) // 상대 경로 저장
+//	                        .build();
+//	                reviewImageRepository.save(reviewImage);
+//	            } catch (IOException e) {
+//	                e.printStackTrace();
+//	                return "파일 저장 중 오류 발생";
+//	            }
+//	        }
+//	    }
+		
 
         return "redirect:/review"; 
     }
@@ -161,6 +176,7 @@ public class ReviewController {
 	    }
 	   
 	   model.addAttribute("review", vwreview);
+	   
 	   return "page/editReview";
 	}
    
@@ -176,38 +192,44 @@ public class ReviewController {
 			//리뷰 수정 처리
 			reviewQureyDSLRepository.updateReview(seq, category, name, title, content);
 			System.out.println(">>>>>>>>> " + seq + "번째 리뷰가 성공적으로 수정되었습니다.");
-		
+			
+			// 수정된 리뷰를 다시 조회하여 모델에 추가
+	        VwReview updateReview = reviewQureyDSLRepository.findReviewBySeq(seq);
+	        model.addAttribute("review", updateReview);
+			
 		} catch (Exception e) {
 			
 	        System.out.println(">>>>>>>>> " + seq + "번째 리뷰 수정 중 오류가 발생했습니다.");
 	        e.printStackTrace();
 	    }
 		
-		return "page/editReview?seq=" + seq;
+		return "redirect:/viewReview?seq=" + seq;
 	}
 	
 	@GetMapping("/delReview") 
-	public String deleteReview(Model model) {
+	public String deleteReview(Model model, @RequestParam("seq") Long seq) {
 		
-		return "redirect:/delReview";
+		model.addAttribute("seq", seq);
+		
+		return "page/delReview";
 	}
 	
-	@PostMapping("/delView")
-	public String deleteReview(Model model, @RequestParam("seq") Long seq) {
+	@PostMapping("/delReview")
+	public String deleteReview(@RequestParam("seq") Long seq) {
 	   
 		try {
 	        // DB에서 해당 리뷰 삭제
 	        reviewQureyDSLRepository.deleteReviewBySeq(seq);
 	        System.out.println(">>>>>>>>> " + seq + "번째 리뷰가 성공적으로 삭제되었습니다.");
-	        model.addAttribute("message", "리뷰가 성공적으로 삭제되었습니다.");
 	        
 	    } catch (Exception e) {
+	    	
+	    	System.out.println(">>>>>>>>> " + seq + "번째 리뷰 삭제 중 오류가 발생했습니다.");
 	        e.printStackTrace();
-	        System.out.println(">>>>>>>>> " + seq + "번째 리뷰 삭제 중 오류가 발생했습니다.");
-	        model.addAttribute("error", "리뷰 삭제 중 오류가 발생했습니다.");
+	        
 	    }
 		
-	    return "redirect:/review"; 
+	    return "redirect:/review";
 	
 	}
       

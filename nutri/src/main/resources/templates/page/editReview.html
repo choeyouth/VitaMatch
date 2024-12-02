@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 	<title>[[#{menu.review}]]</title>
 	<th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
+	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
 </head>
 <style>
 		
@@ -48,7 +50,7 @@
 		border-left: 1px solid #CCCCCC;
 	    width: 75%;
 	    font-size: 14px; 
-		padding-left: 20px; 
+		padding-left: 15px; 
 	}
 	
 	#seq, #nickname, #createDate, #title, #category, #name {
@@ -56,14 +58,15 @@
 		border-radius: 3px;
 		width: 900px;
 		height: 35px;
-		padding-left: 10px;	
+		padding-left: 15px;	
 	}
 	
 	#content {
 		border: 1px solid  #CCCCCC;
 		border-radius: 3px;
 		width: 900px;
-		padding-left: 10px;	
+		padding-top: 15px;
+		padding-left: 15px;	
 		overflow-y: scroll;
 	}
 	
@@ -127,6 +130,8 @@
 				<div class="review-edit">
 					<form class="reviewform" method="POST" action="/editReview" enctype="multipart/form-data">
 						<input type="hidden" name="seq" th:value="${review.seq}">
+						<input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+						<input type="hidden" name="_csrf_header" th:value="${_csrf.headerName}" />
 						<table class="review-form">
 							<tr>
 			                	<th>번호</th>
@@ -145,7 +150,35 @@
 			                	<td><input type="text" name="title" id="title" th:value="${review.title}" /></td>
 			                <tr>
 				                <th>카테고리</th>
-								<td><input type="text" name="category" id="category" th:value="${review.category}" /></td>
+								<td>
+									<select name="category" id="category" required>
+							           <option value="VitaminA" th:selected="${review.category == 'VitaminA'}">비타민A</option>
+							           <option value="VitaminB" th:selected="${review.category == 'VitaminB'}">비타민B</option>
+							           <option value="VitaminC" th:selected="${review.category == 'VitaminC'}">비타민C</option>
+							           <option value="VitaminD" th:selected="${review.category == 'VitaminD'}">비타민D</option>
+							           <option value="VitaminB6" th:selected="${review.category == 'VitaminB6'}">비타민B6</option>
+							           <option value="VitaminK" th:selected="${review.category == 'VitaminK'}">비타민K</option>
+							           <option value="VitaminE" th:selected="${review.category == 'VitaminE'}">비타민E</option>
+							           <option value="VitaminB3" th:selected="${review.category == 'VitaminB3'}">비타민B3</option>
+							           <option value="VitaminB2" th:selected="${review.category == 'VitaminB2'}">비타민B2</option>
+							           <option value="VitaminB12" th:selected="${review.category == 'VitaminB12'}">비타민B12</option>
+							           <option value="Omega3" th:selected="${review.category == 'Omega3'}">오메가3</option>
+							           <option value="Zinc" th:selected="${review.category == 'Zinc'}">아연</option>
+							           <option value="Magnesium" th:selected="${review.category == 'Magnesium'}">마그네슘</option>
+							           <option value="FolicAcid" th:selected="${review.category == 'FolicAcid'}">엽산</option>
+							           <option value="Arginine" th:selected="${review.category == 'Arginine'}">아르기닌</option>
+							           <option value="Iron" th:selected="${review.category == 'Iron'}">철분</option>
+							           <option value="Lutein" th:selected="${review.category == 'Lutein'}">루테인</option>
+							           <option value="Calcium" th:selected="${review.category == 'Calcium'}">칼슘</option>
+							           <option value="Probiotics" th:selected="${review.category == 'Probiotics'}">유산균</option>
+							           <option value="Ginseng" th:selected="${review.category == 'Ginseng'}">홍삼</option>
+							           <option value="MilkThistle" th:selected="${review.category == 'MilkThistle'}">밀크씨슬</option>
+							           <option value="Potassium" th:selected="${review.category == 'Potassium'}">칼륨</option>
+							           <option value="Collagen" th:selected="${review.category == 'Collagen'}">콜라겐</option>
+							           <option value="Protein" th:selected="${review.category == 'Protein'}">단백질</option>
+							           <option value="Enzyme" th:selected="${review.category == 'Enzyme'}">효소</option>
+							           <option value="Other" th:selected="${review.category == 'Other'}">기타</option>
+								</td>
 				            </tr>
 			                <tr>
 				                <th>제품명</th>
@@ -154,7 +187,7 @@
 							<tr>
 				                <th>후기</th>
 								<td>
-									<textarea name="content" id="content" rows="10" th:text="${review.content}" />
+									<textarea name="content" id="content" rows="10" th:text="${review.content}"></textarea>
 								</td>
 							</tr>
 				            <tr>

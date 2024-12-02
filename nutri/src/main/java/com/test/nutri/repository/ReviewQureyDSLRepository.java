@@ -6,9 +6,13 @@ import org.springframework.stereotype.Repository;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.test.nutri.entity.QReview;
+import com.test.nutri.entity.QReviewImage;
 import com.test.nutri.entity.QVwReview;
+import com.test.nutri.entity.Review;
 import com.test.nutri.entity.VwReview;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Repository
@@ -17,11 +21,8 @@ public class ReviewQureyDSLRepository {
 	
 	private final JPAQueryFactory jpaQueryFactory;
 	private final QVwReview vwReview = QVwReview.vwReview;	//Q 클래스 선언
-	
-	// 전체 리뷰
-	public List<VwReview> findAll() {
-		return jpaQueryFactory.selectFrom(vwReview).fetch();
-	}
+	private final QReview review = QReview.review;	
+	private final QReviewImage reviewImage = QReviewImage.reviewImage;	
 	
 	// seq가 일치하는 리뷰 필터링
 	public VwReview findReviewBySeq(Long seq) {
@@ -64,7 +65,8 @@ public class ReviewQureyDSLRepository {
 
 	    return jpaQueryFactory
 	            .selectFrom(vwReview)
-	            .where(builder)  
+	            .where(builder)
+	            .orderBy(vwReview.seq.desc())
 	            .offset(offset)  
 	            .limit(limit)    
 	            .fetch();
@@ -94,28 +96,35 @@ public class ReviewQureyDSLRepository {
 
 	
 	// seq가 일치하는 리뷰 수정
+	@Transactional
 	public void updateReview(Long seq, String category, String name, String title, String content) {
 		
-		jpaQueryFactory.update(vwReview)
-		   			   .where(vwReview.seq.eq(seq))
-		   			   .set(vwReview.category, category) 
-	                   .set(vwReview.name, name) 
-	                   .set(vwReview.title, title) 
-	                   .set(vwReview.content, content)
-		               .execute();
+//		jpaQueryFactory.update(reviewImage)
+//		   			   .where(reviewImage.review_seq.eq(seq))
+//		   			   .set(reviewImage.image, image) 
+//		   			   .execute();
 		
+		jpaQueryFactory.update(review)
+		   			   .where(review.seq.eq(seq))
+		   			   .set(review.category, category) 
+	                   .set(review.name, name) 
+	                   .set(review.title, title) 
+	                   .set(review.content, content)
+		               .execute();		
 	}
 
 	// seq가 일치하는 리뷰 삭제
+	@Transactional
 	public void deleteReviewBySeq(Long seq) {
 
-		jpaQueryFactory.delete(vwReview)
-					   .where(vwReview.seq.eq(seq))
+		jpaQueryFactory.delete(reviewImage)
+		               .where(reviewImage.review_seq.eq(seq))
+		               .execute();
+				
+		jpaQueryFactory.delete(review)
+					   .where(review.seq.eq(seq))
 					   .execute();
-		
 	}
-
-	
 
 }	
 	
