@@ -2,6 +2,14 @@ package com.test.nutri.model;
 
 import lombok.Data;
 
+/**
+ * MapDTO
+ * MapDTO 클래스는 약국 정보를 담는 데이터 전송 객체(Data Transfer Object)로, 
+ * 약국의 기본 정보와 운영 시간 관련 세부 정보를 저장합니다. 
+ * 이 클래스는 약국 API로부터 받은 데이터를 매핑하여 사용하거나, 
+ * 프런트엔드로 데이터를 전달하는 데 활용됩니다.
+ * @author Yujeong Choi
+ */
 @Data
 public class MapDTO {
 	

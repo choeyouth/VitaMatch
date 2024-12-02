@@ -19,6 +19,13 @@ import com.test.nutri.repository.OrganRecommendRepository;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * RecommendController
+ * 사용자 맞춤형 추천 데이터를 처리하는 컨트롤러 클래스입니다.
+ * 이 클래스는 사용자가 제공한 파라미터에 따라 다양한 추천 정보를 조회하고,
+ * 해당 데이터를 뷰로 전달하여 화면에 표시합니다.
+ * @author Yujin Kim
+ */
 @Controller
 @RequiredArgsConstructor
 public class RecommendController {
@@ -28,13 +35,28 @@ public class RecommendController {
 	private final OrganRecommendRepository organRecommendRepository;
 	private final DailyRecommendRepository dailyRecommendRepository;
 	
+	/**
+	 * 영양제 설문 페이지를 호출합니다.
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/survey")
 	public String survey(Model model) {
 		
 		return "page/survey";
 	}
 	
-	
+	/**
+	 * recommend 메서드는 사용자가 제공한 성별, 나이대, 건강 상태, 주요 장기, 일상 생활과 같은 파라미터를 바탕으로
+	 * 맞춤형 추천 데이터를 조회합니다.
+	 * @param gender
+	 * @param age
+	 * @param healthSeq
+	 * @param organSeq
+	 * @param dailySeq
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/recommend")
 	public String recommend(@RequestParam(value = "gender", required = false)String gender
 							, @RequestParam(value = "age", required = false) String age

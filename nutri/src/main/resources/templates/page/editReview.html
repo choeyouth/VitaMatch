@@ -17,9 +17,9 @@
 	    align-items: center; 
 	    width: 100%;
 	}
-
+	
 	.review-form {
-		width: 85%;
+		width: 100%;
 	}
 	
 	/*
@@ -33,22 +33,40 @@
 	
 	.review-form th, .review-form td { 
 	    padding: 15px;
-	    border: 1px solid #CCCCCC;
+		border-top: 1px solid #CCCCCC;
+		border-bottom: 1px solid #CCCCCC;
 	}
 	
 	.review-form th {
-	    width: 200px;  
+		background-color: #f4f4f4;
+	    width: 15%;
 	    font-size: 16px;
 	    text-align: center;
 	}
 
 	.review-form td {
-	    width: 1000px; 
+		border-left: 1px solid #CCCCCC;
+	    width: 75%;
 	    font-size: 14px; 
 		padding-left: 20px; 
 	}
 	
-
+	#seq, #nickname, #createDate, #title, #category, #name {
+		border: 1px solid  #CCCCCC;
+		border-radius: 3px;
+		width: 900px;
+		height: 35px;
+		padding-left: 10px;	
+	}
+	
+	#content {
+		border: 1px solid  #CCCCCC;
+		border-radius: 3px;
+		width: 900px;
+		padding-left: 10px;	
+		overflow-y: scroll;
+	}
+	
 	.buttons {
 		display: flex;
 		justify-content: center;
@@ -57,7 +75,7 @@
 		gap: 850px;
 	}
 	
-	.back-btn, .edit-btn {
+	.back-btn, .save-btn {
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -76,7 +94,7 @@
 		color:  #10D0A1;
 	}
 	
-	.edit-btn {
+	.save-btn {
 		border:  none;
 		background-color: #10D0A1;
 		color: white;
@@ -88,7 +106,7 @@
 	}
 	
 	.back-btn:hover, 
-	.edit-btn:hover {
+	.save-btn:hover {
 		color:rgb(100, 116, 128) ; 
 	}
 	
@@ -104,67 +122,69 @@
 					<h2 class="heading">Edit Supplement Review</h2>
 				</div>		
 			</div>	
+			
+			<div class="row mb-5">
+				<div class="review-edit">
+					<form class="reviewform" method="POST" action="/editReview" enctype="multipart/form-data">
+						<input type="hidden" name="seq" th:value="${review.seq}">
+						<table class="review-form">
+							<tr>
+			                	<th>번호</th>
+								<td><input type="text" name="seq" id="seq" th:value="${review.seq}" disabled /></td>
+			                </tr>
+			                <tr>
+				                <th>작성자</th>
+								<td><input type="text" name="nickname" id="nickname" th:value="${review.nickname}" disabled /></td>
+				            </tr>
+			                <tr>
+				                <th>작성시간</th>
+								<td><input type="text" name="createDate" id="createDate" th:value="${#temporals.format(review.createDate, 'yyyy-MM-dd HH:mm')}" disabled></td>
+				            </tr>
+				            <tr>
+			                	<th> 제목</th>
+			                	<td><input type="text" name="title" id="title" th:value="${review.title}" /></td>
+			                <tr>
+				                <th>카테고리</th>
+								<td><input type="text" name="category" id="category" th:value="${review.category}" /></td>
+				            </tr>
+			                <tr>
+				                <th>제품명</th>
+								<td><input type="text" name="name" id="name" th:value="${review.name}" /></td>
+				            </tr>
+							<tr>
+				                <th>후기</th>
+								<td>
+									<textarea name="content" id="content" rows="10" th:text="${review.content}" />
+								</td>
+							</tr>
+				            <tr>
+				                <th>첨부사진</th>
+								<td>
+									<img th:if="${review.image != null}" th:src="@{img/review/{image}(image=${review.image})}"/>
+								</td>
+				            </tr>
+			                <!--<tr>
+				                <th>평점</th>
+				                 <td>5</td>
+				            </tr>-->
+						</table>
+				
 		
-			<div class="review-edit">
-				<table class="review-form">
-		            <tr>
-	                	<th>게시글 제목</th>
-	                	<td>
-	                		
-	                	</td>
-	                </tr>
-	                <tr>
-		                <th>카테고리</th>
-		                <td></td>
-		            </tr>
-	                <tr>
-		                <th>제품명</th>
-		                <td>2024-11-22</td>
-		            </tr>
-		            <tr>
-	                	<th>제목</th>
-	                	<td>내돈내산 오메가3 리뷰입니다.</td>
-	                </tr>
-	                <tr>
-		                <th>카테고리</th>
-		                <td>오메가3</td>
-		            </tr>
-	                <tr>  
-		                <th>제품명</th>
-		                <td>바디스콥 알티지 오메가3</td>
-		            </tr>
-	                <tr>
-		                <th>후기</th>
-		                <td>내돈내산 오메가3 리뷰입니다. 바디스콥 알티지 오메가, 솔직히 말해서 내 돈 주고 산 제품인데 후회 없네요. 평
-	소 오메가-3 제품을 몇 가지 먹어봤는데, 이건 흡수율이 좋다고 해서 구매했어요. RTG 형태라 위에 부담도 덜하
-	고, 냄새나 맛이 거의 없어 먹기 편합니다. 운동 후에 피로 회복이 확실히 빨라진 느낌이 들어요. 특히 DHA와
-	EPA가 풍부하다고 해서 그런지, 집중력도 좋아지고 기분도 안정되는 느낌? 한 달 정도 꾸준히 먹고 있는데, 몸
-	상태가 확실히 좋아진 게 느껴집니다. 가격은 좀 있지만, 효과를 생각하면 가성비 괜찮은 것 같아요. 운동하는 사
-	람들에겐 추천할 만한 제품입니다!</td>
-		            </tr>
-		            <tr>
-		                <th>첨부사진</th>
-		                <td><img src="/img/review/omega_3.jpg" alt="Review Image" /></td>
-		            </tr>
-	                <!--<tr>
-		                <th>평점</th>
-		                 <td>5</td>
-		            </tr>-->
-				</table>
-			</div>	
-	
-			<div class="buttons">
-				<div class="back-button">
-					<a href="/review" class="back-btn">
-						<span class="icon-reply"> 뒤로가기</span>
-					</a>
+						<div class="buttons">
+							<div class="back-button">
+								<a href="/review" class="back-btn">
+									<span class="icon-reply"> 뒤로가기</span>
+								</a>
+							</div>
+							<div class="save-button">
+								<button type="submit" class="save-btn">
+									<span class="icon-edit"> 저장하기</span>
+								</button>
+							</div>
+						</div>
+					</form>		
 				</div>
-				<div class="edit-button">
-					<button type="submit" class="edit-btn">
-						<span class="icon-edit"> 수정하기</span>
-					</button>
-				</div>
-			</div>	
+			</div>
 		</div>	
 	</div>
 	
