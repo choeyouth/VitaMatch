@@ -11,6 +11,12 @@ import com.test.nutri.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Spring Security에서 제공하는 UserDetailsService 인터페이스를 구현.
+ * 사용자 로그인 처리를 담당하는 클래스.
+ *
+ * @author Sangsoo Jeon
+ */
 @Service
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
@@ -37,3 +43,4 @@ public class CustomUserDetailsService implements UserDetailsService {
 	}
 	
 }
+
