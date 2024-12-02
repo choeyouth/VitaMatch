@@ -10,17 +10,27 @@ import com.test.nutri.entity.Member;
 
 import lombok.Getter;
 
+ /**
+ * Spring Security에서 제공하는 UserDetailsService 인터페이스를 구현한 클래스입니다.
+ * 사용자 정보를 불러와 UserDetails 형식으로 반환합니다.
+ */
 @Getter
 public class CustomUserDetails implements UserDetails {
 
-	private Member member;
-	
-	public CustomUserDetails(Member member) {
-		this.member = member;
-	}
-	
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
+    private Member member;
+
+    /**
+     * 생성자를 제공합니다.
+     */
+    public CustomUserDetails(Member member) {
+        this.member = member;
+    }
+
+    @Override
+    /**
+     * 사용자의 권한을 반환합니다.
+     */
+    public Collection<? extends GrantedAuthority> getAuthorities() {
 
         Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
@@ -28,60 +38,63 @@ public class CustomUserDetails implements UserDetails {
             @Override
             public String getAuthority() {
                 String role = "ROLE_MEMBER";
-            	return role;
+                return role;
             }
         });
 
         return authorities;
-	}
+    }
 
-	@Override
-	public String getPassword() {
-		
-		return member.getPassword();
-	}
+    @Override
+    /**
+     * 사용자의 암호를 반환합니다.
+	 * @return 사용자 암호
+     */
+    public String getPassword() {
+        return member.getPassword();
+    }
 
-	@Override
-	public String getUsername() {
-		
-		return member.getUsername();
-	}
-	
-	@Override
-	public boolean isAccountNonExpired() {
-		
-		//DB -> 관련 컬럼(active) 존재
-		//계정 만료 유무? (활성화 계정이냐 탈퇴 계정이냐?)
-		
-		//return UserDetails.super.isAccountNonExpired();
-		return true;
-	}
+    @Override
+    /**
+     * 사용자의 아이디를 반환합니다.
+     * @return 사용자 ID
+     */
+    public String getUsername() {
+        return member.getUsername();
+    }
 
-	@Override
-	public boolean isAccountNonLocked() {
+    @Override
+    /**
+     * 현재 계정이 만료된 계정인지 아닌지를 확인합니다.
+     * @return 만료되지 않은 계정이면 true, 만료된 계정이면 false를 반환합니다.
+     */
+    public boolean isAccountNonExpired() {
+        return true;
+    }
 
-		//계정 잠금 상태
-		
-		//return UserDetails.super.isAccountNonLocked();
-		return true;
-	}
-	
-	@Override
-	public boolean isCredentialsNonExpired() {
+    @Override
+    /**
+     * 계정 잠금 상태를 반환합니다.
+     */
+    public boolean isAccountNonLocked() {
+        return true;
+    }
 
-		//자격 증명(암호) 만료 상태
-		//암호 90일 마다 변경하세요 -> 이런 것 통제
-		
-		//return UserDetails.super.isCredentialsNonExpired();
-		return true;
-	}
-	
-	@Override
-	public boolean isEnabled() {
+    @Override
+    /**
+     * 비밀번호에 대한 만료 상태를 반환합니다.
+     * @return 만료되지 않으면 true, 만료됐으면 false를 반환합니다(비밀번호 변경이 필요하다는 의미).
+     */
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
 
-		//사용 유무
-		
-		//return UserDetails.super.isEnabled();
-		return true;
-	}
+    /**
+     * 사용자의 계정이 활성화 상태인지 잠금상태인지를 확인합니다.
+     * @return 활성화 상태이면 true, 잠금 상태이면 false를 반환합니다.
+     */
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

@@ -4,6 +4,7 @@
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
 <head>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
 <meta charset="UTF-8">
 	<title>header.html</title>
 </head>
@@ -56,6 +57,7 @@
 						<th:block sec:authorize="isAuthenticated()">
                         <li class="cta-button"><a href="/logout">Logout</a></li>
                         <li class="cta-button"><a href="/my">My</a></li>
+                        <li class="cta-button"><a href="/shoppingcart">Shopping Cart</a></li>
                         </th:block>
                     </ul>
 
@@ -141,6 +143,7 @@
 						<th:block sec:authorize="isAuthenticated()">
                         <li class="cta-button"><a href="/logout">Logout</a></li>
                         <li class="cta-button"><a href="/my">My</a></li>
+                        <li class="cta-button"><a href="/shoppingcart">Shopping Cart</a></li>
                         </th:block>
                     </ul>
 

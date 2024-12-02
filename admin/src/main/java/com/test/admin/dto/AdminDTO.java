@@ -27,7 +27,7 @@ public class AdminDTO {
 		this.id = id;
 		this.pw = pw;
 		this.name = name;
-		this.birthDate = LocalDate.parse(birthDate, DateTimeFormatter.ofPattern("yyMMdd"));
+		this.birthDate = LocalDate.parse(birthDate, DateTimeFormatter.ofPattern("yyyyMMdd"));
 		this.email = email;
 	}
 

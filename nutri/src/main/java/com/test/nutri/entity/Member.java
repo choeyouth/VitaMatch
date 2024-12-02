@@ -70,6 +70,12 @@ public class Member {
 	@Column(nullable = false, updatable = false)
 	private LocalDateTime createTime;
 	
+	/**
+	 * 엔티티 생성시 호출되는 메서드, 
+	 * 엔티티 생성시각(createTime)과 상태(status)를 초기화
+	 *
+	 * @author Sangsoo Jeon
+	 */
 	@PrePersist
 	protected void onCreate() {
 		this.createTime = LocalDateTime.now();
