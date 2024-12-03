@@ -97,4 +97,9 @@ public class CustomUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+    
+    //지윤 추가한 부분
+    public String getNickname() {
+        return member.getNickname();  
+    }
 }

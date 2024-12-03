@@ -31,10 +31,6 @@
 		padding-bottom: 8px;
 		font-size: 16px;
 	}
-	
-	.review-form th {
-
-	}
 
 	.review-form td {
 		margin-bottom: 20px;
@@ -61,13 +57,17 @@
 	
 	#content {
 		width:700px;
+		padding: 20px;
 		padding-left: 20px; 
 		overflow-y: scroll;
 	}
 	
 	#image {
 		width: 584px;
-		height: 35px;
+		height: 40px;
+		text-align: center;
+		margin: 0 auto; 
+		padding-top: 4px;
 	}
 	
 	.upload-btn {
@@ -145,8 +145,7 @@
 					<tr>
 	                	<th>작성자</th>
 						<td>
-							<input type="text" name="nickname" id="nickname" disabled> 
-							<span th:text="${nickname}"></span>
+							<input type="text" name="nickname" id="nickname" th:value="${nickname}" disabled /> 
 						</td>
 	                </tr>
 		           	<tr>
@@ -157,32 +156,32 @@
 		                <th>카테고리</th>
 		                <td>
 		                	<select name="category" id="category" required>
-								<option value="VitaminA" selected>비타민A</option>
-								<option value="VitaminB">비타민B</option>
-								<option value="VitaminC">비타민C</option>
-								<option value="VitaminD">비타민D</option>
-								<option value="VitaminB6">비타민B6</option>
-								<option value="VitaminK">비타민K</option>
-								<option value="VitaminE">비타민E</option>
-								<option value="VitaminB3">비타민B3</option>
-								<option value="VitaminB2">비타민B2</option>
-								<option value="VitaminB12">비타민B12</option>
-								<option value="Omega3">오메가3</option>
-								<option value="Zinc">아연</option>
-								<option value="Magnesium">마그네슘</option>
-								<option value="FolicAcid">엽산</option>
-								<option value="Arginine">아르기닌</option>
-								<option value="Iron">철분</option>
-								<option value="Lutein">루테인</option>
-								<option value="Calcium">칼슘</option>
-								<option value="Probiotics">유산균</option>
-								<option value="Ginseng">홍삼</option>
-								<option value="MilkThistle">밀크씨슬</option>
-								<option value="Potassium">칼륨</option>
-								<option value="Collagen">콜라겐</option>
-								<option value="Protein">단백질</option>
-								<option value="Enzyme">효소</option>
-								<option value="Other">기타</option>
+								<option value="비타민A" selected>비타민A</option>
+								<option value="비타민B">비타민B</option>
+								<option value="비타민C">비타민C</option>
+								<option value="비타민D">비타민D</option>
+								<option value="비타민B6">비타민B6</option>
+								<option value="비타민K">비타민K</option>
+								<option value="비타민E">비타민E</option>
+								<option value="비타민B3">비타민B3</option>
+								<option value="비타민B2">비타민B2</option>
+								<option value="비타민B12">비타민B12</option>
+								<option value="오메가3">오메가3</option>
+								<option value="아연">아연</option>
+								<option value="마그네슘">마그네슘</option>
+								<option value="엽산">엽산</option>
+								<option value="아르기닌">아르기닌</option>
+								<option value="철분">철분</option>
+								<option value="루테인">루테인</option>
+								<option value="칼슘">칼슘</option>
+								<option value="유산균">유산균</option>
+								<option value="홍삼">홍삼</option>
+								<option value="밀크씨슬">밀크씨슬</option>
+								<option value="칼륨">칼륨</option>
+								<option value="콜라겐">콜라겐</option>
+								<option value="단백질">단백질</option>
+								<option value="효소">효소</option>
+								<option value="기타">기타</option>
 					        </select>
 		                </td>
 						<!--
@@ -207,10 +206,11 @@
 		            <tr>
 		                <th>첨부사진</th>
 		                <td>
-							<input type="file" name="image" id="image" multiple="multiple"/>
-		                	<button type="submit" class="upload-btn">
+							<input type="file" name="image" id="image" multiple="multiple" />
+							<!--<input type="file" name="image" id="image" multiple="multiple"/> -->
+		                	<!--<button type="submit" class="upload-btn">
 								<span class="icon-upload"> 첨부하기</span>
-							</button>
+							</button>-->
 		                </td>
 		            </tr>    					
 				</table>

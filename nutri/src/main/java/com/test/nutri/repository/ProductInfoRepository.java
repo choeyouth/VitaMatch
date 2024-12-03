@@ -17,9 +17,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ProductInfoRepository extends JpaRepository<ProductInfo, Long> {
-
-	
-	
 	
     /**
      * seq (제품 고유 식별자)를 기준으로 제품 정보를 조회하는 메서드
