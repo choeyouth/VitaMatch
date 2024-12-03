@@ -6,6 +6,10 @@
 	<th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
 </head>
 <style>
+	td {
+	    position: relative;
+	}
+	
 	table.item {
 	    width: 65%;
 	    margin: 30px auto;
@@ -42,6 +46,56 @@
 	    border: 1px solid #ddd;
 	    border-radius: 4px;
 	}
+	
+	.cart-toggle-btn {
+        width: 25px;
+        height: 25px;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        background-color: white;
+        color: #ddd;
+        font-size: 15px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.3s ease;
+        position: absolute;
+	    top: 50%;
+	    left: 50%;
+	    transform: translate(-50%, -50%);
+    }
+    .cart-toggle-btn.selected {
+        background-color: #10D0A1;
+        border-color: #10D0A1;
+        color: white;
+    }
+    .product_del {
+    	background-color: #10D0A1;
+        border-color: #10D0A1;
+        color: white;
+        position: absolute;
+        top: 151.7%;
+        left: 68.2%;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        width: 100px;
+        height: 25px;
+        font-size: 15px;
+    }
+    .product_buy {
+    	background-color: #10D0A1;
+        border-color: #10D0A1;
+        color: white;
+        position: absolute;
+        top: 151.7%;
+        left: 75%;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        width: 100px;
+        height: 25px;
+        font-size: 15px;
+    }
 </style>
 <!-- <link rel="stylesheet" th:href="@{css/.css}" /> -->
 <body>
@@ -51,6 +105,7 @@
 	<table class="item" border="1" cellspacing="0" cellpadding="5">
 	    <thead>
 	        <tr>
+	        	<td></td>
 	            <th>제품 사진</th>
 	            <th>제품명</th>
 	            <th>회사명</th>
@@ -60,6 +115,15 @@
 	    </thead>
 	    <tbody>
 	        <tr th:each="dto : ${shoppingCartItem}">
+				<td>
+				    <button 
+				        th:data-product-id="${dto.id}" 
+				        class="cart-toggle-btn"
+				        onclick="toggleCart(this)">
+				        <span class="check-icon" style="display: none;">✔</span>
+				    </button>
+				</td>
+
 	            <td><img th:src="${dto.productImage}" alt="Product Image" width="250"></td>
 	            <td th:text="${dto.productName}"></td>
 	            <td th:text="${dto.CompanyName}"></td>
@@ -70,6 +134,8 @@
 	        </tr>
 	    </tbody>
 	</table>
+	<button class="product_del">삭제하기</button>
+	<button class="product_buy">구매하기</button>
 
 	
 	
@@ -77,5 +143,20 @@
 	<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
 	
 	<script th:src="@{js/category.js}"></script>
+	<script>
+	    function toggleCart(button) {
+	        const isSelected = button.classList.contains('selected');
+	        
+	        if (isSelected) {
+	            // 선택 취소
+	            button.classList.remove('selected');
+	            button.querySelector('.check-icon').style.display = 'none';
+	        } else {
+	            // 선택
+	            button.classList.add('selected');
+	            button.querySelector('.check-icon').style.display = 'block';
+	        }
+	    }
+	</script>
 </body>
 </html>

@@ -14,20 +14,21 @@ public interface ShoppingCartRepository extends JpaRepository<ShoppingCartInfo, 
 
 	@Query(value = """
 	        SELECT 
-	            S.member_seq AS ID,
-	            S.productInfo_seq AS productInfo_seq,
-	            S.amount AS amount,
-	            S.status AS status,
+	            S.seq AS id, 
+	            S.member_seq AS member_seq, 
+	            S.productInfo_seq AS productInfo_seq, 
+	            S.amount AS amount, 
+	            S.status AS status, 
 	            P.productImage AS productImage,
-	            P.CompanyName AS companyName,
-	            P.productName AS productName,
+	            P.CompanyName AS companyName, 
+	            P.productName AS productName, 
 	            PP.price AS price
 	        FROM shoppingCart S
 	        INNER JOIN productInfo P ON S.productInfo_seq = P.seq
-	        INNER JOIN productPrice PP ON P.seq = PP.productInfo_seq
-	        WHERE S.member_seq = :seq
+	        INNER JOIN productPrice PP ON S.productInfo_seq = PP.productInfo_seq
+	        WHERE S.member_seq = :memberSeq
 	    """, nativeQuery = true)
-	List<ShoppingCartInfo> findShoppingCartDetails(@Param("seq") Integer seq);
+	List<ShoppingCartInfo> findShoppingCartDetails(@Param("memberSeq") Integer seq);
 
 	@Modifying
 	@Transactional
