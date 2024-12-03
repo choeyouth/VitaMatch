@@ -9,13 +9,7 @@
 <title>[[#{menu.combination}]]</title>
 <th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
 <link rel="stylesheet" th:href="@{css/combination.css}" />
-
-<style>
-.container {
-	width: 100%;
-	height: 100%;
-}
-</style>
+<link rel="stylesheet" th:href="@{css/chatAI.css}" />
 </head>
 
 <body>
@@ -118,13 +112,16 @@
 					</div>
 					<!-- /.untree_co-section -->
 				</div>
+				<th:block th:insert="~{page/chatAI.html :: chatAIImg }"></th:block>
+				<th:block th:insert="~{page/chatAI.html :: chatAI }"></th:block>
+				
 			</div>
 		</div>
-
 	</div>
 
 	<th:block th:insert="~{inc/footer.html :: footer}"></th:block>
 	<th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
 	<script th:src="@{js/combination.js}"></script>
+	<script th:src="@{js/chatAI.js}"></script>
 </body>
 </html>
