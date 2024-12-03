@@ -22,8 +22,11 @@ import lombok.ToString;
 public class ShoppingCartInfo {
 	
 	@Id
-    @Column(name = "ID")
-    private Long ID;
+    @Column(name = "id")
+    private Long id;
+	
+	@Column(name = "member_seq")
+	private Long member_seq;
     
 	@Column(name = "productInfo_seq")
 	private Long productInfo_seq;

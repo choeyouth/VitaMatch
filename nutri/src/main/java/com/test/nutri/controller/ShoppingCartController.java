@@ -44,7 +44,6 @@ public class ShoppingCartController {
 	        CustomUserDetails userDetails = (CustomUserDetails) principal;
 	        Integer seq = userDetails.getMember().getSeq();
 
-	        // 장바구니에 데이터 삽입
 	        shoppingCartRepository.insertIntoShoppingCart(seq, request.getProductInfoSeq());
 	        
 	        return ResponseEntity.ok("상품이 장바구니에 추가되었습니다.");
@@ -68,7 +67,6 @@ public class ShoppingCartController {
             seq = userDetails.getMember().getSeq();
             System.out.println("현재 회원 seq: " + seq);
         } else {
-            System.out.println("인증되지 않은 사용자입니다.");
             response.sendRedirect("/login");
             return null;
         }
