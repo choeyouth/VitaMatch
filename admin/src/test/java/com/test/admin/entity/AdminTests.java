@@ -61,4 +61,13 @@ public class AdminTests {
 		
 		return list;
 	}
+		
+	@Test
+	public void checkEncodedPasswords() {
+	    List<Admin> adminList = adminRepository.findAll();
+
+	    for (Admin admin : adminList) {
+	        System.out.println("Username: " + admin.getId() + ", Encoded Password: " + admin.getPw());
+	    }
+	}
 }

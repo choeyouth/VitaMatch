@@ -6,4 +6,6 @@ import com.test.admin.entity.Admin;
 
 public interface AdminRepository extends JpaRepository<Admin, Long>{
 
+	Admin findById(String id);
+
 }
