@@ -9,8 +9,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.test.admin.entity.Admin;
 
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString
 public class AdminDetails implements UserDetails {
 	
 	private Admin admin;

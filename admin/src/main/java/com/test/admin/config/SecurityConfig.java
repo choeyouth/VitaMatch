@@ -23,17 +23,14 @@ public class SecurityConfig {
             .anyRequest().authenticated());
 
 		//CSRF 토큰 해제
-		http.csrf(auth -> auth.disable());
+//		http.csrf(auth -> auth.disable());
 		
 		//커스텀 로그인 설정
 		http.formLogin(auth -> auth
 						.loginPage("/login") //사용자 로그인 페이지 URL
 						.defaultSuccessUrl("/") //로그인 성공시 페이지 URL 
 						.loginProcessingUrl("/login")
-					    .failureHandler((request, response, exception) -> {
-					        exception.printStackTrace(); // 콘솔에 로그인 실패 원인 출력
-					        response.sendRedirect("/login?error=true");
-					    })
+				        .failureUrl("/login?error=true") // 로그인 실패 시 이동할 URL
 						.permitAll());
 
 		return http.build();
