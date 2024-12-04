@@ -23,7 +23,9 @@ public class QShoppingCartInfo extends EntityPathBase<ShoppingCartInfo> {
 
     public final StringPath companyName = createString("companyName");
 
-    public final NumberPath<Long> ID = createNumber("ID", Long.class);
+    public final NumberPath<Long> id = createNumber("id", Long.class);
+
+    public final NumberPath<Long> member_seq = createNumber("member_seq", Long.class);
 
     public final NumberPath<Long> price = createNumber("price", Long.class);
 

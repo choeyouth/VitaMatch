@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>[[#{title}]]</title>
-	<th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
+<th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
 </head>
 <body>
 	<div class="container-fluid position-relative d-flex p-0">
@@ -28,29 +28,24 @@
 			<th:block th:insert="~{inc/nav.html :: nav}"></th:block>
 			<!-- Navbar End -->
 
-            <!-- Content Start -->
+			<!-- Content Start -->
 			<div class="container-fluid pt-4 px-4">
-				<div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary rounded h-100 p-4">
-                            <h6 class="mb-4">Notice</h6>
-                            <th:block th:object="${notice}">
-	                            <div class="form-floating mb-3">
-	                                <input type="title" class="form-control" id="floatingInput"
-	                                    placeholder="title" disabled>
-	                                <label for="floatingInput">[[*{title}]]</label>
-	                            </div>
-	                            <div class="form-floating">
-	                                <textarea class="form-control" placeholder="Leave a comment here"
-	                                    id="floatingTextarea" style="height: 150px;" name disabled></textarea>
-	                                <label for="floatingTextarea">[(*{content})]</label>
-	                            </div>
-                            </th:block>
-                        </div>
-					</div>
+				<div class="bg-secondary rounded h-100 p-4">
+					<h6 class="mb-4">Notice</h6>
+					<th:block th:object="${notice}">
+						<div class="form-floating mb-3">
+							<input type="title" class="form-control" id="floatingInput"
+								placeholder="title" disabled> <label for="floatingInput">[[*{title}]]</label>
+						</div>
+						<div class="form-floating">
+							<textarea class="form-control" placeholder="Leave a comment here"
+								id="floatingTextarea" style="height: 150px;" name disabled></textarea>
+							<label for="floatingTextarea">[(*{content})]</label>
+						</div>
+					</th:block>
 				</div>
 			</div>
-            <!-- Content End -->
+			<!-- Content End -->
 
 
 			<!-- Footer Start -->

@@ -72,7 +72,6 @@ public class NoticeController {
 	public String getNotice(Model model, @PathVariable(name = "seq", required = false) Long seq) {
 
 		Optional<Notice> notice = noticeService.get(seq);
-		System.out.println("why?");
 		
 		if(notice == null) {
 			return "page/error";
@@ -102,8 +101,6 @@ public class NoticeController {
 	public String putNotice(@PathVariable String seq, @RequestBody Notice notice) {
 
 		Notice result = noticeService.update(notice);
-
-		System.out.println(result);
 
 		return "redirect:/notice/" + seq;
 	}

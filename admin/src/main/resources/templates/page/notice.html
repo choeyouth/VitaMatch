@@ -28,33 +28,29 @@
 			<th:block th:insert="~{inc/nav.html :: nav}"></th:block>
 			<!-- Navbar End -->
 
-            <!-- Content Start -->
+			<!-- Content Start -->
 			<div class="container-fluid pt-4 px-4">
-				<div class="row g-4">
-					<div class="col-sm-12 col-xl-6">
-						<div class="bg-secondary rounded h-100 p-4">
-							<h6 class="mb-4">Notice</h6>
-							<table class="table">
-								<thead>
-									<tr>
-										<th scope="col">#</th>
-										<th scope="col">Title</th>
-										<th scope="col">Date</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr th:each="notice : ${list}" th:object="${notice}">
-										<th scope="row">[[*{seq}]]</th>
-										<td><a th:href="@{/notice/{seq}(seq=*{seq})}">[[*{title}]]</a></td>
-										<td>[[*{#temporals.format(regDate, 'yyyy.MM.dd')}]]</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
+				<div class="bg-secondary rounded h-100 p-4">
+					<h6 class="mb-4">Notice</h6>
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Title</th>
+								<th scope="col">Date</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="notice : ${list}" th:object="${notice}">
+								<th scope="row">[[*{seq}]]</th>
+								<td><a th:href="@{/notice/{seq}(seq=*{seq})}">[[*{title}]]</a></td>
+								<td>[[*{#temporals.format(regDate, 'yyyy.MM.dd')}]]</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
-            <!-- Content End -->
+			<!-- Content End -->
 
 
 			<!-- Footer Start -->

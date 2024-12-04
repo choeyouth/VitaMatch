@@ -38,9 +38,10 @@ public class AdminTests {
 		List<Admin> adminList = adminDTOList.stream().map(admin -> admin.toEntity()).toList();
 	
 		for(Admin admin: adminList) {
-			adminRepository.save(admin);
+			if(adminRepository.findById(admin.getId()) == null) {
+				adminRepository.save(admin);
+			}
 		}
-		System.out.println(adminList);
 		
 		assertEquals(10, adminRepository.count());
 	}
@@ -69,5 +70,17 @@ public class AdminTests {
 	    for (Admin admin : adminList) {
 	        System.out.println("Username: " + admin.getId() + ", Encoded Password: " + admin.getPw());
 	    }
+	}
+	
+	@Test
+	public void removeAdmin() {
+		
+		int num = 11;
+		
+		List<Admin> list = adminRepository.findBySeqGreaterThanEqual(11);
+		
+		list.stream().forEach(admin -> {
+			adminRepository.delete(admin);
+		});
 	}
 }
