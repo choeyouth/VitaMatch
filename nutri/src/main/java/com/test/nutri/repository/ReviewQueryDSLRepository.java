@@ -15,25 +15,25 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 /**
- * ReviewQureyDSLRepository는 QueryDSL을 이용하여 리뷰 관련 데이터를 조회하고 수정, 삭제하는 기능을 제공합니다.
- * 이 클래스는 리뷰와 관련된 다양한 데이터 처리 작업을 수행하며, 특히 페이징 처리 및 검색 기능을 지원합니다.
+ * ReviewQueryDSLRepository는 QueryDSL을 이용하여 리뷰 데이터를 조회, 수정, 삭제하는 기능을 제공합니다.
+ * 이 클래스는 리뷰 목록 페이징 처리, 키워드 검색, 리뷰 수정 및 삭제와 같은 작업을 지원합니다.
  * 
  * @author jiyun
  */
 @Repository
 @RequiredArgsConstructor
-public class ReviewQureyDSLRepository {
-	
+public class ReviewQueryDSLRepository {
+
 	private final JPAQueryFactory jpaQueryFactory;
 	private final QVwReview vwReview = QVwReview.vwReview;	//Q 클래스 선언
 	private final QReview review = QReview.review;	
 	private final QReviewImage reviewImage = QReviewImage.reviewImage;	
 	
 	/**
-	 * 주어진 리뷰 번호(seq)에 해당하는 리뷰 정보를 반환합니다.
+	 * 주어진 리뷰 고유 식별자(seq)에 해당하는 리뷰 정보를 반환합니다.
 	 * 
-	 * @param seq 리뷰의 고유 ID
-	 * @return 해당 리뷰의 {@link VwReview} 객체, 없으면 null
+	 * @param seq 리뷰의 고유 식별자
+	 * @return 해당 리뷰의 VwReview 객체, 없으면 null
 	 */
 	// seq가 일치하는 리뷰 필터링
 	public VwReview findReviewBySeq(Long seq) {
@@ -47,12 +47,12 @@ public class ReviewQureyDSLRepository {
 	/**
 	 * 페이징 처리된 전체 리뷰 리스트를 반환합니다.
 	 * 
-	 * @param offset 페이지 시작 위치
-	 * @param limit 한 번에 가져올 리뷰 수
-	 * @return 페이징된 {@link VwReview} 리스트
+	 * @param offset 페이지 오프셋 (시작 위치)
+	 * @param limit 페이지 제한 (가져올 리뷰 수)
+	 * @return 페이징된 리뷰 리스트
 	 */
 	// 전체 리뷰 페이징
-	public List<VwReview> findAllPagenation(int offset, int limit) {
+	public List<VwReview> findAllPagination(int offset, int limit) {
 		
 		return jpaQueryFactory
 					.selectFrom(vwReview)
@@ -64,7 +64,7 @@ public class ReviewQureyDSLRepository {
 	/**
 	 * 전체 리뷰의 개수를 반환합니다.
 	 * 
-	 * @return 전체 리뷰의 개수
+	 * @return 전체 리뷰 개수
 	 */
 	// 전체 리뷰 개수
 	public int count() {
@@ -78,10 +78,10 @@ public class ReviewQureyDSLRepository {
 	 * 주어진 키워드로 리뷰를 검색하고 페이징 처리된 결과를 반환합니다.
 	 * 키워드는 제목, 카테고리, 내용, 영양제 이름을 기준으로 검색됩니다.
 	 * 
-	 * @param offset 페이지 시작 위치
-	 * @param limit 한 번에 가져올 리뷰 수
-	 * @param keyword 검색할 키워드
-	 * @return 검색된 {@link VwReview} 리스트
+	 * @param offset 페이지 오프셋 (시작 위치)
+	 * @param limit 페이지 제한 (가져올 리뷰 수)
+	 * @param keyword 검색 키워드
+	 * @return 검색된 리뷰 리스트
 	 */
 	// keyword 검색
 	public List<VwReview> search(int offset, int limit, String keyword) {
@@ -105,12 +105,12 @@ public class ReviewQureyDSLRepository {
 	}
 
 	/**
-	 * 주어진 키워드로 검색한 결과의 개수를 반환합니다.
+	 * 주어진 키워드로 검색된 리뷰의 개수를 반환합니다.
 	 * 
-	 * @param keyword 검색할 키워드
-	 * @return 검색된 리뷰의 개수
+	 * @param keyword 검색 키워드
+	 * @return 검색된 리뷰 개수
 	 */
-	// keyword 검색 조건에 맞는 테이터의 개수
+	// keyword 검색 조건에 맞는 리뷰의 개수
 	public int count(String keyword) {
 
 		BooleanBuilder builder = new BooleanBuilder();
@@ -133,9 +133,9 @@ public class ReviewQureyDSLRepository {
 	}
 	
 	/**
-	 * 주어진 리뷰 번호(seq)에 해당하는 리뷰의 정보를 수정합니다.
+	 * 주어진 리뷰 고유 식별자(seq)에 해당하는 리뷰 정보를 수정합니다.
 	 * 
-	 * @param seq 수정할 리뷰의 고유 ID
+	 * @param seq 리뷰의 고유 식별자
 	 * @param category 수정할 카테고리
 	 * @param name 수정할 영양제 이름
 	 * @param title 수정할 제목
@@ -160,9 +160,9 @@ public class ReviewQureyDSLRepository {
 	}
 
 	/**
-	 * 주어진 리뷰 번호(seq)에 해당하는 리뷰와 그에 해당하는 리뷰 이미지를 삭제합니다.
+	 * 주어진 리뷰 고유 식별자(seq)에 해당하는 리뷰와 관련된 리뷰 이미지를 삭제합니다.
 	 * 
-	 * @param seq 삭제할 리뷰의 고유 ID
+	 * @param seq 리뷰의 고유 식별자
 	 */
 	// seq가 일치하는 리뷰 삭제
 	@Transactional
@@ -176,6 +176,4 @@ public class ReviewQureyDSLRepository {
 					   .where(review.seq.eq(seq))
 					   .execute();
 	}
-
-}	
-	
+}

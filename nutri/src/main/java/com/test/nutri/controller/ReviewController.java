@@ -15,30 +15,39 @@ import org.springframework.web.multipart.MultipartFile;
 import com.test.nutri.entity.Review;
 import com.test.nutri.entity.VwReview;
 import com.test.nutri.model.CustomUserDetails;
-import com.test.nutri.repository.ReviewImageRepository;
-import com.test.nutri.repository.ReviewQureyDSLRepository;
+import com.test.nutri.repository.ReviewQueryDSLRepository;
 import com.test.nutri.service.ReviewService;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * ReviewController는 리뷰와 관련된 모든 요청을 처리하는 컨트롤러 클래스입니다.
+ * 리뷰 검색, 페이징 처리, 리뷰 작성, 수정, 삭제, 및 상세 조회와 같은 기능을 제공합니다.
+ * 
+ * 주요 역할
+ * - 사용자가 입력한 키워드로 리뷰를 검색하고, 결과를 페이징 처리하여 반환
+ * - 리뷰 작성 및 수정 페이지 제공
+ * - 작성된 리뷰를 데이터베이스에 저장하고, 수정된 리뷰를 업데이트
+ * - 리뷰 삭제 요청 처리
+ * 
+ * @author jiyun
+ */
 @Controller
 @RequiredArgsConstructor
 public class ReviewController {
 	
-	private final ReviewQureyDSLRepository reviewQureyDSLRepository;
-	private final ReviewImageRepository reviewImageRepository;
+	private final ReviewQueryDSLRepository reviewQueryDSLRepository;
 	private final ReviewService reviewService;
    
 	/**
-	 * 리뷰 작성 페이지를 보여주는 메서드입니다.
-	 * 현재 인증된 사용자의 닉네임을 모델에 추가하여, 사용자가 리뷰를 작성할 수 있는 페이지를 반환합니다.
-	 * 인증되지 않은 사용자의 경우 로그인 페이지로 리다이렉트됩니다.
+	 * 리뷰 목록 페이지를 처리하는 메서드입니다.
+	 * 리뷰 목록을 페이징 처리하여 반환하며, 사용자가 입력한 검색 키워드로 리뷰를 검색할 수도 있습니다.
 	 *
 	 * @param model - 화면에 전달할 데이터 모델
-	 * @return - 리뷰 작성 페이지 ("page/addReview")
-	 * 
-	 * @author jiyun
+	 * @param keyword - 검색 키워드 (옵션, 없으면 전체 리뷰 조회)
+	 * @param page - 현재 페이지 번호 (기본값: 1)
+	 * @return - 리뷰 목록 페이지 ("page/review")
 	 */
 	@GetMapping("/review")
 	public String review(Model model 
@@ -49,7 +58,7 @@ public class ReviewController {
 		System.out.println(">>>>>>>>> keyword: " + keyword);
 		
 		// 총 리뷰 개수 조회
-		int count = reviewQureyDSLRepository.count(keyword);
+		int count = reviewQueryDSLRepository.count(keyword);
 		
 		// 페이지 당 리뷰 개수 및 최대 페이지 개수 
 		double maxListSize = 15;								//페이지 당 보여줄 최대 리뷰 수
@@ -58,7 +67,7 @@ public class ReviewController {
 		int offset = (int) ((page - 1) * maxListSize);			// 데이터 조회 시작 위치 계산
 
 		// DB에서 리뷰 검색
-		List<VwReview> list = reviewQureyDSLRepository.search(offset, (int) maxPageSize, keyword);
+		List<VwReview> list = reviewQueryDSLRepository.search(offset, (int) maxPageSize, keyword);
 		
         // 페이징 처리
 		StringBuilder sb = new StringBuilder();
@@ -108,44 +117,15 @@ public class ReviewController {
 	    
 	    return "page/review";
 	}
+
 	
 	/**
-	 * 사용자가 작성한 리뷰를 처리하고 저장하는 메서드입니다.
-	 * 리뷰 작성 후, 작성한 리뷰 목록 페이지로 리다이렉트합니다.
-	 * 인증되지 않은 사용자는 로그인 페이지로 리다이렉트됩니다.
+	 * 리뷰 작성 페이지를 보여주는 메서드입니다.
+	 * 현재 로그인된 사용자의 닉네임을 모델에 추가하여 사용자에게 리뷰 작성 페이지를 제공합니다.
+	 * 인증되지 않은 사용자의 경우 로그인 페이지로 리다이렉트됩니다.
 	 *
 	 * @param model - 화면에 전달할 데이터 모델
-	 * @param response - HTTP 응답 객체
-	 * @param title - 리뷰 제목
-	 * @param category - 리뷰 카테고리
-	 * @param name - 영양제명
-	 * @param content - 리뷰 내용
-	 * @param image - 첨부된 이미지 파일 (옵션)
-	 * @return - 리뷰 목록 페이지로 리다이렉트 ("redirect:/review")
-	 * @throws IOException - 이미지 파일 저장 중 발생할 수 있는 예외
-	 */
-	@GetMapping("/viewReview")
-	public String viewReview(Model model, @RequestParam(value = "seq", required = false) Long seq) {
-       
-		if (seq == null) {
-			return "redirect:/review";  
-		}
-       
-		VwReview vwreview = reviewQureyDSLRepository.findReviewBySeq(seq);
-      
-		model.addAttribute("review", vwreview);
-      
-		return "page/viewReview";
-	}
-   
-	/**
-	 * 선택한 리뷰의 상세 정보를 보여주는 메서드입니다.
-	 * 리뷰 일련번호 (seq)에 해당하는 리뷰의 상세 정보를 조회하여 반환합니다.
-	 * 리뷰가 존재하지 않으면, 리뷰 목록 페이지로 리다이렉트됩니다.
-	 *
-	 * @param model - 화면에 전달할 데이터 모델
-	 * @param seq - 리뷰 일련번호
-	 * @return - 리뷰 상세 페이지 ("page/viewReview")
+	 * @return - 리뷰 작성 페이지 ("page/addReview")
 	 */
 	@GetMapping("/addReview")
 	public String getAddReview(Model model) {
@@ -158,7 +138,7 @@ public class ReviewController {
 
 	    if (principal instanceof CustomUserDetails) {  
 	    	CustomUserDetails userDetails = (CustomUserDetails) principal;
-	        nickname = userDetails.getNickname();  	//사용자 nickname을 가져옴
+	        nickname = userDetails.getNickname();  	//사용자 nickname 가져옴
 	        System.out.println("현재 로그인한 닉네임: " + nickname);  // 닉네임 출력
 	    } else {
 	        System.out.println("인증되지 않은 사용자입니다.");
@@ -171,18 +151,21 @@ public class ReviewController {
 		return "page/addReview";
 	}
 	
+	
 	/**
-	 * 수정된 리뷰 정보를 저장하는 메서드입니다.
-	 * 리뷰가 성공적으로 수정되면, 해당 리뷰의 상세 페이지로 리다이렉트됩니다.
-	 * 수정 중 오류가 발생하면, 오류 메시지를 출력하고 수정 페이지로 리다이렉트됩니다.
+	 * 사용자가 작성한 리뷰를 처리하고 저장하는 메서드입니다.
+	 * 작성된 리뷰는 데이터베이스에 저장되며, 성공적으로 저장되면 리뷰 목록 페이지로 리다이렉트합니다.
+	 * 인증되지 않은 사용자는 로그인 페이지로 리다이렉트됩니다.
 	 *
 	 * @param model - 화면에 전달할 데이터 모델
-	 * @param seq - 수정할 리뷰의 일련번호
-	 * @param category - 수정된 리뷰 카테고리
-	 * @param name - 수정된 리뷰 영양제명
-	 * @param title - 수정된 리뷰 제목
-	 * @param content - 수정된 리뷰 내용
-	 * @return - 수정된 리뷰의 상세 페이지로 리다이렉트 ("redirect:/viewReview?seq={seq}")
+	 * @param response - HTTP 응답 객체
+	 * @param title - 리뷰 제목
+	 * @param category - 리뷰 카테고리
+	 * @param name - 영양제명
+	 * @param content - 리뷰 내용
+	 * @param image - 첨부된 이미지 파일 (옵션)
+	 * @return - 리뷰 목록 페이지로 리다이렉트 ("redirect:/review")
+	 * @throws IOException - 이미지 파일 저장 중 발생할 수 있는 예외
 	 */
 	@PostMapping("/addReview")
     public String postAddReview(Model model, HttpServletResponse response
@@ -235,18 +218,42 @@ public class ReviewController {
 	
 	
 	/**
-	 * 리뷰 삭제 요청을 처리하는 메서드입니다.
-	 * 삭제할 리뷰의 일련번호를 받아 삭제 확인 페이지를 보여줍니다.
+	 * 선택한 리뷰의 상세 정보를 보여주는 메서드입니다.
+	 * 리뷰 일련번호 (seq)에 해당하는 리뷰의 상세 정보를 조회하여 반환합니다.
+	 * 리뷰가 존재하지 않으면, 리뷰 목록 페이지로 리다이렉트됩니다.
 	 *
 	 * @param model - 화면에 전달할 데이터 모델
-	 * @param seq - 삭제할 리뷰 일련번호
-	 * @return - 리뷰 삭제 확인 페이지 ("page/delReview")
+	 * @param seq - 리뷰 일련번호
+	 * @return - 리뷰 상세 페이지 ("page/viewReview")
+	 */
+	@GetMapping("/viewReview")
+	public String viewReview(Model model, @RequestParam(value = "seq", required = false) Long seq) {
+		
+		if (seq == null) {
+			return "redirect:/review";  
+		}
+		
+		VwReview vwreview = reviewQueryDSLRepository.findReviewBySeq(seq);
+		
+		model.addAttribute("review", vwreview);
+		
+		return "page/viewReview";
+	}
+	
+	
+	/**
+	 * 수정할 리뷰의 정보를 가져와 수정 페이지를 보여주는 메서드입니다.
+	 * 해당 리뷰가 존재하지 않으면, 리뷰 목록 페이지로 리다이렉트됩니다.
+	 *
+	 * @param model - 화면에 전달할 데이터 모델
+	 * @param seq - 수정할 리뷰의 일련번호
+	 * @return - 리뷰 수정 페이지 (뷰 이름: "page/editReview")
 	 */
 	@GetMapping("/editReview")
 	public String getEditReview(Model model, @RequestParam(value = "seq") Long seq) {
        
 	   // seq를 기준으로 해당 리뷰 조회 
-	   VwReview vwreview = reviewQureyDSLRepository.findReviewBySeq(seq);
+	   VwReview vwreview = reviewQueryDSLRepository.findReviewBySeq(seq);
 	    
 	   if (vwreview == null) {
 	   
@@ -258,7 +265,21 @@ public class ReviewController {
 	   
 	   return "page/editReview";
 	}
+	
    
+	/**
+	 * 수정된 리뷰 정보를 저장하는 메서드입니다.
+	 * 리뷰가 성공적으로 수정되면, 해당 리뷰의 상세 페이지로 리다이렉트합니다.
+	 * 수정 중 오류가 발생하면 오류 메시지를 출력하고 수정 페이지로 리다이렉트됩니다.
+	 *
+	 * @param model - 화면에 전달할 데이터 모델
+	 * @param seq - 수정할 리뷰 일련번호
+	 * @param category - 수정된 리뷰 카테고리
+	 * @param name - 수정된 리뷰 영양제 이름
+	 * @param title - 수정된 리뷰 제목
+	 * @param content - 수정된 리뷰 내용
+	 * @return - 수정된 리뷰의 상세 페이지로 리다이렉트 ("redirect:/viewReview?seq={seq}")
+	 */
 	@PostMapping("/editReview")
 	public String postEditReview(Model model
 									, @RequestParam("seq") Long seq
@@ -269,11 +290,11 @@ public class ReviewController {
 		
 		try {
 			//리뷰 수정 처리
-			reviewQureyDSLRepository.updateReview(seq, category, name, title, content);
+			reviewQueryDSLRepository.updateReview(seq, category, name, title, content);
 			System.out.println(">>>>>>>>> " + seq + "번째 리뷰가 성공적으로 수정되었습니다.");
 			
 			// 수정된 리뷰를 다시 조회하여 모델에 추가
-	        VwReview updateReview = reviewQureyDSLRepository.findReviewBySeq(seq);
+	        VwReview updateReview = reviewQueryDSLRepository.findReviewBySeq(seq);
 	        model.addAttribute("review", updateReview);
 			
 		} catch (Exception e) {
@@ -285,26 +306,37 @@ public class ReviewController {
 		return "redirect:/viewReview?seq=" + seq;
 	}
 	
+	
 	/**
-	 * 리뷰 삭제를 처리하는 메서드입니다.
-	 * @param model
+	 * 리뷰 삭제 요청을 처리하는 메서드입니다.
+	 * 삭제할 리뷰의 일련번호를 받아 삭제 확인 페이지를 보여줍니다.
+	 *
+	 * @param model - 화면에 전달할 데이터 모델
 	 * @param seq - 삭제할 리뷰 일련번호
-	 * @return - 리뷰 목록 페이지
+	 * @return - 리뷰 삭제 확인 페이지 ("page/delReview")
 	 */
 	@GetMapping("/delReview") 
-	public String deleteReview(Model model, @RequestParam("seq") Long seq) {
+	public String getDeleteReview(Model model, @RequestParam("seq") Long seq) {
 		
 		model.addAttribute("seq", seq);
 		
 		return "page/delReview";
 	}
 	
+	
+	/**
+	 * 리뷰를 삭제하는 메서드입니다.
+	 * 리뷰 삭제가 성공적으로 처리되면 리뷰 목록 페이지로 리다이렉트됩니다.
+	 *
+	 * @param seq - 삭제할 리뷰의 일련번호
+	 * @return - 리뷰 목록 페이지로 리다이렉트 ("redirect:/review")
+	 */
 	@PostMapping("/delReview")
-	public String deleteReview(@RequestParam("seq") Long seq) {
+	public String postDeleteReview(@RequestParam("seq") Long seq) {
 	   
 		try {
 	        // DB에서 해당 리뷰 삭제
-	        reviewQureyDSLRepository.deleteReviewBySeq(seq);
+			reviewQueryDSLRepository.deleteReviewBySeq(seq);
 	        System.out.println(">>>>>>>>> " + seq + "번째 리뷰가 성공적으로 삭제되었습니다.");
 	        
 	    } catch (Exception e) {

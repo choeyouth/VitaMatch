@@ -31,7 +31,7 @@ public class ReviewService {
      * 
      * 리뷰 객체를 먼저 저장한 후, 해당 리뷰의 ID를 얻어옵니다.
      * 업로드된 이미지 파일이 있을 경우, 해당 이미지를 서버의 지정된 디렉토리에 저장하고,
-     * 저장된 이미지 정보를 {@link ReviewImage} 객체에 매핑하여 데이터베이스에 저장합니다.
+     * 저장된 이미지 정보를 ReviewImage 객체에 매핑하여 데이터베이스에 저장합니다.
      * 
      * @param review 저장할 리뷰 객체
      * @param image 리뷰와 관련된 이미지 파일

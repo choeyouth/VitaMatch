@@ -46,13 +46,13 @@ public class Review {
 	
 	/**
      * 리뷰를 작성한 사용자의 식별자
-     * 사용자의 `member_seq`와 연관되어 있습니다.
+     * 사용자의 'Member' 테이블의 'seq'와 연관되며, 해당 사용자와 리뷰를 연결합니다.
      */
 	private long member_seq;
 	
 	/**
      * 리뷰가 작성된 날짜 및 시간
-     * 리뷰 등록 시 자동으로 설정되며, 업데이트될 때마다 갱신됩니다.
+     * 리뷰가 등록되거나 수정될 때 자동으로 갱신됩니다.
      */
 	@UpdateTimestamp
 	@Column(name = "regDate")
@@ -84,7 +84,8 @@ public class Review {
 	
 	/**
      * 리뷰에 첨부된 이미지들의 리스트
-     * 리뷰와 관련된 이미지를 여러 개 첨부할 수 있으며, `ReviewImage` 엔티티와의 관계를 맺고 있습니다.
+     * 리뷰와 관련된 이미지를 여러 개 첨부할 수 있으며, 
+     * 'ReviewImage' 엔티티와는 'review' 필드를 통해 매핑됩니다.	
      */
 	@OneToMany(mappedBy = "review")  // ReviewImage에서 'review' 필드와 매핑
     private List<ReviewImage> reviewImages;
