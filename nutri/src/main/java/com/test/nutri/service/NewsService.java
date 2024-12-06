@@ -47,6 +47,15 @@ public class NewsService {
      * 이 레포지토리를 통해 복잡한 조건을 만족하는 뉴스 데이터들을 쿼리할 수 있습니다.
      */
 	private final NewsQueryDSLRepository newsQueryDSLRepository;
+	
+	public void updateNews() {
+//		최신 뉴스부터 최대 2024년 11월 뉴스까지 DB에 저장
+		if (newsRepository.count() > 0) {
+			updateLatestNewsBinary();
+		} else {
+			insertAllNews();
+		}
+	}
 
     /**
      * 주어진 오프셋과 리밋에 따라 뉴스 목록을 반환합니다.
@@ -60,14 +69,6 @@ public class NewsService {
      */
 	public List<NewsDTO> getNewsList(Integer offset, Integer limit) {
 
-//		최신 뉴스부터 2024년 11월 뉴스까지 DB에 저장
-		if (newsRepository.count() > 0) {
-//			updateLatestNews();
-			updateLatestNewsBinary();
-		} else {
-			insertAllNews();
-		}
-
 		return newsQueryDSLRepository.findAllPagenation(offset, limit).stream()
 				.map(news -> NewsDTO.builder().title(news.getTitle()).originallink(news.getOriginalLink())
 						.link(news.getLink()).description(news.getDescription()).pubDate(news.getRegDate()).build())
@@ -80,7 +81,7 @@ public class NewsService {
      * 뉴스 API에서 데이터를 가져와 뉴스 제목, 링크, 날짜 등을 기준으로 이미 DB에 저장된 뉴스가 있는지 확인하고,
      * 중복되지 않는 뉴스만 DB에 저장합니다.
      */
-	public void updateLatestNews() {
+	private void updateLatestNews() {
 
 		int start = 1;
 		boolean isFind = false;
@@ -134,7 +135,8 @@ public class NewsService {
 		while (start > 0) {
 			list = newsAPI.getNewsList(start);
 
-			if (list.getItems().getLast().getPubDate().compareTo(baseDate) <= 0) {
+//			API 검색 시작 위치 제한 때문에 조건 추가
+			if (list.getItems().getLast().getPubDate().compareTo(baseDate) <= 0 || start == 10) {
 				for (int i = list.getItems().size() - 1; i >= 0; i--) {
 					
 					news = list.getItems().get(i);
@@ -173,7 +175,7 @@ public class NewsService {
      * 
      * 이 메서드는 최신 뉴스만 삽입하도록 이진 검색 방식을 사용하여 뉴스 데이터를 추가합니다.
      */
-	public void updateLatestNewsBinary() {
+	private void updateLatestNewsBinary() {
 
 
 		int start = 1;

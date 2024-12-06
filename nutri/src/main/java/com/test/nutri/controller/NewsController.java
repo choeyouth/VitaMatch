@@ -37,6 +37,9 @@ public class NewsController {
      */
 	@GetMapping("/news")
 	public String news(Model model, @RequestParam(defaultValue = "1", name = "page") Integer page) {
+		
+		newsService.updateNews();
+		
 		int count = newsService.getCount();
 		double maxListSize = 6;
 		double maxPageSize = 10;
