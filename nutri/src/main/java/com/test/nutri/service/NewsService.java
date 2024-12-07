@@ -81,7 +81,7 @@ public class NewsService {
      * 뉴스 API에서 데이터를 가져와 뉴스 제목, 링크, 날짜 등을 기준으로 이미 DB에 저장된 뉴스가 있는지 확인하고,
      * 중복되지 않는 뉴스만 DB에 저장합니다.
      */
-	private void updateLatestNews() {
+	void updateLatestNews() {
 
 		int start = 1;
 		boolean isFind = false;
@@ -175,7 +175,7 @@ public class NewsService {
      * 
      * 이 메서드는 최신 뉴스만 삽입하도록 이진 검색 방식을 사용하여 뉴스 데이터를 추가합니다.
      */
-	private void updateLatestNewsBinary() {
+	void updateLatestNewsBinary() {
 
 
 		int start = 1;
