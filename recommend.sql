@@ -141,6 +141,8 @@ select * from ingredientDaily;
 
 commit;
 
+select * from vwGenderAgeRecommend;
+
 -- 성별 나이대별 영양제 성분 및 내용 뷰
 CREATE OR REPLACE VIEW vwGenderAgeRecommend AS
 SELECT 
@@ -158,7 +160,6 @@ INNER JOIN ingredientContent ic ON i.seq = ic.ingredient_seq;
 
 select * from vwGenderAgeRecommend;
 
-drop view vwGenderAgeRecommend;
 
 -- 건강검진 영양제 성분 및 내용 뷰
 CREATE VIEW vwHealthRecommend AS
@@ -175,8 +176,6 @@ INNER JOIN ingredientContent ic ON i.seq = ic.ingredient_seq;
 
 select * from vwHealthRecommend;
 
-drop view vwHealthRecommend;
-
 -- 주요 장기 영양제 성분 및 내용 뷰
 CREATE VIEW vwOrganRecommend AS
 SELECT io.seq, 
@@ -192,7 +191,7 @@ INNER JOIN ingredientContent ic ON i.seq = ic.ingredient_seq;
 
 select * from vwOrganRecommend;
 
-drop view vwOrganRecommend;
+
 
 -- 일상생활 영양제 성분 및 내용 뷰
 CREATE VIEW vwDailyRecommend AS
@@ -208,7 +207,11 @@ INNER JOIN ingredient i ON id.ingredient_seq = i.seq
 INNER JOIN ingredientContent ic ON i.seq = ic.ingredient_seq;
 
 select * from vwDailyRecommend;
-
-drop view vwDailyRecommend;
-
 commit;
+
+
+drop view vwHealthRecommend;
+drop view vwOrganRecommend;
+drop view vwDailyRecommend;
+drop view vwGenderAgeRecommend;
+

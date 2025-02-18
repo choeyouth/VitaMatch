@@ -23,13 +23,13 @@ public class QVwReview extends EntityPathBase<VwReview> {
 
     public final StringPath content = createString("content");
 
-    public final DateTimePath<java.time.LocalDateTime> createDate = createDateTime("createDate", java.time.LocalDateTime.class);
-
     public final StringPath image = createString("image");
 
     public final StringPath name = createString("name");
 
     public final StringPath nickname = createString("nickname");
+
+    public final DateTimePath<java.time.LocalDateTime> regDate = createDateTime("regDate", java.time.LocalDateTime.class);
 
     public final NumberPath<Long> seq = createNumber("seq", Long.class);
 

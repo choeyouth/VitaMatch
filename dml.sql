@@ -196,7 +196,28 @@ commit;
 select * from member;
 INSERT INTO member (username,email,password,name,nickname, dob, gender, telephone, status) 
 VALUES ('hong', 'hong@test.com','1111','hong','hong','2000-01-01','m','01012345678',1);
+INSERT INTO member (username,email,password,name,nickname, dob, gender, telephone, status) 
+VALUES ('dog', 'dog@test.com','1111','dog','dog','2000-01-01','m','01012345678',1);
+INSERT INTO member (username,email,password,name,nickname, dob, gender, telephone, status, address) 
+VALUES ('test', 'test@test.com','1111','test','test','2000-01-01','m','01012345678',1, '여기저기');
 
 
 select * from vwDailyRecommend;
 select * from ingredientDaily;
+
+select * from admin;
+select * from adminAuth;
+select * from adminAuthList;
+
+-- admin 
+INSERT INTO admin (seq, id, pw, name, birthDate, email) 
+VALUES (1, 'hong', '1111','hong', '2000-01-01', 'hong@test.com');
+
+INSERT INTO adminAuth (seq, role) 
+VALUES (1, 'admin');
+
+INSERT INTO adminAuthList (admin_seq, adminAuth_seq) 
+VALUES (1, 1);
+
+commit;
+
