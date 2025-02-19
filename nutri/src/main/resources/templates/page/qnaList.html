@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>[[#{menu.qna}]]</title>
+    <th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
+</head>
+
+<style>
+    .qna-section {
+        margin-top: 50px;
+    }
+    
+    .qna-list {
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 30px;
+    }
+
+    .qna-list th,
+    .qna-list td {
+        padding: 12px 15px;
+        text-align: center;
+        border-bottom: 1px solid #f4f4f4;
+    }
+
+    .qna-list th {
+        background-color: #f4f4f4;
+    }
+
+    .qna-list td {
+        vertical-align: middle;
+    }
+
+    .qna-item a {
+        text-decoration: none;
+        color: black;
+        font-weight: bold;
+    }
+
+    .qna-item a:hover {
+        color: #10D0A1;
+    }
+
+    .qna-search {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .qna-search input,
+    .qna-search button {
+        height: 40px;
+        font-size: 16px;
+        padding: 0 10px;
+        margin: 0 5px;
+    }
+
+    .qna-search input {
+        width: 400px;
+        border: 2px solid #cccccc;
+        border-radius: 5px;
+    }
+
+    .qna-search button {
+        background-color: #10D0A1;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .qna-search button:hover {
+        background-color: #0db58d;
+    }
+
+    .create-qna {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 20px;
+    }
+
+    .write-btn {
+        background-color: #10D0A1;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+
+    .write-btn:hover {
+        background-color: #0db58d;
+		color: white;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .pagination a {
+        padding: 8px 15px;
+        margin: 0 5px;
+        background-color: #f4f4f4;
+        border-radius: 5px;
+        text-decoration: none;
+        color: black;
+    }
+
+    .pagination a:hover,
+    .pagination .active {
+        background-color: #10D0A1;
+        color: white;
+    }
+	
+	.status-image {
+	    width: 20px;
+	    height: 20px;
+	}
+
+	
+
+
+</style>
+<body>
+    <th:block th:insert="~{inc/header.html :: index_header_menu}"></th:block>
+    <th:block th:insert="~{inc/header.html :: index_header_content_basic(#{menu.qna},#{menu.qna.desc})}"></th:block>
+	<div class="section services-section">
+		<div class="container">
+			<div class="row mb-5">
+				<div class="col-lg-5" data-aos="fade-up" data-aos-delay="">
+					<h3 class="subheading">Q&A 목록</h3>
+                    <h2 class="heading">Supplement Q&A</h2> 
+				</div>
+			</div> 
+
+			<!-- 검색 박스 -->
+			<div class="row mb-5">
+			    <div class="qna-search">
+			        <form class="search-box" method="GET" action="/qna">
+			            <input type="text" name="keyword" placeholder="검색어를 입력하세요" required>
+			            <button type="submit">검색하기</button>
+			        </form>
+			    </div>
+			</div>
+			
+            <!-- Q&A 목록 테이블 -->
+            <table class="qna-list">
+                <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>작성일</th>
+                        <th>해결 여부</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td class="qna-item">
+                            <a href="/viewQna">영양제 복용 시 주의사항</a>
+                        </td>
+                        <td>홍길동</td>
+                        <td>2025-02-19</td>
+						<td><img src="/img/qna/solved.png" alt="상태 이미지" class="status-image" /></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td class="qna-item">
+                            <a href="/qna?seq=2">단백질 보충제 섭취 방법</a>
+                        </td>
+                        <td>김철수</td>
+                        <td>2025-02-18</td>
+						<td><img src="/img/qna/solved.png" alt="상태 이미지" class="status-image" /></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td class="qna-item">
+                            <a href="/qna?seq=2">오메가3 효능</a>
+                        </td>
+                        <td>이영희</td>
+                        <td>2025-02-17</td>
+                        <td><img src="/img/qna/unsolved.png" alt="상태 이미지" class="status-image" /></td>
+							<!--
+						    <img th:src="@{/img/qna/{${qna.isSolved ? 'solved' : 'unsolved'}}.png}" 
+						         th:alt="상태 이미지" 
+						         th:classappend="${qna.isSolved ? 'solved' : 'unsolved'}" 
+						         class="status-image" /> -->
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- 작성하기 버튼 -->
+            <div class="create-qna">
+                <a href="/addQna" class="write-btn">작성하기</a>
+            </div>
+
+            <!-- 페이지네이션 -->
+            <div class="pagination">
+                <a href="#" th:each="page : ${pagination}" th:href="@{/qna?page={page}}" th:text="${page}">1</a>
+                <a href="#" th:each="page : ${pagination}" th:href="@{/qna?page={page}}" th:text="${page}">2</a>
+                <a href="#" th:each="page : ${pagination}" th:href="@{/qna?page={page}}" th:text="${page}">3</a>
+            </div>
+
+        </div>
+    </div>
+
+    <th:block th:insert="~{inc/footer.html :: footer}"></th:block>
+    <th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    
+</script>
+
+</html>
