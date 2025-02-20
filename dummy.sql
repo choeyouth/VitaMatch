@@ -128,7 +128,7 @@ VALUES (17, '어떤 영양제가 당뇨 예방에 좋나요?', '당뇨 예방을
 -- 질문 18
 INSERT INTO question (member_seq, title, content)
 VALUES (18, '어떤 영양제가 피부 미백에 좋나요?', '피부 미백을 위한 영양제를 추천해주세요.');
-
+ 
 -- 질문 19
 INSERT INTO question (member_seq, title, content)
 VALUES (19, '어떤 영양제가 노화 방지에 좋나요?', '노화 방지를 위한 영양제를 추천해주세요.');
