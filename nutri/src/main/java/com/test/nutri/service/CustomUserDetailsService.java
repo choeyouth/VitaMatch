@@ -1,5 +1,7 @@
 package com.test.nutri.service;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -41,6 +43,27 @@ public class CustomUserDetailsService implements UserDetailsService {
 		
 		return null; //로그인 실패
 	}
+	
+    public Integer getMemberSeqFromAuthentication() {
+    	
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = authentication.getPrincipal();
+
+        if (principal instanceof CustomUserDetails) {
+        	
+            CustomUserDetails customUserDetails = (CustomUserDetails) principal;
+            Integer seq = customUserDetails.getMember().getSeq();  // Member 객체에서 seq 값을 반환
+            System.out.println(seq);
+            return seq;
+            
+            
+        } else {
+            return null;  // 인증되지 않은 경우 null 반환
+        } 
+        
+    }
+    
+    
 	
 }
 
