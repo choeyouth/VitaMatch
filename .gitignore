@@ -32,6 +32,7 @@ application.yml
 # OS별 임시 파일
 .DS_Store
 Thumbs.db
+ehthumbs.db
 
 # Java 빌드 파일
 *.class
@@ -39,3 +40,17 @@ Thumbs.db
 *.war
 
 demo/HELP.md
+
+# IDE 관련 파일
+.idea/
+*.iml
+.vscode/
+
+
+# 로그 파일
+*.log
+logs/
+
+
+boot-jpa/
+
