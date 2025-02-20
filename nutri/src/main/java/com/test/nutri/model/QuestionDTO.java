@@ -2,8 +2,6 @@ package com.test.nutri.model;
 
 import java.time.LocalDateTime;
 
-
-import com.test.nutri.entity.Answer;
 import com.test.nutri.entity.Member;
 import com.test.nutri.entity.Question;
 
@@ -21,23 +19,24 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class answerDTO {
+public class QuestionDTO {
 
 	private Long seq;
 	private Long memberSeq;
-	private Long questionSeq;
+	private String title;
 	private String content;
-	
+	private Boolean isSolved;
 	private LocalDateTime regDate;
 	private LocalDateTime modDate;
-
-	public Answer toEntity(Member member, Question question) {
+	
+	public Question toEntity(Member member) {
 		
-		return Answer.builder()
+		return Question.builder()
 				      .seq(this.getSeq())
 				      .member(member)
-				      .question(question)
+				      .title(this.getTitle())
 				      .content(this.getContent())
+				      .isSolved(this.getIsSolved())
 				      .regDate(this.getRegDate())
 				      .modDate(this.getModDate())
 				      .build();
