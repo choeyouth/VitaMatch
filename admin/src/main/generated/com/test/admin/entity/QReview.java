@@ -23,7 +23,7 @@ public class QReview extends EntityPathBase<Review> {
 
     public final StringPath content = createString("content");
 
-    public final NumberPath<Long> member_seq = createNumber("member_seq", Long.class);
+    public final NumberPath<Long> memberSeq = createNumber("memberSeq", Long.class);
 
     public final DateTimePath<java.time.LocalDateTime> regDate = createDateTime("regDate", java.time.LocalDateTime.class);
 

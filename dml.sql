@@ -219,6 +219,7 @@ VALUES (1, 'admin');
 INSERT INTO adminAuthList (admin_seq, adminAuth_seq) 
 VALUES (1, 1);
 
+UPDATE admin SET pw = '$2a$10$MD6NGN6LcVQcthSf3o.oV.f47Bn6K2MDnoRtIFyKeuZ0pVlDGiGje' where seq = 1;
 select * from admin;
 
 commit;
