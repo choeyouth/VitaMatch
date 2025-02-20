@@ -4,8 +4,9 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.test.nutri.entity.Question;
+import com.test.nutri.entity.Answer;
 import com.test.nutri.entity.Member;
+import com.test.nutri.entity.Question;
 
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
@@ -22,25 +23,23 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class questionDTO {
+public class answerDTO {
 
 	private Long seq;
 	private Long memberSeq;
-	private String title;
+	private Long questionSeq;
 	private String content;
-	private Boolean isSolved;
-
+	
 	private LocalDateTime regDate;
 	private LocalDateTime modDate;
 
-	public Question toEntity(Member member) {
+	public Answer toEntity(Member member, Question question) {
 		
-		return Question.builder()
+		return Answer.builder()
 				      .seq(this.getSeq())
 				      .member(member)
-				      .title(this.getTitle())
+				      .question(question)
 				      .content(this.getContent())
-				      .isSolved(this.getIsSolved())
 				      .regDate(this.getRegDate())
 				      .modDate(this.getModDate())
 				      .build();
