@@ -87,6 +87,8 @@
 		.answer-info {
 		    padding-left: 20px;
 		    border-left: 5px solid #619BFF;
+			margin-top: 15px;
+			margin-bottom: 15px;
 		}
 
 		.answer-author {
@@ -256,26 +258,19 @@
 						<div class="qna-detail">
 						    <div class="question">
 						        <div class="qna-info">
-						            <h2 class="qna-title">오메가3 효능</h2> <!-- 제목 크게 -->
+						            <h2 class="qna-title" th:text="${question.title}"></h2> 
 						            <div class="qna-meta">
-						                <span class="author">작성자: 홍길동</span> <!-- 작성자 -->
-						                <span class="date">작성일: 2025-02-19</span> <!-- 작성일 -->
+						                <span class="author" th:text="${question.member.nickname}"></span> 
+						                <span class="date" th:text="${#temporals.format(question.modDate, 'yyyy-MM-dd HH:mm:ss')}"></span> 
 						            </div>
-						            <div class="qna-content">
-						                오메가3는 심혈관 건강에 좋고 뇌 기능 향상에 도움을 준다고 알려져 있습니다.
+						            <div class="qna-content" th:text="${question.content}">
 						            </div>
 						            <div class="qna-solved">
-						                <img src="/img/qna/solved.png" class="status-image" /> <!-- 해결 여부 이미지 -->
+						                <img src="/img/qna/solved.png" class="status-image" />
 						            </div>
 						        </div>
 						    </div>
 						</div>
-
-
-                        <!-- 해결 여부 (오른쪽 아래) -->
-                        <div class="status">
-                            <img src="/img/qna/solved.png" class="status-image" /> <!-- 임시 이미지 -->
-                        </div>
                     </div>
                 </div>
 
@@ -283,34 +278,15 @@
                 <div class="answer">
                     <h4>답변</h4>
                     <div class="answer-item">
-                        <div class="answer-info">
+						<span th:if="${answers.isEmpty()}">아직 답변이 없습니다.</span>
+                        <div class="answer-info" th:each="dto : ${answers}">
                             <div class="answer-author">
-                                <span class="nickname">답변자: 김철수</span>
-                                <span class="answer-date">2025-02-20</span>
+                                <span class="nickname">답변자: <span th:text="${dto.member.nickname}">김철수</span></span>
+                                <span class="answer-date" th:text="${#temporals.format(dto.modDate, 'yyyy-MM-dd HH:mm:ss')}"></span>
                             </div>
-                            <div class="answer-content">
-                                오메가3는 체내 염증 감소에도 도움을 주고, 뇌 세포 보호에 효과적입니다. 또한, 면역력을 강화하는데 유익한 성분이 포함되어 있어 꾸준한 섭취가 권장됩니다.
-                            </div>
+                            <p class="answer-content" th:text="${dto.content}"></p>
                         </div>
                     </div>
-					<div class="answer-item">
-                        <div class="answer-info">
-                            <div class="answer-author">
-                                <span class="nickname">답변자: 아무개</span>
-                                <span class="answer-date">2025-02-20</span>
-                            </div>
-                            <div class="answer-content">
-                             	로그인한 사용자. 수정, 삭제 권한 
-                            </div>
-							<!-- 수정/삭제 버튼 -->
-				            <div class="answer-buttons">
-				                <a href="/editAnswer" class="btn-edit">수정</a>
-				                <a href="/deleteAnswer?seq=2" class="btn-delete" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
-				            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 답변 작성 버튼 -->
                     <div class="write-answer">
                         <a href="/addAnswer" class="btn btn-answer">답변 작성하기</a>
                     </div>

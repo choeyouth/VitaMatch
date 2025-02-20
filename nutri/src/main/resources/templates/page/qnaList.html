@@ -122,11 +122,9 @@
 	    height: 20px;
 	}
 
-	
-
-
 </style>
 <body>
+	<!-- TODO: CSS 코드 분리 -->
     <th:block th:insert="~{inc/header.html :: index_header_menu}"></th:block>
     <th:block th:insert="~{inc/header.html :: index_header_content_basic(#{menu.qna},#{menu.qna.desc})}"></th:block>
 	<div class="section services-section">
@@ -159,38 +157,18 @@
                         <th>해결 여부</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td class="qna-item">
-                            <a href="/viewQna">영양제 복용 시 주의사항</a>
-                        </td>
-                        <td>홍길동</td>
-                        <td>2025-02-19</td>
-						<td><img src="/img/qna/solved.png" alt="상태 이미지" class="status-image" /></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td class="qna-item">
-                            <a href="/qna?seq=2">단백질 보충제 섭취 방법</a>
-                        </td>
-                        <td>김철수</td>
-                        <td>2025-02-18</td>
-						<td><img src="/img/qna/solved.png" alt="상태 이미지" class="status-image" /></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td class="qna-item">
-                            <a href="/qna?seq=2">오메가3 효능</a>
-                        </td>
-                        <td>이영희</td>
-                        <td>2025-02-17</td>
-                        <td><img src="/img/qna/unsolved.png" alt="상태 이미지" class="status-image" /></td>
-							<!--
-						    <img th:src="@{/img/qna/{${qna.isSolved ? 'solved' : 'unsolved'}}.png}" 
-						         th:alt="상태 이미지" 
-						         th:classappend="${qna.isSolved ? 'solved' : 'unsolved'}" 
-						         class="status-image" /> -->
+                <tbody th:if="${list != null}"> 
+                    <tr th:each="dto : ${list}">
+						<td th:text="${dto.seq}"></td>
+						<td class="qna-item">
+							<a th:href="'/viewQna?seq=' + ${dto.seq}" th:text="${dto.title}" >영양제 복용 시 주의사항</a>
+						</td>
+						<td th:text="${dto.member.nickname}"></td> 
+						<td th:text="${#temporals.format(dto.modDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+						<td>
+							<img th:src="@{'/img/qna/' + (${dto.isSolved} ? 'solved' : 'unsolved') + '.png'}"
+				         		 class="status-image" />
+					 	</td>
                     </tr>
                 </tbody>
             </table>
