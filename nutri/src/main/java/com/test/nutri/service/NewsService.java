@@ -100,7 +100,7 @@ public class NewsService {
 				}
 				start--;
 				return;
-			} if(!isFind && newsQueryDSLRepository.countByTitleAndLinkAndRegDate(list.getItems().getLast()) == 0) {
+			} else if(!isFind && newsQueryDSLRepository.countByTitleAndLinkAndRegDate(list.getItems().getLast()) == 0) {
 				start++;
 				return;
 			}
@@ -195,7 +195,7 @@ public class NewsService {
 				}
 				start--;
 				return;
-			} if(!isFind && newsQueryDSLRepository.countByTitleAndLinkAndRegDate(list.getItems().getLast()) == 0) {
+			} else if(!isFind && newsQueryDSLRepository.countByTitleAndLinkAndRegDate(list.getItems().getLast()) == 0) {
 				start++;
 				return;
 			}

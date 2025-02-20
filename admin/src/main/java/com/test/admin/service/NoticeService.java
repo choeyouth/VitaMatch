@@ -1,44 +1,27 @@
 package com.test.admin.service;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 
+import com.test.admin.board.BoardServiceImpl;
+import com.test.admin.dao.NoticeQueryRepository;
 import com.test.admin.dto.NoticeDTO;
 import com.test.admin.entity.Notice;
-import com.test.admin.repository.NoticeQueryDSLRepository;
 import com.test.admin.repository.NoticeRepository;
 
-import lombok.RequiredArgsConstructor;
-
 @Service
-@RequiredArgsConstructor
-public class NoticeService {
+public class NoticeService extends BoardServiceImpl<Notice, NoticeDTO> {
+
+	private final NoticeRepository repository;
+	private final NoticeQueryRepository queryRepository;
 	
-	private final NoticeRepository noticeRepository;
+	public NoticeService(NoticeRepository repository, NoticeQueryRepository queryRepository) {
+		super(repository);
+		this.repository = repository;
+		this.queryRepository = queryRepository;
+	}
+
+	public long count() {
+		return repository.count();
+	}
 	
-	private final NoticeQueryDSLRepository noticeQueryDSLRepository;
-
-	public int getCount() {
-		return (int) noticeRepository.count();
-	}
-
-	public List<NoticeDTO> getNoticeList(int offset, int limit) {
-		return noticeQueryDSLRepository.findAllPagenation(offset, limit)
-				.stream().map(notice -> notice.toDTO()).toList();
-	}
-
-	public Optional<Notice> get(Long seq) {
-		return noticeRepository.findById(seq);
-	}
-
-	public Notice insert(Notice notice) {
-		return noticeRepository.save(notice);
-	}
-
-	public Notice update(Notice notice) {
-		return noticeRepository.save(notice);
-	}
-
 }

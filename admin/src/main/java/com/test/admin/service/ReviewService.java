@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.test.admin.dao.ReviewQueryRepository;
 import com.test.admin.dto.ReviewDTO;
-import com.test.admin.repository.ReviewQueryDSLRepository;
 import com.test.admin.repository.ReviewRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ public class ReviewService {
 	
 	private final ReviewRepository reviewRepository;
 	
-	private final ReviewQueryDSLRepository reviewQueryDSLRepository;
+	private final ReviewQueryRepository reviewQueryDSLRepository;
 
 	public int getCount() {
 		return (int) reviewRepository.count();

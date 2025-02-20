@@ -2,6 +2,8 @@ package com.test.admin.entity;
 
 import java.time.LocalDate;
 
+import com.test.admin.board.Board;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

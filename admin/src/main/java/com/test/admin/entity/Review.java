@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import com.test.admin.dto.NoticeDTO;
 import com.test.admin.dto.ReviewDTO;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -36,8 +37,9 @@ public class Review {
 	private String content;
 	
 	private LocalDateTime regDate;
-	
-	private Long member_seq;
+
+	@Column(name = "admin_seq")
+	private Long memberSeq;
 	
 	public ReviewDTO toDTO() {
 //		return ReviewDTO.builder()

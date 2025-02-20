@@ -1,4 +1,4 @@
-package com.test.admin.repository;
+package com.test.admin.dao;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 
 @Repository
 @RequiredArgsConstructor
-public class ReviewQueryDSLRepository {
+public class ReviewQueryRepository {
 	
 	private final JPAQueryFactory jpaQueryFactory;
 

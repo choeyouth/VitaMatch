@@ -19,6 +19,7 @@ public class SecurityConfig {
             authorizeRequests
             .requestMatchers("/css/**", "/js/**", "/template/**").permitAll()// 정적 리소스 접근 허용
             .requestMatchers("/login").permitAll()
+            .requestMatchers("/board/**").denyAll()
             .requestMatchers("/**").authenticated()
             .anyRequest().authenticated());
 

@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.test.nutri.repository.NewsRepository;
+
 /**
  * {@link NewsService} 클래스의 메서드 성능을 테스트하는 클래스입니다. 주어진 두 메서드의 실행 시간을 측정하여 성능 개선
  * 여부를 비교합니다.
@@ -19,7 +21,10 @@ public class NewsServiceTest {
 	 * {@link NewsService} 클래스의 인스턴스. Spring의 의존성 주입을 통해 자동으로 주입됩니다.
 	 */
 	@Autowired
-	private NewsService newsService;
+	private NewsService service;
+	
+	@Autowired
+	private NewsRepository repository;
 
 	/**
 	 * {@link NewsService}의 두 메서드(`updateLatestNews`와 `updateLatestNewsBinary`)의 평균
@@ -28,32 +33,38 @@ public class NewsServiceTest {
 	 */
 	@Test
 	public void checkTime() {
-		int count = 30;
+		int rotateCount = 20;
 		long beforeAvg = 0;
 		long afterAvg = 0;
 
-		for (int i = 0; i < count; i++) {
+		long newsCount = repository.count();
+		
+		if(newsCount == 0) {
+			service.insertAllNews();
+		}
+		
+		for (int i = 0; i < rotateCount; i++) {
 			long startTime = System.nanoTime();
-			newsService.updateLatestNews();
+			service.updateLatestNews();
 
 			long endTime = System.nanoTime();
 
 			beforeAvg += endTime - startTime;
 		}
 
-		beforeAvg /= count;
+		beforeAvg /= rotateCount;
 
-		for (int i = 0; i < count; i++) {
+		for (int i = 0; i < rotateCount; i++) {
 			long startTime = System.nanoTime();
 
-			newsService.updateLatestNewsBinary();
+			service.updateLatestNewsBinary();
 
 			long endTime = System.nanoTime();
 
 			afterAvg += endTime - startTime;
 		}
 
-		afterAvg /= count;
+		afterAvg /= rotateCount;
 
 		System.out.printf("이전 메서드 평균 시간: %dns, %dms, %dsec\n", beforeAvg, (int) (beforeAvg / 1_000_000.0),
 				(int) (beforeAvg / 1_000_000_000.0));

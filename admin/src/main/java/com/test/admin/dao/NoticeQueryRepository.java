@@ -1,4 +1,4 @@
-package com.test.admin.repository;
+package com.test.admin.dao;
 
 import static com.test.admin.entity.QNotice.notice;
 
@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 @Repository
 @RequiredArgsConstructor
-public class NoticeQueryDSLRepository {
+public class NoticeQueryRepository {
 	
 	private final JPAQueryFactory jpaQueryFactory;
 

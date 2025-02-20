@@ -219,5 +219,7 @@ VALUES (1, 'admin');
 INSERT INTO adminAuthList (admin_seq, adminAuth_seq) 
 VALUES (1, 1);
 
+select * from admin;
+
 commit;
 

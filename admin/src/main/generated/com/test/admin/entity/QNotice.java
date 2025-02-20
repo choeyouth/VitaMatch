@@ -19,7 +19,7 @@ public class QNotice extends EntityPathBase<Notice> {
 
     public static final QNotice notice = new QNotice("notice");
 
-    public final NumberPath<Long> admin_seq = createNumber("admin_seq", Long.class);
+    public final NumberPath<Long> adminSeq = createNumber("adminSeq", Long.class);
 
     public final StringPath content = createString("content");
 

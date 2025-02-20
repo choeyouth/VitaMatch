@@ -16,16 +16,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @Controller
-public class AdminController {
+public class MainController {
 
 	@GetMapping("/")
 	public String main() {
-		return "main";
+		return "page/index";
 	}
 	
 	@GetMapping("/login")
 	public String getLogin() {
-		return "page/login";
+		return "page/auth/login";
 	}
 
 	@GetMapping("/logout")
