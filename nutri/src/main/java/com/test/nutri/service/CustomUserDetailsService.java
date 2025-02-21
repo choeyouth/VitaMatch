@@ -44,7 +44,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 		return null; //로그인 실패
 	}
 	
-    public Integer getMemberSeqFromAuthentication() {
+    public Integer getLoginSeqFromAuthentication() {
     	
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal();
@@ -53,9 +53,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         	
             CustomUserDetails customUserDetails = (CustomUserDetails) principal;
             Integer seq = customUserDetails.getMember().getSeq();  // Member 객체에서 seq 값을 반환
-            System.out.println(seq);
             return seq;
-            
             
         } else {
             return null;  // 인증되지 않은 경우 null 반환

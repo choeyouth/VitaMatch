@@ -5,123 +5,10 @@
     <meta charset="UTF-8">
     <title>[[#{menu.qna}]]</title>
     <th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
+	<link rel="stylesheet" th:href="@{css/qna.css}">
 </head>
 
 <style>
-    .qna-section {
-        margin-top: 50px;
-    }
-    
-    .qna-list {
-        border-collapse: collapse;
-        width: 100%;
-        margin-bottom: 30px;
-    }
-
-    .qna-list th,
-    .qna-list td {
-        padding: 12px 15px;
-        text-align: center;
-        border-bottom: 1px solid #f4f4f4;
-    }
-
-    .qna-list th {
-        background-color: #f4f4f4;
-    }
-
-    .qna-list td {
-        vertical-align: middle;
-    }
-
-    .qna-item a {
-        text-decoration: none;
-        color: black;
-        font-weight: bold;
-    }
-
-    .qna-item a:hover {
-        color: #10D0A1;
-    }
-
-    .qna-search {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 20px;
-    }
-
-    .qna-search input,
-    .qna-search button {
-        height: 40px;
-        font-size: 16px;
-        padding: 0 10px;
-        margin: 0 5px;
-    }
-
-    .qna-search input {
-        width: 400px;
-        border: 2px solid #cccccc;
-        border-radius: 5px;
-    }
-
-    .qna-search button {
-        background-color: #10D0A1;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    .qna-search button:hover {
-        background-color: #0db58d;
-    }
-
-    .create-qna {
-        display: flex;
-        justify-content: flex-end;
-        margin-top: 20px;
-    }
-
-    .write-btn {
-        background-color: #10D0A1;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        padding: 10px 20px;
-        cursor: pointer;
-    }
-
-    .write-btn:hover {
-        background-color: #0db58d;
-		color: white;
-    }
-
-    .pagination {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-    }
-
-    .pagination a {
-        padding: 8px 15px;
-        margin: 0 5px;
-        background-color: #f4f4f4;
-        border-radius: 5px;
-        text-decoration: none;
-        color: black;
-    }
-
-    .pagination a:hover,
-    .pagination .active {
-        background-color: #10D0A1;
-        color: white;
-    }
-	
-	.status-image {
-	    width: 20px;
-	    height: 20px;
-	}
-
 </style>
 <body>
 	<!-- TODO: CSS 코드 분리 -->
@@ -164,10 +51,9 @@
 							<a th:href="'/viewQna?seq=' + ${dto.seq}" th:text="${dto.title}" >영양제 복용 시 주의사항</a>
 						</td>
 						<td th:text="${dto.member.nickname}"></td> 
-						<td th:text="${#temporals.format(dto.modDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+						<td th:text="${#dates.format(dto.modDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
 						<td>
-							<img th:src="@{'/img/qna/' + (${dto.isSolved} ? 'solved' : 'unsolved') + '.png'}"
-				         		 class="status-image" />
+							<img th:src="@{'/img/qna/' + (${dto.isSolved} ? 'solved' : 'unsolved') + '.png'}" class="status-image" />
 					 	</td>
                     </tr>
                 </tbody>
@@ -175,7 +61,7 @@
 
             <!-- 작성하기 버튼 -->
             <div class="create-qna">
-                <a href="/addQna" class="write-btn">작성하기</a>
+                <a href="/addQuestionView" class="write-btn">작성하기</a>
             </div>
 
             <!-- 페이지네이션 -->

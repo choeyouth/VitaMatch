@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>[[#{menu.qna}]]</title>
+    <th:block th:insert="~{inc/asset.html :: templates_css}"></th:block>
+	<link rel="stylesheet" th:href="@{css/qna.css}">
+</head>
+<style>
+</style>
+
+<body>
+    <th:block th:insert="~{inc/header.html :: index_header_menu}"></th:block>
+    <th:block th:insert="~{inc/header.html :: index_header_content_basic(#{menu.qna},#{menu.qna.desc})}"></th:block>
+
+    <div class="section services-section">
+        <div class="edit-container">
+            <div class="row mb-5">
+                <div class="col-lg-12" data-aos="fade-up" data-aos-delay="">
+                    <h3 class="subheading">Q&A 수정하기</h3>
+                    <h2 class="edit-title">Q&A 수정</h2>
+                </div>
+            </div>
+
+			<div class="edit-form">
+			    <form th:action="@{/editQuestion/{seq}(seq=${question.seq})}" method="post">
+			        <label for="qna-title">제목</label>
+			        <input type="text" id="qna-title" name="title" th:value="${question.title}" required>
+			        
+			        <label for="qna-content">내용</label>
+			        <textarea id="qna-content" name="content" th:text="${question.content}" required></textarea>
+
+			        <input type="hidden" name="author" th:value="${question.member.nickname}">
+			        <input type="hidden" name="date" th:value="${#dates.format(question.modDate, 'yyyy-MM-dd HH:mm:ss')}">
+
+			        <div class="edit-buttons">
+			            <button type="submit">수정 완료</button>
+			            <a th:href="'/qnaDetail?seq=' + ${question.seq}" class="btn cancel-button">취소</a>
+			        </div>
+			    </form>
+			</div>
+        </div>
+    </div>
+
+    <th:block th:insert="~{inc/footer.html :: footer}"></th:block>
+    <th:block th:insert="~{inc/asset.html :: templates_js}"></th:block>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script></script>
+</html>
