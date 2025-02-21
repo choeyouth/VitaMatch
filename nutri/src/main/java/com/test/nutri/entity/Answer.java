@@ -1,7 +1,8 @@
 package com.test.nutri.entity;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,8 +30,13 @@ public class Answer {
 	private Long seq;
 
 	private String content;
-	private LocalDateTime regDate;
-	private LocalDateTime modDate;
+	
+    @Column(updatable = false, nullable = false)
+    private Timestamp regDate = new Timestamp(System.currentTimeMillis());  
+
+    @Column(nullable = false)
+    private Timestamp modDate = new Timestamp(System.currentTimeMillis());  
+
 	
 	//자식 > 부모 참조
 	@ManyToOne

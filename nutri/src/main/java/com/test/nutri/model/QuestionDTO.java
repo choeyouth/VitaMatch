@@ -22,7 +22,7 @@ import lombok.ToString;
 public class QuestionDTO {
 
 	private Long seq;
-	private Long memberSeq;
+	private Integer memberSeq;
 	private String title;
 	private String content;
 	private Boolean isSolved;
@@ -36,9 +36,7 @@ public class QuestionDTO {
 				      .member(member)
 				      .title(this.getTitle())
 				      .content(this.getContent())
-				      .isSolved(this.getIsSolved())
-				      .regDate(this.getRegDate())
-				      .modDate(this.getModDate())
+				      .isSolved(this.getIsSolved()) 
 				      .build();
 	}
 }

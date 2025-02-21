@@ -37,8 +37,6 @@ public class AnswerDTO {
 				      .member(member)
 				      .question(question)
 				      .content(this.getContent())
-				      .regDate(this.getRegDate())
-				      .modDate(this.getModDate())
 				      .build();
 	}
 }

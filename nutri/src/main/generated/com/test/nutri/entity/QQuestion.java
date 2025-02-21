@@ -28,9 +28,9 @@ public class QQuestion extends EntityPathBase<Question> {
 
     public final QMember member;
 
-    public final DateTimePath<java.time.LocalDateTime> modDate = createDateTime("modDate", java.time.LocalDateTime.class);
+    public final DateTimePath<java.sql.Timestamp> modDate = createDateTime("modDate", java.sql.Timestamp.class);
 
-    public final DateTimePath<java.time.LocalDateTime> regDate = createDateTime("regDate", java.time.LocalDateTime.class);
+    public final DateTimePath<java.sql.Timestamp> regDate = createDateTime("regDate", java.sql.Timestamp.class);
 
     public final NumberPath<Long> seq = createNumber("seq", Long.class);
 
