@@ -9,6 +9,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PostPersist;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,6 +43,19 @@ public class Question {
     @Column(nullable = false)
     private Timestamp modDate = new Timestamp(System.currentTimeMillis());  
 
+    @PrePersist
+    @PostPersist
+    public void prePersist() {
+        if (regDate == null) {
+        	regDate = new Timestamp(System.currentTimeMillis());
+        }
+        if (modDate == null) {
+            modDate = new Timestamp(System.currentTimeMillis());
+        }
+        if (isSolved == null) {
+        	isSolved = false;
+        }
+    } 
 	
 	//자식 > 부모 참조
 	//@ManyToOne(fetch = LAZY)
