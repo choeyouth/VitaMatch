@@ -367,7 +367,28 @@ CREATE TABLE `ingredientDaily` (
     FOREIGN KEY (ingredient_seq) REFERENCES ingredient(seq)
 );
 
+CREATE TABLE question (
+    seq INT AUTO_INCREMENT PRIMARY KEY,  	       -- 질문 ID
+    member_seq INT NOT NULL,                       -- 작성한 회원 ID
+    title VARCHAR(255) NOT NULL,                   -- 질문 제목
+    content TEXT NOT NULL,                         -- 질문 내용
+    isSolved BOOLEAN DEFAULT FALSE,                -- 해결 여부
+    regDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,   -- 등록일
+    modDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- 수정일
+    FOREIGN KEY (member_seq) REFERENCES member(seq)  -- 외래 키로 회원과 연결
+);
 
+
+CREATE TABLE answer (
+    seq INT AUTO_INCREMENT PRIMARY KEY,             -- 답변 ID
+    member_seq INT NOT NULL,                        -- 작성한 회원 ID
+    question_seq INT NOT NULL,                      -- 연결된 질문 ID
+    content TEXT NOT NULL,                          -- 답변 내용
+    regDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,   -- 답변 등록일
+    modDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- 수정일
+    FOREIGN KEY (question_seq) REFERENCES question(seq), -- 외래 키로 질문과 연결
+    FOREIGN KEY (member_seq) REFERENCES member(seq)  -- 외래 키로 회원과 연결
+);
 
 select * from member;
 

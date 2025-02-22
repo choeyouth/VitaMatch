@@ -40,7 +40,6 @@ UPDATE question
 SET isSolved = TRUE
 WHERE seq = 1;  -- 질문 ID가 1번인 질문을 해결됨으로 표시
 
-
 -- 질문과 답변을 조회
 SELECT q.seq AS question_seq, q.title, q.content AS question_content, isSolved, 
        a.seq AS answer_seq, a.content AS answer_content
