@@ -271,14 +271,15 @@
 
  .qna-search input,
  .qna-search button {
-     height: 40px;
+     height: 45px;
      font-size: 16px;
      padding: 0 10px;
      margin: 0 5px;
+	 text-align: center;
  }
 
  .qna-search input {
-     width: 400px;
+     width: 500px;
      border: 2px solid #cccccc;
      border-radius: 5px;
  }
@@ -567,3 +568,26 @@
 }
    
 
+.icon-search2,
+.icon-edit {
+	font-weight: bold;
+}
+
+.custom-button a {
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	font-weight: bold;
+	border-radius: 50%;
+	background: rgba(16, 208, 161, 0.1);
+	color:rgb(100, 116, 128) ;
+	text-align: center;
+	margin: 5px;
+}
+
+.custom-button a:hover,
+.custom-button a.active {
+	background: #10D0A1;
+	color: #fff;
+}

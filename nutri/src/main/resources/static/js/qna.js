@@ -1,4 +1,4 @@
-$(document).ready(function() {
+	$(document).ready(function() {
     $(".solve-btn").hover(
         function() {
             $(this).attr("src", "/img/qna/solved.png");
@@ -53,7 +53,7 @@ function deleteQuestion(seq) {
     .catch(error => console.error("Error:", error));
 }
 
-$('.btn-delete').click(function(e) {
+$('.answer-delete').click(function(e) {
     e.preventDefault();
     if(confirm('정말 삭제하시겠습니까?')) {
         var url = $(this).attr('href');

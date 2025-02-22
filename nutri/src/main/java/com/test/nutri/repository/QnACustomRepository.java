@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.test.nutri.entity.Answer;
 import com.test.nutri.entity.Question;
@@ -99,6 +100,42 @@ public class QnACustomRepository {
 				.delete(answer)
 				.where(answer.seq.eq(seq))
 				.execute();
+	}
+
+	public List<Question> findAllPagenationByKeyword(int offset, int limit, String keyword) {
+		
+		BooleanExpression condition = keywordCondition(keyword);
+		
+		return jpaQueryFactory
+				.selectFrom(question)
+				.where(condition)
+				.orderBy(question.seq.desc())
+				.offset(offset)
+				.limit(limit)
+				.fetch();
+	}
+	
+
+	public int count(String keyword) {
+		
+		BooleanExpression condition = keywordCondition(keyword);
+		
+		//TODO: question.count() 후 하는 게 성능 좋을 수 있음 > 리팩 
+		return (int)jpaQueryFactory
+				.selectFrom(question)
+				.where(condition)
+				.fetch()
+				.size();
+	}
+	
+	private BooleanExpression keywordCondition(String keyword) {
+		
+		if (keyword != null && !keyword.trim().isEmpty()) {
+	        return question.title.contains(keyword)
+	                .or(question.content.contains(keyword));
+	    }
+	    
+	    return null;
 	}
 
 

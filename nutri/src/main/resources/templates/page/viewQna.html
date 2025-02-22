@@ -64,7 +64,7 @@
                             <p class="answer-content" th:text="${dto.content}"></p>
 							<div th:if="${dto.member.seq == loginSeq}" class="answer-buttons">
 								<a th:href="@{/editAnswerView(seq=${dto.seq})}" class="btn-edit">수정</a>
-								<a th:href="@{/delAnswer/{seq}(seq=${dto.seq})}" class="btn-delete">삭제</a>
+								<a th:href="@{/delAnswer/{seq}(seq=${dto.seq})}" class="btn-delete answer-delete">삭제</a>
 				            </div>
                         </div>
                     </div>

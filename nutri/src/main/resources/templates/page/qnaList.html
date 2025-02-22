@@ -11,7 +11,6 @@
 <style>
 </style>
 <body>
-	<!-- TODO: CSS 코드 분리 -->
     <th:block th:insert="~{inc/header.html :: index_header_menu}"></th:block>
     <th:block th:insert="~{inc/header.html :: index_header_content_basic(#{menu.qna},#{menu.qna.desc})}"></th:block>
 	<div class="section services-section">
@@ -27,8 +26,10 @@
 			<div class="row mb-5">
 			    <div class="qna-search">
 			        <form class="search-box" method="GET" action="/qna">
-			            <input type="text" name="keyword" placeholder="검색어를 입력하세요" required>
-			            <button type="submit">검색하기</button>
+			            <input type="text" name="keyword" th:value="${keyword}" placeholder="검색어를 입력하세요" required>
+			            <button type="submit">
+							<span class="icon-search2"> 검색하기</span>
+						</button>
 			        </form>
 			    </div>
 			</div>
@@ -59,18 +60,22 @@
                 </tbody>
             </table>
 
-            <!-- 작성하기 버튼 -->
+            <!-- 작성하기 버튼 --> 
             <div class="create-qna">
-                <a href="/addQuestionView" class="write-btn">작성하기</a>
+                <a href="/addQuestionView" class="write-btn">
+					<span class="icon-edit"> 작성하기</span>
+				</a>
             </div>
 
             <!-- 페이지네이션 -->
-            <div class="pagination">
-                <a href="#" th:each="page : ${pagination}" th:href="@{/qna?page={page}}" th:text="${page}">1</a>
-                <a href="#" th:each="page : ${pagination}" th:href="@{/qna?page={page}}" th:text="${page}">2</a>
-                <a href="#" th:each="page : ${pagination}" th:href="@{/qna?page={page}}" th:text="${page}">3</a>
-            </div>
-
+			<div class="row align-items-center py-5">
+				<div class="col-lg-3"></div>
+				<div class="col-lg-6 text-center">
+					<div class="custom-pagination custom-button">
+						[(${sb})]
+					</div>
+				</div>
+			</div> 
         </div>
     </div>
 
