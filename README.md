@@ -34,9 +34,9 @@
 
 -   **프로그래밍 언어**: Java 21, HTML5, CSS, JavaScript, SQL
 -   **프레임워크 및 라이브러리**:
-  -   Spring Boot, Gradle, Spring Web, Spring Boot Security, Spring MVC, Spring Boot Devtools, Lombok, HikariCP, JPA, Query DSL, Thymeleaf, Jackson
-  -   jQuery, Ajax, Bootstrap, RESTful API, HttpURLConnection
-  -   Kakao Maps API, 전국 약국 조회 API, Naver Search API, OpenAI API
+    -   Spring Boot, Gradle, Spring Web, Spring Boot Security, Spring MVC, Spring Boot Devtools, Lombok, HikariCP, JPA, Query DSL, Thymeleaf, Jackson
+    -   jQuery, Ajax, Bootstrap, RESTful API, HttpURLConnection
+    -   Kakao Maps API, 전국 약국 조회 API, Naver Search API, OpenAI API
 <br>
 
 ## 성과
