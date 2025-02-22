@@ -35,20 +35,7 @@ public class QnAController {
                               @RequestParam(value = "keyword", required = false) String keyword,
                               Model model) {
 
-        // 시작 시간 기록
-        long startTime = System.currentTimeMillis();
-
-        // QnA 데이터를 가져오는 서비스 호출
         QnAService.PagResult result = qnaService.getQnaPag(page, keyword);
-
-        // 끝 시간 기록
-        long endTime = System.currentTimeMillis();
-
-        // 페이지 로딩 시간 계산
-        long duration = endTime - startTime; // 밀리초 단위로 반환
-
-        // 콘솔에 로딩 시간 출력
-        System.out.println("페이지 로딩 시간: " + duration + " ms");
 
         // 기존 모델 데이터 추가
         model.addAttribute("sb", result.getPagHtml());
