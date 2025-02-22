@@ -20,16 +20,22 @@
 - **리뷰 작성 및 키워드 검색 기능**
 <br>
 
-## 주요 사용 기술
+## 개발 환경
 
-- Spring Boot
-- JPA
-- QueryDSL
-- Thymeleaf
-- Kakao Maps API
-- JSTL/EL
-- AJAX
+-   **운영체제**: Windows 10/11, maxOS, Linux(Ubuntu)
+-   **서버**: Apache Tomcat, AWS EC2
+-   **데이터베이스**: MySQL 8
+-   **개발 툴**: STS 4, Visual Studio Code, SQL Developer
+-   **협업 툴**: GitHub, Notion, Discord, ERD Cloud, Draw.io, Figma, Google Drive
+<br>
 
+## 사용 기술
+
+-   **프로그래밍 언어**: Java 21, HTML5, CSS, JavaScript, SQL
+-   **프레임워크 및 라이브러리**:
+    -   Spring Boot, Gradle, Spring Web, Spring Boot Security, Spring MVC, Spring Boot Devtools, Lombok, HikariCP, JPA, Query DSL, Thymeleaf, Jackson
+    -   jQuery, Ajax, Bootstrap, RESTful API, HttpURLConnection
+    -   Kakao Maps API, 전국 약국 조회 API, Naver Search API, OpenAI API
 <br>
 
 ## 성과
