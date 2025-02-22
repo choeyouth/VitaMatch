@@ -37,15 +37,6 @@
     -   Spring Boot, Gradle, Spring Web, Spring Boot Security, Spring MVC, Spring Boot Devtools, Lombok, HikariCP, JPA, Query DSL, Thymeleaf, Jackson
     -   jQuery, Ajax, Bootstrap, RESTful API, HttpURLConnection
     -   Kakao Maps API, 전국 약국 조회 API, Naver Search API, OpenAI API
-<br>
-
-## 성과
-
-1. 사용자 설문 데이터를 기반으로 맞춤형 영양제 추천 기능 구현
-2. Kakao Maps API를 활용한 GPS 기반 약국 검색 및 상세 정보 제공
-3. QueryDSL을 통해 데이터 중복 제거 및 최신 데이터 동기화
-4. 동적 페이지 렌더링으로 사용자 친화적인 UI/UX 구현
-5. Spring Boot와 REST API로 확장성과 유지보수성을 강화
 
 
 
