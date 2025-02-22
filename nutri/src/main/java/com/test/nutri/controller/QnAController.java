@@ -37,7 +37,6 @@ public class QnAController {
 
         QnAService.PagResult result = qnaService.getQnaPag(page, keyword);
 
-        // 기존 모델 데이터 추가
         model.addAttribute("sb", result.getPagHtml());
         model.addAttribute("list", result.getQuestions());
         model.addAttribute("keyword", result.getKeyword());

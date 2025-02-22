@@ -4,6 +4,8 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 
@@ -25,27 +27,36 @@ public class QnAService {
 	private final QnACustomRepository qnaCustomRepository;
 	private final QuestionRepository questionRepository;
 	private final AnswerRepository answerRepository;
+	private final CacheManager cacheManager;
 	
 	private static final double MAX_LIST = 10;
 	private static final double MAX_PAGE = 9;
 	
 	public PagResult getQnaPag(int page, String keyword) {
+	    Long offset = calculateOffset(page);
 	    
-		Long count = qnaCustomRepository.count(keyword);
+	    // 캐시에서 데이터를 먼저 조회
+	    List<Question> cachedData = findCachedData(offset, MAX_LIST, keyword);
+	    List<Question> list;
+	    
+	    if (cachedData != null) {
+	        list = cachedData;
+	    } else {
+	        list = qnaCustomRepository.findAllPagenationByKeyword(offset, (int) MAX_LIST, keyword);
+		    saveToCache(list, offset, keyword);
+	    }
 
-        // 전체 페이지 개수 계산
-		Long pageCount = calculatePageCount(count);
+	    // 전체 데이터 개수를 세는 부분
+	    Long count = qnaCustomRepository.count(keyword);
 
-        // 현재 페이지에 맞는 데이터의 시작 인덱스 계산
-		Long offset = calculateOffset(page);
+	    // 전체 페이지 개수 계산
+	    Long pageCount = calculatePageCount(count);
 
-        List<Question> list = qnaCustomRepository.findAllPagenationByKeyword(offset, (int) MAX_LIST, keyword);
+	    // 페이지 번호 로직
+	    String paginationHtml = generatePagHtml(page, pageCount, keyword);
 
-        // 페이지 번호 로직
-        String paginationHtml = generatePagHtml(page, pageCount, keyword);
-
-        return new PagResult(paginationHtml, list, keyword);
-    }
+	    return new PagResult(paginationHtml, list, keyword);
+	}
 
 	public Question getQuestionBySeq(Long seq) {
 	    return qnaCustomRepository.findQuestionBySeq(seq);
@@ -73,14 +84,9 @@ public class QnAService {
 	            .build();
 
 	    questionRepository.save(question);
-	    saveToCache(question);
-
+	    clearAllCache();
+	    
 	    return question.getSeq();
-	}
-
-	@CachePut(value = "qnaCache", key = "#question.seq")
-	public Question saveToCache(Question question) {
-	    return question; 
 	}
 
     public long addAnswer(Long qSeq, String content, Integer loginSeq) {
@@ -97,6 +103,7 @@ public class QnAService {
     }
 
 	public long updateQuestion(QuestionDTO dto) {
+		clearAllCache();
 		return qnaCustomRepository.updateQuestion(dto);
 	}
 
@@ -121,6 +128,7 @@ public class QnAService {
 	    }
 	    
 	    qnaCustomRepository.delQuestionBySeq(seq);
+	    clearAllCache();
 	    
 	    return "삭제 완료"; 
 	}
@@ -217,6 +225,32 @@ public class QnAService {
             return keyword;
         }
     }
+
+    // 캐시에서 데이터를 조회하는 메서드
+	public List<Question> findCachedData(Long offset, double maxList, String keyword) {
+		
+	    Cache cache = cacheManager.getCache("questionsCache"); 
+	    List<Question> cachedData = cache != null ? cache.get(offset + ":" + keyword, List.class) : null;
+	    
+	    return cachedData;
+	}
+    
+
+	// 캐시에 데이터를 저장하는 메서드 
+	public void saveToCache(List<Question> list, Long offset, String keyword) {
+	    Cache cache = cacheManager.getCache("questionsCache");
+	    String cacheKey = offset + ":" + keyword;  
+
+	    if (cache != null) {
+	        cache.put(cacheKey, list); // 캐시 저장
+	    }
+	}
+	
+	public void clearAllCache() {
+	    cacheManager.getCacheNames().forEach(cacheName -> {
+	        cacheManager.getCache(cacheName).clear();  // 각 캐시를 초기화
+	    });
+	}
 }
 
 

@@ -1949,8 +1949,8 @@ select * from member where username like '%choi%';
 
 commit;
 select count(*) from answer where question_seq = 3951;
-delete from member where seq between 85 and 1861 ;
-delete from answer where member_seq between 85 and 1861;
+delete from utwo  where seq between 85 and 1861 ;
+update question set isSolved = false where seq = 1;
 select * from member;
 commit;
 

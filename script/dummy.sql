@@ -465,7 +465,7 @@ select * from question;
 INSERT INTO answer (member_seq, question_seq, content)
 VALUES (2, 1, '밀크씨슬이 간에 좋습니다. 간 기능을 돕습니다.');
 INSERT INTO answer (member_seq, question_seq, content)
-VALUES (1, 1, '오메가-3도 간에 좋습니다. 염증 감소에 효과적입니다.');
+VALUES (4, 1, '오메가-3도 간에 좋습니다. 염증 감소에 효과적입니다.');
 
 -- 답변 2
 INSERT INTO answer (member_seq, question_seq, content)
