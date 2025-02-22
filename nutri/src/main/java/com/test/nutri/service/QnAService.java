@@ -30,13 +30,13 @@ public class QnAService {
 	
 	public PagResult getQnaPag(int page, String keyword) {
 	    
-		int count = qnaCustomRepository.count(keyword);
+		Long count = qnaCustomRepository.count(keyword);
 
         // 전체 페이지 개수 계산
-        int pageCount = calculatePageCount(count);
+		Long pageCount = calculatePageCount(count);
 
         // 현재 페이지에 맞는 데이터의 시작 인덱스 계산
-        int offset = calculateOffset(page);
+		Long offset = calculateOffset(page);
 
         List<Question> list = qnaCustomRepository.findAllPagenationByKeyword(offset, (int) MAX_LIST, keyword);
 
@@ -135,15 +135,15 @@ public class QnAService {
 	    return "삭제 완료";
 	}
 	
-    private int calculateOffset(int page) {
-        return (page - 1) * (int) MAX_LIST;
+    private Long calculateOffset(int page) {
+        return (page - 1) * (long) MAX_LIST;
     }
 
-    private int calculatePageCount(int count) {
-        return (int) Math.ceil(count / MAX_LIST);
+    private Long calculatePageCount(Long count) {
+        return (long) Math.ceil(count / MAX_LIST);
     }
 
-    private String generatePagHtml(int page, int pageCount, String keyword) {
+    private String generatePagHtml(int page, Long pageCount, String keyword) {
     	
         StringBuilder sb = new StringBuilder();
         String encodedKeyword = (keyword != null) ? URLEncoder.encode(keyword, StandardCharsets.UTF_8) : "";
@@ -151,7 +151,7 @@ public class QnAService {
         // 페이징 블록 계산
         int firstPage = (int)(Math.floor((page - 1) / MAX_PAGE) * MAX_PAGE + 1);
         int beforePage = firstPage - (int)MAX_PAGE;
-        int nextPage = firstPage + (int)MAX_PAGE;
+        Long nextPage = firstPage + (long)MAX_PAGE;
 
         // 첫 번째 페이지가 1보다 작으면 1로 설정
         if (beforePage < 1) {

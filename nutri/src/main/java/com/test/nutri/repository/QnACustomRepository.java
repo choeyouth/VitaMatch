@@ -3,6 +3,7 @@ package com.test.nutri.repository;
 
 import static com.test.nutri.entity.QAnswer.answer;
 import static com.test.nutri.entity.QQuestion.question;
+import static com.test.nutri.entity.QMember.member;
 
 import java.util.List;
 
@@ -40,7 +41,8 @@ public class QnACustomRepository {
 	public List<Answer> findAnswerByQuestionSeq(Long seq) {
 		return jpaQueryFactory
 				.selectFrom(answer) // 자식에게 부모 객체 존재함 N(answer):1(question) 
-	            .join(answer.question, question)  // Answer와 Question을 조인
+	            .join(answer.question, question).fetchJoin() // Answer와 Question을 조인
+	            .join(answer.member, member).fetchJoin() // N+1 문제 해결 
 	            .where(question.seq.eq(seq))  // Question의 seq로 조건 설정
 	            .fetch(); 
 	}
@@ -102,7 +104,7 @@ public class QnACustomRepository {
 				.execute();
 	}
 
-	public List<Question> findAllPagenationByKeyword(int offset, int limit, String keyword) {
+	public List<Question> findAllPagenationByKeyword(Long offset, int limit, String keyword) {
 		
 		BooleanExpression condition = keywordCondition(keyword);
 		
@@ -115,17 +117,18 @@ public class QnACustomRepository {
 				.fetch();
 	}
 	
-
-	public int count(String keyword) {
+	
+	public Long count(String keyword) {
 		
 		BooleanExpression condition = keywordCondition(keyword);
 		
-		//TODO: question.count() 후 하는 게 성능 좋을 수 있음 > 리팩 
-		return (int)jpaQueryFactory
-				.selectFrom(question)
-				.where(condition)
-				.fetch()
-				.size();
+		Long result = jpaQueryFactory
+	            .select(question.count())  // count()로 데이터 개수만 반환
+	            .from(question)
+	            .where(condition)
+	            .fetchOne();
+		
+		return result != null ? result : 0L;
 	}
 	
 	private BooleanExpression keywordCondition(String keyword) {

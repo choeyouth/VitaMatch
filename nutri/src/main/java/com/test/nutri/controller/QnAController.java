@@ -30,21 +30,20 @@ public class QnAController {
     private	final CustomUserDetailsService userService; 
     private final QnAService qnaService;
 	
-	// Q&A 목록 페이지 
+	//Q&A 목록 페이지 
     @GetMapping("/qna")
     public String showQnaPage(@RequestParam(defaultValue = "1", name = "page") Integer page,
                               @RequestParam(value = "keyword", required = false) String keyword,
                               Model model) {
 
     	QnAService.PagResult result = qnaService.getQnaPag(page, keyword);
-
         model.addAttribute("sb", result.getPagHtml());
         model.addAttribute("list", result.getQuestions());
         model.addAttribute("keyword", result.getKeyword());
 
         return "page/qnaList";
     }
-
+    
 
 	// Q&A 상세 페이지 
 	@GetMapping("/viewQna")
