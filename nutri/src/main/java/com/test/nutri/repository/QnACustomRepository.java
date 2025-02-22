@@ -27,12 +27,14 @@ public class QnACustomRepository {
 	
 	private final JPAQueryFactory jpaQueryFactory;
 
+	@Transactional(readOnly = true)
 	public List<Question> findAll() {
 		return jpaQueryFactory
 				.selectFrom(question)
 				.fetch();
 	}
 
+	@Transactional(readOnly = true)
 	public Question findQuestionBySeq(Long seq) {
 		return jpaQueryFactory
 				.selectFrom(question)
@@ -40,6 +42,7 @@ public class QnACustomRepository {
 				.fetchOne();
 	}
 
+	@Transactional(readOnly = true)
 	public List<Answer> findAnswerByQuestionSeq(Long seq) {
 		return jpaQueryFactory
 				.selectFrom(answer) // 자식에게 부모 객체 존재함 N(answer):1(question) 
@@ -84,7 +87,8 @@ public class QnACustomRepository {
 				.where(question.seq.eq(seq))
 				.execute();
 	}
-
+	
+	@Transactional(readOnly = true)
 	public Answer findAnswerBySeq(Long seq) {
 		return jpaQueryFactory
 				.selectFrom(answer)
