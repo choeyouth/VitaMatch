@@ -4,6 +4,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 
 import com.test.nutri.entity.Answer;
@@ -63,19 +64,25 @@ public class QnAService {
 	}
 
 	public long addQuestion(QuestionDTO dto, Integer loginSeq) {
-       
-		Member member = Member.builder().seq(loginSeq).build();
-        Question question = Question.builder()
-                .title(dto.getTitle())
-                .content(dto.getContent())
-                .member(member)
-                .build();
-        
-        questionRepository.save(question);
-        return question.getSeq();
-    }
-	
 		
+	    Member member = Member.builder().seq(loginSeq).build();
+	    Question question = Question.builder()
+	            .title(dto.getTitle())
+	            .content(dto.getContent())
+	            .member(member)
+	            .build();
+
+	    questionRepository.save(question);
+	    saveToCache(question);
+
+	    return question.getSeq();
+	}
+
+	@CachePut(value = "qnaCache", key = "#question.seq")
+	public Question saveToCache(Question question) {
+	    return question; 
+	}
+
     public long addAnswer(Long qSeq, String content, Integer loginSeq) {
     	
         Member member = Member.builder().seq(loginSeq).build();

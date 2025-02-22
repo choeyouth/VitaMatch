@@ -2,11 +2,13 @@ package com.test.nutri.repository;
 
 
 import static com.test.nutri.entity.QAnswer.answer;
-import static com.test.nutri.entity.QQuestion.question;
 import static com.test.nutri.entity.QMember.member;
+import static com.test.nutri.entity.QQuestion.question;
 
 import java.util.List;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,6 +51,7 @@ public class QnACustomRepository {
 
 	
 	@Transactional
+	@CacheEvict(value = "qnaCache", allEntries = true)
 	public long updateQuestion(QuestionDTO dto) {
 		return jpaQueryFactory
 				.update(question)
@@ -59,6 +62,7 @@ public class QnACustomRepository {
 	}
 
 	@Transactional
+	@CacheEvict(value = "qnaCache", allEntries = true)
 	public long solvedQuestion(Long seq) {
 		return jpaQueryFactory
 				.update(question)
@@ -68,6 +72,7 @@ public class QnACustomRepository {
 	}
 
 	@Transactional
+	@CacheEvict(value = "qnaCache", allEntries = true)
 	public void delQuestionBySeq(Long seq) {
 		jpaQueryFactory
 				.delete(answer)
@@ -104,6 +109,7 @@ public class QnACustomRepository {
 				.execute();
 	}
 
+	@Cacheable(value = "qnaCache", key = "#offset + '-' + #limit + '-' + #keyword")
 	public List<Question> findAllPagenationByKeyword(Long offset, int limit, String keyword) {
 		
 		BooleanExpression condition = keywordCondition(keyword);

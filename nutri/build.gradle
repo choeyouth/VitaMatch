@@ -24,7 +24,14 @@ repositories {
 }
 
 ext {
-	set('springAiVersion', "1.0.0-M4")
+    // Spring 버전 설정
+    set('springAiVersion', "1.0.0-M4")
+
+    // Gradle 빌드 성능 최적화
+    set('org.gradle.daemon', true)            // 데몬 활성화
+    set('org.gradle.parallel', true)         // 병렬 빌드 활성화
+    set('org.gradle.caching', true)          // 빌드 캐시 활성화
+    set('org.gradle.jvmargs', '-Xmx2048m')   // 최대 힙 크기 설정
 }
 
 dependencies {
@@ -47,6 +54,11 @@ dependencies {
     annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
     annotationProcessor "jakarta.annotation:jakarta.annotation-api"
     annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+    
+    //캐싱 관련 의존성 
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+	implementation 'com.github.ben-manes.caffeine:caffeine'
+    
 }
 
 
